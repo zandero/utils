@@ -43,9 +43,7 @@ Wrapper for Jackson to simplify affairs
 
 ## Resouces
 * Loading of resource files
-
-## Streams
-* Reading files and other streams 
+* Reading streams into strings 
 
 ## Strings
 Various handy string utilities
