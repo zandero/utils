@@ -2,7 +2,9 @@ package com.zandero.utils;
 
 /**
  * Method parameter check helper
- * add additional check when needed
+ * add additional checks when needed
+ *
+ * @author drejc (Andrej Završnik)
  */
 public final class Assert {
 
@@ -20,7 +22,6 @@ public final class Assert {
 
 		isFalse(!test, message);
 	}
-
 
 	public static void isNull(Object test, String message) {
 

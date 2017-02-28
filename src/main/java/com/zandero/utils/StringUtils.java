@@ -327,6 +327,7 @@ public final class StringUtils {
 	}
 
 	public static String join(Set<?> items, String separator) {
+
 		return join(items, separator, null);
 	}
 
@@ -541,11 +542,14 @@ public final class StringUtils {
 	 * Removes all multiple-consecutive whitespace characters (space, tab, newline) and replaces them with single space.
 	 * Also removes leading and trailing spaces.
 	 *
-	 * @param input
-	 * @return
+	 * @param input to be sanitized
+	 * @return sanitized output
+	 *
+	 * @throws IllegalArgumentException in case input is null or empty
 	 */
 	public static String sanitizeWhitespace(String input) {
 
+		Assert.notNull(input, "Missing input!");
 		input = input.replaceAll("\\s+", " ");
 		return input.trim();
 	}
@@ -558,6 +562,8 @@ public final class StringUtils {
 	 * @return
 	 */
 	public static byte[] sanitizeWhitespace(byte[] input) {
+
+		Assert.isFalse(input == null || input.length == 0, "Missing input!");
 
 		try {
 			String stringFileData = new String(input, "utf-8");
@@ -599,10 +605,10 @@ public final class StringUtils {
 	}
 
 	/**
-	 * Returns first, second, third ... 5th, 6th .. etc for given number
+	 * Simple enumeration: first, second, third ... 5th, 6th .. etc for given number
 	 *
 	 * @param number to be enumerated (must be > 0)
-	 * @return enumration or null if not applicable
+	 * @return enumeration or null if not applicable
 	 */
 	public static String enumerate(Integer number) {
 
@@ -610,10 +616,9 @@ public final class StringUtils {
 			return null;
 		}
 
-		// get last digit
-		int digit = number % 10;
+		int lastDigit = number % 10;
 
-		switch (number) {
+		switch (number) { // special case for first five
 			case 1:
 				return "first";
 			case 2:
@@ -626,7 +631,7 @@ public final class StringUtils {
 				return "fifth";
 
 			default:
-				switch (digit) {
+				switch (lastDigit) {
 					case 1:
 						return number + "st";
 					case 2:
@@ -641,8 +646,9 @@ public final class StringUtils {
 	}
 
 	/**
-	 * Removes quotes if any are present
-	 * @param value to remove quotes from
+	 * Removes double quotes if any are present
+	 *
+	 * @param value to remove double quotes from
 	 * @return un quoted string
 	 */
 	public static String unQuote(String value) {

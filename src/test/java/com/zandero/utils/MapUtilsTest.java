@@ -6,13 +6,19 @@ import org.junit.Test;
 import java.util.*;
 import java.util.stream.Stream;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static net.trajano.commons.testing.UtilityClassTestUtil.assertUtilityClassWellDefined;
+import static org.junit.Assert.*;
 
 /**
  * Map mainuplation utils test
  */
 public class MapUtilsTest {
+
+	@Test
+	public void testDefinition() throws ReflectiveOperationException {
+
+		assertUtilityClassWellDefined(MapUtils.class);
+	}
 
 	@Test
 	public void testMergeMapEmpty() {
@@ -33,6 +39,7 @@ public class MapUtilsTest {
 
 		Map<String, Long> m1 = new HashMap<>();
 		m1.put("m1_1", 23L);
+
 		Map<String, Long> m2 = new HashMap<>();
 		m2.put("m2_1", 2L);
 		m2.put("m2_2", 3L);
@@ -56,8 +63,15 @@ public class MapUtilsTest {
 
 		Map<String, Long> result = MapUtils.mergeMaps(Stream.of(m1, m2), Long::sum, HashMap::new);
 		assertEquals(4, result.size());
-		assertEquals(25L, result.get("m2_1").longValue());
+		assertTrue(result.containsKey("m1_1"));
+		assertTrue(result.containsKey("m2_1"));
+		assertTrue(result.containsKey("m2_2"));
+		assertTrue(result.containsKey("m2_3"));
 
+		assertEquals(23L, result.get("m1_1").longValue());
+		assertEquals(25L, result.get("m2_1").longValue());
+		assertEquals(3L, result.get("m2_2").longValue());
+		assertEquals(1L, result.get("m2_3").longValue());
 	}
 
 	@Test
@@ -142,6 +156,45 @@ public class MapUtilsTest {
 
 			count++;
 		}
+	}
+
+	@Test
+	public void compareMapTest() {
+		Map<String, String> one = null;
+		Map<String, String> two = null;
+		assertTrue(MapUtils.equals(one, two));
+
+		one = new HashMap<>();
+		assertTrue(MapUtils.equals(one, two));
+
+		one.put("One", "A");
+		one.put("Two", "B");
+		one.put("Three", "C");
+
+		two = new HashMap<>();
+		assertFalse(MapUtils.equals(one, two));
+
+		two.put("One", "X");
+		two.put("Two", "B");
+		two.put("Three", "C");
+		assertFalse(MapUtils.equals(one, two, true));
+		assertTrue(MapUtils.equals(one, two));
+
+		two.put("One", "A");
+		assertTrue(MapUtils.equals(one, two, true));
+
+		two.put("Two", null);
+		one.put("Two", null);
+		assertTrue(MapUtils.equals(one, two, true));
+
+		one.put("Two", " ");
+		assertFalse(MapUtils.equals(one, two, true));
+
+		one.remove("Two");
+		assertFalse(MapUtils.equals(one, two, false));
+
+		one.put("Four", "A");
+		assertFalse(MapUtils.equals(one, two, false));
 	}
 
 	private class TestValue implements Comparable {

@@ -2,6 +2,9 @@ package com.zandero.utils;
 
 import org.junit.Test;
 
+import java.text.SimpleDateFormat;
+import java.util.TimeZone;
+
 import static net.trajano.commons.testing.UtilityClassTestUtil.assertUtilityClassWellDefined;
 import static org.junit.Assert.assertEquals;
 
@@ -69,5 +72,61 @@ public class DateTimeUtilsTest {
 
 		assertEquals(1466985600000L, start); //  Mon 27 Jun 2016 00:00:00.000 GMT
 		assertEquals(1467590399999L, end);   // Sun 3 Jul 2016 23:59:59.999 GMT
+	}
+
+	@Test
+	public void formatTest() {
+
+		// Make sure tests run in every time zone
+		TimeZone oldDefaultTimeZone = TimeZone.getDefault();
+
+		try {
+
+			// make sure we are in the correct time zone while doing this
+			TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+
+			assertEquals("2016-07-13", DateTimeUtils.formatDate(1468402252866L));
+			assertEquals("2016-07-13 09:30", DateTimeUtils.formatDateTimeShort(1468402252866L));
+			assertEquals("2016-07-13 09:30:52 +0000", DateTimeUtils.formatDateTime(1468402252866L));
+
+			assertEquals("2016-06-27 00:00:00 +0000", DateTimeUtils.format(1466985600000L, null));
+			assertEquals("2016-06-27 00:00:00Z", DateTimeUtils.format(1466985600000L, new SimpleDateFormat("yyyy-MM-dd HH:mm:ssXXX")));
+		}
+		finally {
+
+			TimeZone.setDefault(oldDefaultTimeZone);
+		}
+	}
+
+
+	private static final SimpleDateFormat[] FORMATS = new SimpleDateFormat[]{
+		new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX"),
+		new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'"),
+		new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX"),
+		new SimpleDateFormat("yyyy-MM-dd HH:mm:ssXXX")
+	};
+
+	@Test
+	public void getTimestampFromStringTest() {
+
+		assertEquals(0, DateTimeUtils.getTimestamp(null, FORMATS));
+		assertEquals(0, DateTimeUtils.getTimestamp("", FORMATS));
+		assertEquals(0, DateTimeUtils.getTimestamp(" ", FORMATS));
+
+		assertEquals(1456133708000L, DateTimeUtils.getTimestamp("2016-02-22T10:35:08.000+01:00", FORMATS));
+		assertEquals(1441268437309L, DateTimeUtils.getTimestamp("2015-09-03T08:20:37.309Z", FORMATS));
+		assertEquals(1442518055000L, DateTimeUtils.getTimestamp("2015-09-17T21:27:35Z", FORMATS));
+
+		assertEquals(1450770034000L, DateTimeUtils.getTimestamp("2015-12-22 07:40:34+00:00", FORMATS));
+		assertEquals(1450766434000L, DateTimeUtils.getTimestamp("2015-12-22 07:40:34+01:00", FORMATS));
+		assertEquals(1450773634000L, DateTimeUtils.getTimestamp("2015-12-22 07:40:34-01:00", FORMATS));
+
+		assertEquals(1450770034000L, DateTimeUtils.getTimestamp("2015-12-22T07:40:34+00:00", FORMATS));
+		assertEquals(1450766434000L, DateTimeUtils.getTimestamp("2015-12-22T07:40:34+01:00", FORMATS));
+		assertEquals(1450773634000L, DateTimeUtils.getTimestamp("2015-12-22T07:40:34-01:00", FORMATS));
+
+		assertEquals(1328626291785L, DateTimeUtils.getTimestamp("2012-02-07T14:51:31.785394+00:00", FORMATS)); //Tue, 07 Feb 2012 14:51:31.785 GMT
+		assertEquals(1328622691785L, DateTimeUtils.getTimestamp("2012-02-07T14:51:31.785394+01:00", FORMATS));
+		assertEquals(1328629891785L, DateTimeUtils.getTimestamp("2012-02-07T14:51:31.785394-01:00", FORMATS));
 	}
 }

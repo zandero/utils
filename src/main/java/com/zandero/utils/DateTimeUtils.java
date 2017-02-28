@@ -350,6 +350,7 @@ public final class DateTimeUtils {
 
 	/**
 	 * Convert any given timestamp string to long
+	 * Note that in case conversion fails to produce a result a 0 timestamp is returned!
 	 *
 	 * @param value   to be converted
 	 * @param formats list of formats to try out

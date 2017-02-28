@@ -28,7 +28,7 @@ public final class MapUtils {
 	public static <K, V> Map<K, V> sort(Map<K, V> map, Comparator<Map.Entry<K, V>> comparator) {
 
 		List<Map.Entry<K, V>> list = new LinkedList<>(map.entrySet());
-		Collections.sort( list, comparator);
+		Collections.sort(list, comparator);
 
 
 		Map<K, V> result = new LinkedHashMap<>();
@@ -38,17 +38,46 @@ public final class MapUtils {
 		return result;
 	}
 
-	public static <T> T getFirstValue(Map<String, T> out) {
+	/**
+	 * Returns first value in map as given by the iterator or null if empty
+	 *
+	 * @param map to get first value out
+	 * @param <T> object type of result
+	 * @return first value in map or null if null or empty
+	 */
+	public static <T> T getFirstValue(Map<String, T> map) {
 
-		if (out == null || out.size() == 0) {
+		if (map == null || map.size() == 0) {
 			return null;
 		}
 
-		String firstKey = out.keySet().iterator().next();
-		return out.get(firstKey);
+		String firstKey = map.keySet().iterator().next();
+		return map.get(firstKey);
 	}
 
-	public static boolean equals(HashMap<String, String> mapOne, HashMap<String, String> mapTwo) {
+	/**
+	 * Compares if two maps hold the same set of keys
+	 *
+	 * @param mapOne first map
+	 * @param mapTwo second map
+	 * @param <T>    object type map is holding
+	 * @return true if all keys are present in both maps, or they are both empty or null, false otherwise
+	 */
+	public static <T> boolean equals(Map<String, T> mapOne, Map<String, T> mapTwo) {
+
+		return equals(mapOne, mapTwo, false);
+	}
+
+	/**
+	 * Compares if two maps hold the same set of keys and same values
+	 * comparison of values utilizes the equals call, so make sure equals is implemented
+	 *
+	 * @param mapOne first map
+	 * @param mapTwo second map
+	 * @param <T>    object type map is holding
+	 * @return true if all keys are present in both maps, or they are both empty or null, false otherwise
+	 */
+	public static <T> boolean equals(Map<String, T> mapOne, Map<String, T> mapTwo, boolean compareValues) {
 
 		boolean firstEmpty = mapOne == null || mapOne.isEmpty();
 		boolean secondEmpty = mapTwo == null || mapTwo.isEmpty();
@@ -66,9 +95,26 @@ public final class MapUtils {
 		}
 
 		// compare keys
-		for (String key: mapOne.keySet()) {
-			if (!mapTwo.containsKey(key)) {
+		for (String key : mapOne.keySet()) {
+
+			if (compareValues) {
+				T valueOne = mapOne.get(key);
+				T valueTwo = mapTwo.get(key);
+
+				if (valueOne == null && valueTwo == null) {
+					continue;
+				}
+
+				if (valueOne != null && valueTwo != null && valueTwo.equals(valueOne)) {
+					continue;
+				}
+
 				return false;
+			}
+			else {
+				if (!mapTwo.containsKey(key)) {
+					return false;
+				}
 			}
 		}
 
