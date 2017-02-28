@@ -10,6 +10,10 @@ import java.util.stream.Stream;
  */
 public final class MapUtils {
 
+	private MapUtils() {
+		// hide constructor
+	}
+
 	/**
 	 * Merging single level aggregation maps, ie. grouped by userId, or grouped by interval
 	 */
@@ -19,20 +23,6 @@ public final class MapUtils {
 		return stream.collect(mapSupplier,
 			(a, b) -> b.forEach((k, v) -> a.merge(k, v, mergeFunction)),
 			Map::putAll);
-	}
-
-	public static <K1> Map<K1, Long> mergeMapsLevel1Sum(Map<K1, Long> map1, Map<K1, Long> map2) {
-
-		return mergeMaps(Arrays.asList(map1, map2).stream(), Long::sum, HashMap::new);
-	}
-
-	/**
-	 * Merging two level aggregation maps, ie. grouped by timeline, userId
-	 */
-	public static <K1, K2> Map<K1, Map<K2, Long>> mergeMapsLevel2Sum(Map<K1, Map<K2, Long>> map1, Map<K1, Map<K2, Long>> map2) {
-
-		map2.forEach((k, v) -> map1.merge(k, v, (mm1, mm2) -> mergeMaps(Arrays.asList(mm1, mm2).stream(), Long::sum, HashMap::new)));
-		return map1;
 	}
 
 	public static <K, V> Map<K, V> sort(Map<K, V> map, Comparator<Map.Entry<K, V>> comparator) {
@@ -56,5 +46,32 @@ public final class MapUtils {
 
 		String firstKey = out.keySet().iterator().next();
 		return out.get(firstKey);
+	}
+
+	public static boolean equals(HashMap<String, String> mapOne, HashMap<String, String> mapTwo) {
+
+		boolean firstEmpty = mapOne == null || mapOne.isEmpty();
+		boolean secondEmpty = mapTwo == null || mapTwo.isEmpty();
+
+		if (firstEmpty && secondEmpty) {
+			return true;
+		}
+
+		if (firstEmpty || secondEmpty) {
+			return false;
+		}
+
+		if (mapOne.size() != mapTwo.size()) {
+			return false;
+		}
+
+		// compare keys
+		for (String key: mapOne.keySet()) {
+			if (!mapTwo.containsKey(key)) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 }

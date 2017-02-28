@@ -3,7 +3,7 @@ package com.zandero.utils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -17,7 +17,7 @@ public final class ResourceUtils {
 	}
 
 	/**
-	 * Loads resource to Strings
+	 * Loads resource to String
 	 * @param resourceFile to read
 	 * @param clazz to use for resource access
 	 * @return String representing the resource or null if resource could not be read
@@ -56,7 +56,7 @@ public final class ResourceUtils {
 			InputStream resource = clazz.getResourceAsStream(resourceFile);
 			scanner = new Scanner(resource, EncodeUtils.UTF_8);
 
-			Set<String> list = new HashSet<>();
+			Set<String> list = new LinkedHashSet<>();
 			while (scanner.hasNext()) {
 				String next = scanner.next();
 				if (next != null && next.trim().length() > 0) {
