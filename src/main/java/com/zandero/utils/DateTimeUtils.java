@@ -14,17 +14,33 @@ import java.util.TimeZone;
 
 /**
  * Utilities to help using date and time
+ * @author drejc (Andrej Završnik)
  */
 public final class DateTimeUtils {
 
+	/**
+	 * On second in milliseconds
+	 */
 	public static final long ONE_SECOND = 1000L;
 
+	/**
+	 * Ten seconds in milliseconds
+	 */
 	public static final long TEN_SECONDS = 10_000L;
 
+	/**
+	 * On minute in milliseconds
+	 */
 	public final static long ONE_MINUTE = 60L * ONE_SECOND;
 
+	/**
+	 * On hour in milliseconds
+	 */
 	public final static long ONE_HOUR = 60L * ONE_MINUTE;
 
+	/**
+	 * On day in milliseconds
+	 */
 	public final static long ONE_DAY = 24L * ONE_HOUR;
 
 	private DateTimeUtils() {
@@ -55,26 +71,47 @@ public final class DateTimeUtils {
 		}
 	};
 
+	/**
+	 * Prepared date format for yyyy-MM-dd for date only
+	 *
+	 * @return Simple date format for yyyy-MM-dd
+	 */
 	public static SimpleDateFormat getDateFormat() {
 
 		return simpleDateFormatThreadLocal.get();
 	}
 
+	/**
+	 * Prepare date time format (without milliseconds and timezone)
+	 *
+	 * @return Simple date format for yyy-MM-dd HH:mm
+	 */
 	public static SimpleDateFormat getDateTimeFormat() {
 
 		return simpleDateTimeFormatThreadLocal.get();
 	}
 
+	/**
+	 * Prepared full date format
+	 * @return Simple date format for yyyy-MM-dd HH:mm:ss Z
+	 */
 	public static SimpleDateFormat getTimeFormat() {
 
 		return simpleTimeFormatThreadLocal.get();
 	}
 
+	/**
+	 * @return New UTC calendar instance
+	 */
 	public static Calendar getCalendar() {
 
 		return Calendar.getInstance(TimeZone.getTimeZone("UTC"));
 	}
 
+	/**
+	 * @param time to be set (UTC)
+	 * @return New UTC calendar with time set
+	 */
 	public static Calendar getCalendar(long time) {
 
 		Calendar calendar = getCalendar();
@@ -82,6 +119,11 @@ public final class DateTimeUtils {
 		return calendar;
 	}
 
+	/**
+	 * Formats time to String
+	 * @param time to be formatted (UTC)
+	 * @return date time formatted to yyyy-MM-dd HH:mm:ss Z
+	 */
 	public static String formatDateTime(long time) {
 
 		SimpleDateFormat format = getTimeFormat();
@@ -90,6 +132,11 @@ public final class DateTimeUtils {
 		return format.format(calendar.getTime());
 	}
 
+	/**
+	 * Formats time to String
+	 * @param time to be formatted (UTC)
+	 * @return date time formatted to yyyy-MM-dd HH:mm
+	 */
 	public static String formatDateTimeShort(long time) {
 
 		SimpleDateFormat format = getDateTimeFormat();
@@ -98,6 +145,11 @@ public final class DateTimeUtils {
 		return format.format(calendar.getTime());
 	}
 
+	/**
+	 * Formats time to date only
+	 * @param time to be formatted (UTC)
+	 * @return date formatted yyyy-MM-dd
+	 */
 	public static String formatDate(long time) {
 
 		SimpleDateFormat format = getDateFormat();
@@ -106,6 +158,12 @@ public final class DateTimeUtils {
 		return format.format(calendar.getTime());
 	}
 
+	/**
+	 * Custom date time format
+	 * @param time to be formatted
+	 * @param format simple date time format, or null for default yyyy-MM-dd HH:mm:ss Z format
+	 * @return formated date time
+	 */
 	public static String format(long time, SimpleDateFormat format) {
 
 		if (format == null) {
@@ -116,6 +174,12 @@ public final class DateTimeUtils {
 		return format.format(calendar.getTime());
 	}
 
+	/**
+	 * Returns time for given time zone
+	 * @param time current time
+	 * @param timezone time zone (-12 / +12)
+	 * @return time in other time zone
+	 */
 	public static long getTimezoneTime(long time, int timezone) {
 
 		Calendar calendar = getCalendar(time);
@@ -169,6 +233,11 @@ public final class DateTimeUtils {
 		return OffsetDateTime.ofInstant(calendar.toInstant(), calendar.getTimeZone().toZoneId());
 	}
 
+	/**
+	 * Converts offset date time to long timestamp
+	 * @param timestamp to be converted
+	 * @return time stamp in milliseconds
+	 */
 	public static long fromOffsetDateTime(OffsetDateTime timestamp) {
 
 		Assert.notNull(timestamp, "Missing offset time stamp!");
@@ -204,6 +273,7 @@ public final class DateTimeUtils {
 
 	/**
 	 * Returns day in month, where first day of month == 1
+	 *
 	 * @param time to get day of month
 	 * @return 1..31
 	 */
@@ -239,7 +309,7 @@ public final class DateTimeUtils {
 	}
 
 	/**
-	 * Returns number of day in week, where mo
+	 * Returns number of day in week, where monday is the first day of the week (1)
 	 *
 	 * @param time to check day in week
 	 * @return 1 - monday, 2 - tuesday ... 7 - saturday

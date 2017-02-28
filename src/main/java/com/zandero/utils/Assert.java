@@ -9,17 +9,18 @@ public final class Assert {
 	private Assert() { // hide constructor
 	}
 
-	public static void isTrue(boolean test, String message) {
+	public static void isFalse(boolean test, String message) {
 
-		if (!test) {
+		if (test) {
 			throw new IllegalArgumentException(message);
 		}
 	}
 
-	public static void isFalse(boolean test, String message) {
+	public static void isTrue(boolean test, String message) {
 
-		isTrue(!test, message);
+		isFalse(!test, message);
 	}
+
 
 	public static void isNull(Object test, String message) {
 

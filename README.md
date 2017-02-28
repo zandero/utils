@@ -7,8 +7,9 @@ Assertion utilities to check input parameters and throw IllegalArgumentException
 `Assert.isTrue(text.length >= 15, "Text is to short, must be at least 15 characters long!");`
 
 ## Date time
-* Time conversion from between long, Date and String
-* Some Timezone support
+Time conversion between long, Date and String
+* Date time formatting, 
+* Timezone support
 * Some handy functions to get the start/end of a period 
 
 ## Dir 
