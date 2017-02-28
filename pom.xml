@@ -2,6 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
     <artifactId>utils</artifactId>
     <groupId>com.zandero</groupId>
@@ -18,10 +19,12 @@
 
         <version.commons.validator>1.5.0</version.commons.validator>
         <version.jackson>2.7.3</version.jackson>
+        <version.jasypt>1.9.2</version.jasypt>
 
         <version.trajano>2.1.0</version.trajano>
         <version.junit>4.12</version.junit>
         <version.mockito-all>1.10.19</version.mockito-all>
+
     </properties>
 
     <dependencies>
@@ -42,7 +45,7 @@
         <dependency>
             <groupId>org.jasypt</groupId>
             <artifactId>jasypt</artifactId>
-            <version>1.9.2</version>
+            <version>${version.jasypt}</version>
         </dependency>
 
         <dependency>
