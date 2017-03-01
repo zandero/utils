@@ -20,19 +20,19 @@ public class UrlUtilsTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetFullUrlWithoutRootUrl() {
 
-		UrlUtils.getFullUrl(null, null);
+		UrlUtils.composeUrl(null, null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetFullUrlWithoutRootUrl_2() {
 
-		UrlUtils.getFullUrl("", null);
+		UrlUtils.composeUrl("", null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetFullUrlWithoutRootUrl_3() {
 
-		UrlUtils.getFullUrl("  ", null);
+		UrlUtils.composeUrl("  ", null);
 	}
 
 	@Test
@@ -47,6 +47,32 @@ public class UrlUtilsTest {
 		assertEquals("http://test.com/test", UrlUtils.composeUrl("http://test.com", "test"));
 		assertEquals("http://test.com/test", UrlUtils.composeUrl("http://test.com/", "/test"));
 	}
+
+	@Test
+	public void testGetFullUrl() {
+
+		org.junit.Assert.assertEquals("http://zandero.com", UrlUtils.composeUrl("http://zandero.com", null));
+		Assert.assertEquals("http://zandero.com", UrlUtils.composeUrl("http://zandero.com/", null));
+
+		Assert.assertEquals("http://zandero.com", UrlUtils.composeUrl("http://zandero.com", "/"));
+		Assert.assertEquals("http://zandero.com/test", UrlUtils.composeUrl("http://zandero.com", "test"));
+		Assert.assertEquals("http://zandero.com/test", UrlUtils.composeUrl("http://zandero.com", "/test"));
+
+		Assert.assertEquals("http://zandero.com", UrlUtils.composeUrl("http://zandero.com/", "/"));
+		Assert.assertEquals("http://zandero.com/test", UrlUtils.composeUrl("http://zandero.com/", "test"));
+		Assert.assertEquals("http://zandero.com/test", UrlUtils.composeUrl("http://zandero.com/", "/test"));
+	}
+
+	@Test
+	public void testGetFullUrl_2() {
+
+		Assert.assertEquals("http://zandero.com", UrlUtils.composeUrl("http://zandero.com", "http://zandero.com"));
+		Assert.assertEquals("http://zandero.com", UrlUtils.composeUrl("http://zandero.com/", "http://zandero.com"));
+
+		Assert.assertEquals("http://zandero.com/test.html", UrlUtils.composeUrl("http://zandero.com", "http://zandero.com/test.html"));
+		Assert.assertEquals("http://zandero.com/test/test.html", UrlUtils.composeUrl("http://zandero.com", "http://zandero.com/test/test.html"));
+	}
+
 
 	@Test
 	public void composeUrlTest2() {
@@ -113,31 +139,6 @@ public class UrlUtilsTest {
 		assertEquals("http://test.com/somepath?X=1", UrlUtils.composeUrl("http", "test.com", 80, "/somepath?X=1&", query));
 		assertEquals("http://test.com/somepath?X=1&Y=2", UrlUtils.composeUrl("http", "test.com", 80, "/somepath?X=1&Y=2", query));
 		assertEquals("http://test.com/somepath?X=1&Y=2", UrlUtils.composeUrl("http", "test.com", 80, "/somepath?X=1&Y=2&", query));
-	}
-
-	@Test
-	public void testGetFullUrl() {
-
-		org.junit.Assert.assertEquals("http://zandero.com", UrlUtils.getFullUrl("http://zandero.com", null));
-		Assert.assertEquals("http://zandero.com", UrlUtils.getFullUrl("http://zandero.com/", null));
-
-		Assert.assertEquals("http://zandero.com/", UrlUtils.getFullUrl("http://zandero.com", "/"));
-		Assert.assertEquals("http://zandero.com/test", UrlUtils.getFullUrl("http://zandero.com", "test"));
-		Assert.assertEquals("http://zandero.com/test", UrlUtils.getFullUrl("http://zandero.com", "/test"));
-
-		Assert.assertEquals("http://zandero.com/", UrlUtils.getFullUrl("http://zandero.com/", "/"));
-		Assert.assertEquals("http://zandero.com/test", UrlUtils.getFullUrl("http://zandero.com/", "test"));
-		Assert.assertEquals("http://zandero.com/test", UrlUtils.getFullUrl("http://zandero.com/", "/test"));
-	}
-
-	@Test
-	public void testGetFullUrl_2() {
-
-		Assert.assertEquals("http://zandero.com", UrlUtils.getFullUrl("http://zandero.com", "http://zandero.com"));
-		Assert.assertEquals("http://zandero.com", UrlUtils.getFullUrl("http://zandero.com/", "http://zandero.com"));
-
-		Assert.assertEquals("http://zandero.com/test.html", UrlUtils.getFullUrl("http://zandero.com", "http://zandero.com/test.html"));
-		Assert.assertEquals("http://zandero.com/test/test.html", UrlUtils.getFullUrl("http://zandero.com", "http://zandero.com/test/test.html"));
 	}
 
 	@Test
