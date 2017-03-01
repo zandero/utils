@@ -81,8 +81,8 @@ public final class DirUtils {
 	/**
 	 * Calculates size of all files in given directory and it's sub-directories.
 	 *
-	 * @param directory
-	 * @return
+	 * @param directory to check size
+	 * @return sum of all file sizes in given directory, 0 if no files present
 	 */
 	public static long dirSize(File directory) {
 		long length = 0;

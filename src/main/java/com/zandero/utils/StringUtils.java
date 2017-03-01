@@ -2,9 +2,6 @@ package com.zandero.utils;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -238,6 +235,7 @@ public final class StringUtils {
 	 *
 	 * @param list      to join into string
 	 * @param separator to be used between elements
+	 * @param limit     max items to consider when joining, null or 0 to join all
 	 * @return items joined into a single string
 	 */
 	public static String join(List<?> list, String separator, Integer limit) {
@@ -282,6 +280,7 @@ public final class StringUtils {
 	 *
 	 * @param args      to join into string
 	 * @param separator to be used between elements
+	 * @param limit     max items to consider when joining, null or 0 to join all
 	 * @return items joined into a single string
 	 */
 	public static String join(Object[] args, String separator, Integer limit) {
@@ -298,11 +297,18 @@ public final class StringUtils {
 		return "";
 	}
 
+	/**
+	 * Joins array of objects into string, where items are separated
+	 * with a defined separator.
+	 *
+	 * @param args      array of Object
+	 * @param separator to be used between elements
+	 * @return items joined into a single string
+	 */
 	public static String join(Object[] args, String separator) {
 
 		return join(args, separator, null);
 	}
-
 
 	/**
 	 * Joins list of string items to a single string, where items are separated
@@ -310,6 +316,7 @@ public final class StringUtils {
 	 *
 	 * @param items     to join into string
 	 * @param separator to be used between elements
+	 * @param limit     max items to consider when joining, null or 0 to join all
 	 * @return items joined into a single string
 	 */
 	public static String join(Set<?> items, String separator, Integer limit) {
@@ -326,26 +333,42 @@ public final class StringUtils {
 		return "";
 	}
 
+	/**
+	 * Joins set of items to a single string, where items are separated
+	 * with a defined separator.
+	 *
+	 * @param items     to join into string
+	 * @param separator to be used between elements
+	 * @return items joined into a single string
+	 */
 	public static String join(Set<?> items, String separator) {
 
 		return join(items, separator, null);
 	}
 
 
-	public static String join(Map<String, String> params, String separator) {
+	/**
+	 * Joins list of string items to a single string, where items are separated
+	 * with a defined separator.
+	 *
+	 * @param map       to join into key=value list
+	 * @param separator to be used between elements
+	 * @return map key values joined into a single string
+	 */
+	public static String join(Map<String, String> map, String separator) {
 
 		if (separator == null || separator.equalsIgnoreCase("")) {
 			throw new IllegalArgumentException("Missing separator!");
 		}
 
 		String output = "";
-		if (params != null) {
-			for (String name : params.keySet()) {
+		if (map != null) {
+			for (String name : map.keySet()) {
 				if (output.length() > 0) {
 					output = output + separator;
 				}
 
-				output = output + name + "=" + params.get(name);
+				output = output + name + "=" + map.get(name);
 			}
 		}
 
@@ -375,20 +398,26 @@ public final class StringUtils {
 		return output;
 	}
 
-	public static String removePunctuation(String word) {
+	/**
+	 * Removes punctuation from text
+	 *
+	 * @param text to remove punctuation from
+	 * @return cleaned up text or original if nothing to remove
+	 */
+	public static String removePunctuation(String text) {
 
-		if (word == null) {
+		if (text == null) {
 			return null;
 		}
 
-		return word.replaceAll("\\p{P}", "");
+		return text.replaceAll("\\p{P}", "");
 	}
 
 	/**
 	 * Wrapper around String.split(regEx) method
 	 *
 	 * @param text  to split
-	 * @param regEx splitter
+	 * @param regEx regular expression to use for splitting
 	 * @return list of strings or empty list if could not split
 	 */
 	public static List<String> split(String text, String regEx) {
@@ -423,7 +452,17 @@ public final class StringUtils {
 		return text.substring(0, pos);
 	}
 
+	/**
+	 * Reduces text size to a given size
+	 *
+	 * @param text            to reduce
+	 * @param sizeMinusAppend size final string should be max long
+	 * @param append          string to append at the end to indicate trimming
+	 * @return trimmed text with appended text of given max size, or original text if shorter than desired
+	 */
 	public static String trimTextDown(String text, int sizeMinusAppend, String append) {
+
+		Assert.notNull(append, "Missing append!");
 
 		if (text == null || text.length() <= sizeMinusAppend) {
 			return text;
@@ -440,21 +479,33 @@ public final class StringUtils {
 		return text.substring(0, pos) + append;
 	}
 
+	/**
+	 * NPE safe toString call
+	 *
+	 * @param value object to call toString upon
+	 * @return toString value or null if object is null
+	 */
 	public static String toStringOrNull(Object value) {
 
 		return null != value ? value.toString() : null;
 	}
 
-	public static List<String> asListOfChars(String value) {
+	/**
+	 * Converts text to list of characters
+	 *
+	 * @param text to be converted
+	 * @return list of characters
+	 */
+	public static List<String> asListOfChars(String text) {
 
 		List<String> list = new ArrayList<>();
 
-		if (StringUtils.isNullOrEmptyTrimmed(value)) {
+		if (StringUtils.isNullOrEmptyTrimmed(text)) {
 			return list;
 		}
 
-		for (int i = 0; i < value.length(); i++) {
-			list.add(Character.toString(value.charAt(i)));
+		for (int i = 0; i < text.length(); i++) {
+			list.add(Character.toString(text.charAt(i)));
 		}
 
 		return list;
@@ -476,6 +527,12 @@ public final class StringUtils {
 		return list.size() == 1;
 	}
 
+	/**
+	 * Checks if given email is a valid email address
+	 *
+	 * @param email to check
+	 * @return true if email, false if not
+	 */
 	public static boolean isEmail(String email) {
 
 		return !StringUtils.isNullOrEmptyTrimmed(email) &&
@@ -558,8 +615,8 @@ public final class StringUtils {
 	 * Removes all multiple-consecutive whitespace characters (space, tab, newline) and replaces them with single space.
 	 * Also removes leading and trailing spaces.
 	 *
-	 * @param input
-	 * @return
+	 * @param input text to be sanitized as byte array
+	 * @return sanitized byte array
 	 */
 	public static byte[] sanitizeWhitespace(byte[] input) {
 
@@ -574,40 +631,10 @@ public final class StringUtils {
 		}
 	}
 
-	public static String linesBeforeEmptyLine(String lines) {
-
-		if (lines == null) {
-			return null;
-		}
-
-		BufferedReader reader = new BufferedReader(new StringReader(lines));
-		StringBuilder out = new StringBuilder();
-		try {
-			String line;
-
-			while ((line = reader.readLine()) != null) {
-				if (line.isEmpty()) {
-					return out.toString();
-				}
-
-				// not first line?
-				if (out.length() != 0) {
-					out.append("\r\n");
-				}
-				out.append(line);
-			}
-		}
-		catch (IOException e) {
-			// should not happen - we are reading from a string
-		}
-
-		return out.toString();
-	}
-
 	/**
 	 * Simple enumeration: first, second, third ... 5th, 6th .. etc for given number
 	 *
-	 * @param number to be enumerated (must be > 0)
+	 * @param number to be enumerated (must be grated than 0)
 	 * @return enumeration or null if not applicable
 	 */
 	public static String enumerate(Integer number) {

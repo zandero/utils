@@ -10,12 +10,23 @@ public final class KeywordUtils {
 
 	private KeywordUtils() {}
 
+	/**
+	 * Returns english set of stop words
+	 *
+	 * @return default set of stop words
+	 */
 	public static Set<String> getStopWords() {
 		// remove common english words ... like "a", "to", "from" ... etc.
 		// https://raw.githubusercontent.com/jdf/cue.language/master/src/cue/lang/stop/english - taken from Lucene
 		return getStopWords("/keywords/english.txt");
 	}
 
+	/**
+	 * Returns set of stop words from given resource
+	 *
+	 * @param resource to read stop words from
+	 * @return set of stop words
+	 */
 	public static Set<String> getStopWords(String resource) {
 
 		return ResourceUtils.getResourceLines(resource, KeywordUtils.class);
@@ -25,8 +36,10 @@ public final class KeywordUtils {
 	 * Extracts words ... keywords from string and returns set of words
 	 * ignores emails and URLs and common english words
 	 *
-	 * @param max max number of desired keywords to return, or <= 0 for unlimited
-	 * @param value to extract keywords from
+	 * @param max       max number of desired keywords to return, or 0 for unlimited
+	 * @param value     to extract keywords from
+	 * @param stopWords set of words to be ignored
+	 * @return set of extracted keywords
 	 */
 	public static Set<String> extractKeywords(String value, Set<String> stopWords, int max) {
 
@@ -74,6 +87,12 @@ public final class KeywordUtils {
 		return keywords;
 	}
 
+	/**
+	 * sorts keywords by appearance (more frequent keywords are on top)
+	 * @param keywords map of keywords with frequency
+	 * @param max number of keywords to be returned in result
+	 * @return sorted keywords by frequency
+	 */
 	public static Map<String, Integer> sortByAppearance(Map<String, Integer> keywords, int max) {
 		// ok reduce number of keywords to top 10 by appearance...
 		if (keywords.size() <= max) {

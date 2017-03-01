@@ -409,22 +409,6 @@ public class StringUtilsTest {
 	}
 
 	@Test
-	public void linesTest() {
-
-		String lines = "line1\nline2\r\n\nline3";
-		assertEquals("line1\r\nline2", StringUtils.linesBeforeEmptyLine(lines));
-
-		lines = "line1\r\nline2\r\n\r\nline3";
-		assertEquals("line1\r\nline2", StringUtils.linesBeforeEmptyLine(lines));
-
-		lines = "line1\nline2\nline3\n\nline4";
-		assertEquals("line1\r\nline2\r\nline3", StringUtils.linesBeforeEmptyLine(lines));
-
-		lines = "line1\r\n\r\nline2";
-		assertEquals("line1", StringUtils.linesBeforeEmptyLine(lines));
-	}
-
-	@Test
 	public void trimDown(){
 		String text = "word1 word2 word3 word4";
 		for (int i = 10; i < 25; i++) {
