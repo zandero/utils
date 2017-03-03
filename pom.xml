@@ -196,7 +196,7 @@
                             <goal>sign</goal>
                         </goals>
                         <configuration>
-                            <keyname>Zandero Team</keyname>
+                            <keyname>Zandero</keyname>
                         </configuration>
                     </execution>
                 </executions>
