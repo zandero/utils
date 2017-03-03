@@ -1,6 +1,15 @@
 # utils
 Collection of commonly used utilities 
 
+## Setup
+```xml
+<dependency>      
+     <groupId>com.zandero</groupId>      
+     <artifactId>utils</artifactId>      
+     <version>1.0</version>      
+</dependency>
+```
+
 ## Assert
 Assertion utilities to check input parameters and throw IllegalArgumentException in case arguments are invalid  
 
@@ -21,7 +30,7 @@ Time conversion between long, Date and String
 * Some encrypt / decrypt stuff
  
 ## Equality utils
-* NPE safe checks to compare two Long, Integer ... 
+* NPE safe checks to compare two objects of same type: Long, Integer ... 
 
 ## JSON utils
 Wrapper for Jackson to simplify affairs
@@ -34,14 +43,16 @@ Wrapper for Jackson to simplify affairs
 * Generates random keys of given length
  
 ## Keywords
-* Extracts keywords from text (excluding common english words)
+* Extracts keywords from text 
+* Will exclude common english words
+* Will exclude any given set of words
 
 ## Maps
 * Merge
 * Sort
 * Compare
 
-## Resouces
+## Resources
 * Loading of resource files
 * Reading streams into strings 
 
@@ -51,6 +62,8 @@ Various handy string utilities
 * trim to null
 * NPE safe equals 
 * word extraction 
+* trimming text to length
+* joining list of items into a single string
 * ...
 
 ## Urls
