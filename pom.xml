@@ -6,7 +6,7 @@
 
     <artifactId>utils</artifactId>
     <groupId>com.zandero</groupId>
-    <version>1.0.1</version>
+    <version>1.1</version>
     <packaging>jar</packaging>
 
     <name>Zandero Utils</name>

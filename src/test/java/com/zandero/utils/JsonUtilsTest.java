@@ -72,8 +72,8 @@ public class JsonUtilsTest {
 			JsonUtils.fromJson("[\"a\":1,\"b\":2]", Dummy.class);
 		}
 		catch (IllegalArgumentException e) {
-			assertEquals("Given JSON could not be de-serialized. Error: Can not deserialize instance of com.zandero.utils.test.Dummy out of START_ARRAY token\n"
-						 + " at [Source: [\"a\":1,\"b\":2]; line: 1, column: 1]", e.getMessage());
+			assertEquals("Given JSON could not be de-serialized. Error: Can not deserialize instance of com.zandero.utils.test.Dummy out of START_ARRAY token\n" +
+				" at [Source: (String)\"[\"a\":1,\"b\":2]\"; line: 1, column: 1]", e.getMessage());
 			throw e;
 		}
 	}
@@ -109,8 +109,9 @@ public class JsonUtilsTest {
 			});
 		}
 		catch (IllegalArgumentException e) {
-			assertEquals("Given JSON could not be deserialized. Error: No suitable constructor found for type [simple type, class com.zandero.utils.JsonUtilsTest$DummyTo]: can not instantiate from JSON object (missing default constructor or creator, or perhaps need to add/enable type information?)\n"
-						 + " at [Source: [{\"a\":\"1\",\"b\":2},{\"a\":\"1\",\"b\":2}]; line: 1, column: 3] (through reference chain: java.util.ArrayList[0])",
+			assertEquals("Given JSON could not be deserialized. Error: Can not construct instance of com.zandero.utils.JsonUtilsTest$DummyTo (although at least one Creator exists): can only " +
+					"instantiate non-static inner class by using default, no-argument constructor\n" +
+					" at [Source: (String)\"[{\"a\":\"1\",\"b\":2},{\"a\":\"1\",\"b\":2}]\"; line: 1, column: 3] (through reference chain: java.util.ArrayList[0])",
 						 e.getMessage());
 			throw e;
 		}
@@ -165,8 +166,9 @@ public class JsonUtilsTest {
 			}, custom);
 		}
 		catch (IllegalArgumentException e) {
-			assertEquals("Given JSON could not be deserialized. Error: No suitable constructor found for type [simple type, class com.zandero.utils.JsonUtilsTest$DummyTo]: can not instantiate from JSON object (missing default constructor or creator, or perhaps need to add/enable type information?)\n"
-						 + " at [Source: [{\"a\":\"1\",\"b\":2},{\"a\":\"1\",\"b\":2}]; line: 1, column: 3] (through reference chain: java.util.ArrayList[0])", e.getMessage());
+			assertEquals("Given JSON could not be deserialized. Error: Can not construct instance of com.zandero.utils.JsonUtilsTest$DummyTo (although at least one Creator exists): can only " +
+				"instantiate non-static inner class by using default, no-argument constructor\n" +
+				" at [Source: (String)\"[{\"a\":\"1\",\"b\":2},{\"a\":\"1\",\"b\":2}]\"; line: 1, column: 3] (through reference chain: java.util.ArrayList[0])", e.getMessage());
 			throw e;
 		}
 	}
@@ -227,8 +229,8 @@ public class JsonUtilsTest {
 			JsonUtils.fromJson("BLA", String.class, mapper);
 		}
 		catch (IllegalArgumentException e) {
-			assertEquals("Given JSON could not be deserialized. Error: Unrecognized token 'BLA': was expecting ('true', 'false' or 'null')\n"
-						 + " at [Source: BLA; line: 1, column: 7]", e.getMessage());
+			assertEquals("Given JSON could not be deserialized. Error: Unrecognized token 'BLA': was expecting ('true', 'false' or 'null')\n" +
+				" at [Source: (String)\"BLA\"; line: 1, column: 7]", e.getMessage());
 			throw e;
 		}
 	}
@@ -270,9 +272,9 @@ public class JsonUtilsTest {
 			JsonUtils.fromJsonAsList("[{\"a\":\"1\",\"b\":2},{\"a\":\"1\",\"b\":2}]", DummyTo.class);
 		}
 		catch (IllegalArgumentException e) {
-			assertEquals("Given JSON: '[{\"a\":\"1\",\"b\":2},{\"a\":\"1\",\"b\":2}]' could not be deserialized to List<DummyTo>. Error: No suitable constructor found for type [simple type, class " +
-				"com.zandero.utils.JsonUtilsTest$DummyTo]: can not instantiate from JSON object (missing default constructor or creator, or perhaps need to add/enable type information?)\n" +
-				" at [Source: [{\"a\":\"1\",\"b\":2},{\"a\":\"1\",\"b\":2}]; line: 1, column: 3] (through reference chain: java.util.ArrayList[0])", e.getMessage());
+			assertEquals("Given JSON: '[{\"a\":\"1\",\"b\":2},{\"a\":\"1\",\"b\":2}]' could not be deserialized to List<DummyTo>. Error: Can not construct instance of com.zandero.utils" +
+				".JsonUtilsTest$DummyTo (although at least one Creator exists): can only instantiate non-static inner class by using default, no-argument constructor\n" +
+				" at [Source: (String)\"[{\"a\":\"1\",\"b\":2},{\"a\":\"1\",\"b\":2}]\"; line: 1, column: 3] (through reference chain: java.util.ArrayList[0])", e.getMessage());
 		}
 	}
 
