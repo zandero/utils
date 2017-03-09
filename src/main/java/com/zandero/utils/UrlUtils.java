@@ -42,6 +42,7 @@ public final class UrlUtils {
 
 		if (relativeUrl != null) {
 			try {
+
 				URI uri = new URI(relativeUrl);
 				relativeUrl = uri.toString();
 

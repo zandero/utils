@@ -6,7 +6,7 @@ Collection of commonly used utilities
 <dependency>      
      <groupId>com.zandero</groupId>      
      <artifactId>utils</artifactId>      
-     <version>1.0</version>      
+     <version>1.1</version>      
 </dependency>
 ```
 

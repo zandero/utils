@@ -134,7 +134,7 @@ public final class ResourceUtils {
 		return getBytes(is, 100000);
 	}
 
-	public static byte[] getBytes(final InputStream is, final int bufferSize) {
+	private static byte[] getBytes(final InputStream is, final int bufferSize) {
 
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
@@ -154,22 +154,26 @@ public final class ResourceUtils {
 		return buffer.toByteArray();
 	}
 
-	public static String readFile(File file) throws IOException {
+	/**
+	 * Reads file into String
+	 * @param file to be read
+	 * @return file content
+	 * @throws IOException in case file does't exist or is not a file
+	 */
+	public static String readFileToString(File file) throws IOException {
 
-		if (file.exists()) {
-			if (file.isDirectory()) {
-				throw new IOException("File \'" + file + "\' exists but is a directory");
-			}
-			else if (!file.canRead()) {
-				throw new IOException("File \'" + file + "\' cannot be read");
-			}
-			else {
-				FileInputStream stream = new FileInputStream(file);
-				return getString(stream);
-			}
+		if (!file.exists()) {
+			throw new FileNotFoundException("File '" + file + "' does not exist");
 		}
-		else {
-			throw new FileNotFoundException("File \'" + file + "\' does not exist");
+
+		if (file.isDirectory()) {
+			throw new IOException("File '" + file + "' is a directory");
 		}
+		else if (!file.canRead()) {
+			throw new IOException("File '" + file + "' cannot be read");
+		}
+
+		FileInputStream stream = new FileInputStream(file);
+		return getString(stream);
 	}
 }

@@ -46,6 +46,7 @@ public final class Assert {
 	 *
 	 * @param test    must be null
 	 * @param message to return in exception
+	 * @param <T>     object type
 	 * @throws IllegalArgumentException if object != null
 	 */
 	public static <T> void isNull(T test, String message) {
@@ -58,6 +59,7 @@ public final class Assert {
 	 *
 	 * @param test    must not be null
 	 * @param message to return in exception
+	 * @param <T>     object type
 	 * @throws IllegalArgumentException if object == null
 	 */
 	public static <T> void notNull(T test, String message) {
@@ -82,6 +84,7 @@ public final class Assert {
 	 *
 	 * @param list    must be have at least one element
 	 * @param message to return in exception
+	 * @param <T>     object type
 	 * @throws IllegalArgumentException if list == null or list.size() == 0
 	 */
 	public static <T> void notNullOrEmpty(List<T> list, String message) {
@@ -94,6 +97,7 @@ public final class Assert {
 	 *
 	 * @param set     must be have at least one element
 	 * @param message to return in exception
+	 * @param <T>     object type
 	 * @throws IllegalArgumentException if list == null or list.size() == 0
 	 */
 	public static <T> void notNullOrEmpty(Set<T> set, String message) {
@@ -106,6 +110,7 @@ public final class Assert {
 	 *
 	 * @param array   must be have at least one element
 	 * @param message to return in exception
+	 * @param <T>     object type
 	 * @throws IllegalArgumentException if list == null or list.size() == 0
 	 */
 	public static <T> void notNullOrEmpty(T[] array, String message) {
@@ -116,8 +121,10 @@ public final class Assert {
 	/**
 	 * Tests if map is null or empty
 	 *
-	 * @param map   must be have at least one element
+	 * @param map     must be have at least one element
 	 * @param message to return in exception
+	 * @param <T>     object type
+	 * @param <K>     value type
 	 * @throws IllegalArgumentException if list == null or list.size() == 0
 	 */
 	public static <T, K> void notNullOrEmpty(Map<T, K> map, String message) {
@@ -128,9 +135,10 @@ public final class Assert {
 	/**
 	 * Tests if list is null or empty
 	 *
-	 * @param list   must be null or empty
+	 * @param list    must be null or empty
 	 * @param message to return in exception
-	 * @throws IllegalArgumentException if list != null or list.size() > 0
+	 * @param <T>     object type
+	 * @throws IllegalArgumentException if list != null or list.size() greater than 0
 	 */
 	public static <T> void isNullOrEmpty(List<T> list, String message) {
 
@@ -140,9 +148,10 @@ public final class Assert {
 	/**
 	 * Tests if set is null or empty
 	 *
-	 * @param set   must be null or empty
+	 * @param set     must be null or empty
 	 * @param message to return in exception
-	 * @throws IllegalArgumentException if list != null or list.size() > 0
+	 * @param <T>     object type
+	 * @throws IllegalArgumentException if list != null or list.size() greater than 0
 	 */
 	public static <T> void isNullOrEmpty(Set<T> set, String message) {
 
@@ -154,7 +163,8 @@ public final class Assert {
 	 *
 	 * @param array   must be null or empty
 	 * @param message to return in exception
-	 * @throws IllegalArgumentException if list != null or list.size() > 0
+	 * @param <T>     object type
+	 * @throws IllegalArgumentException if list != null or list.size() greater than 0
 	 */
 	public static <T> void isNullOrEmpty(T[] array, String message) {
 
@@ -164,9 +174,11 @@ public final class Assert {
 	/**
 	 * Tests if map is null or empty
 	 *
-	 * @param map   must be null or empty
+	 * @param map     must be null or empty
 	 * @param message to return in exception
-	 * @throws IllegalArgumentException if list != null or list.size() > 0
+	 * @param <T>     object type
+	 * @param <K>     value type
+	 * @throws IllegalArgumentException if list != null or list.size() greater than 0
 	 */
 	public static <T, K> void isNullOrEmpty(Map<T, K> map, String message) {
 
