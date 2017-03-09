@@ -206,18 +206,18 @@ public class UrlUtilsTest {
 	@Test
 	public void parseQueryTest() {
 
-		Map<String, String> map = UrlUtils.parse("http://some.com/somewhere");
+		Map<String, String> map = UrlUtils.getQuery("http://some.com/somewhere");
 		assertTrue(map.isEmpty());
 
-		map = UrlUtils.parse("in=the");
+		map = UrlUtils.getQuery("in=the");
 		assertEquals(1, map.size());
 		assertEquals("the", map.get("in"));
 
-		map = UrlUtils.parse("http://some.com/somewhere?in=the");
+		map = UrlUtils.getQuery("http://some.com/somewhere?in=the");
 		assertEquals(1, map.size());
 		assertEquals("the", map.get("in"));
 
-		map = UrlUtils.parse("http://some.com/somewhere?in=the&middle=of&ocean");
+		map = UrlUtils.getQuery("http://some.com/somewhere?in=the&middle=of&ocean");
 		assertEquals(3, map.size());
 		assertEquals("the", map.get("in"));
 		assertEquals("of", map.get("middle"));

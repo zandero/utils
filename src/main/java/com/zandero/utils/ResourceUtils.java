@@ -17,8 +17,9 @@ public final class ResourceUtils {
 
 	/**
 	 * Loads resource to String
+	 *
 	 * @param resourceFile to read
-	 * @param clazz to use for resource access
+	 * @param clazz        to use for resource access
 	 * @return String representing the resource or null if resource could not be read
 	 */
 	public static String getResourceAsString(String resourceFile, Class clazz) {
@@ -43,8 +44,9 @@ public final class ResourceUtils {
 
 	/**
 	 * Loads resource as a set of Strings, where each line is added to the set
+	 *
 	 * @param resourceFile to read
-	 * @param clazz to use for resource access
+	 * @param clazz        to use for resource access
 	 * @return set of strings (lines) or null if resource could not be read
 	 */
 	public static Set<String> getResourceLines(String resourceFile, Class clazz) {
@@ -77,8 +79,9 @@ public final class ResourceUtils {
 
 	/**
 	 * Get resource last modified date
+	 *
 	 * @param resourceFile to read
-	 * @param clazz to use for resource access
+	 * @param clazz        to use for resource access
 	 * @return last modified date or null if resource could not be read
 	 */
 	public static Long getLastModifiedTime(String resourceFile, Class clazz) {
@@ -93,14 +96,17 @@ public final class ResourceUtils {
 	}
 
 	public static String getString(final InputStream is) {
+
 		return getString(is, 1000);
 	}
 
 	public static String getString(final InputStream is, final int bufferSize) {
+
 		return getString(is, bufferSize, EncodeUtils.UTF_8);
 	}
 
 	public static String getString(final InputStream is, final int bufferSize, String encoding) {
+
 		if (is == null) {
 			return null;
 		}
@@ -116,7 +122,8 @@ public final class ResourceUtils {
 					out.append(buffer, 0, rsz);
 				}
 			}
-		} catch (IOException ioe) {
+		}
+		catch (IOException ioe) {
 			throw new RuntimeException(ioe);
 		}
 		return out.toString();
@@ -128,6 +135,7 @@ public final class ResourceUtils {
 	}
 
 	public static byte[] getBytes(final InputStream is, final int bufferSize) {
+
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
 		int nRead;
@@ -139,9 +147,29 @@ public final class ResourceUtils {
 			}
 
 			buffer.flush();
-		} catch (IOException ignored) {
+		}
+		catch (IOException ignored) {
 		}
 
 		return buffer.toByteArray();
+	}
+
+	public static String readFile(File file) throws IOException {
+
+		if (file.exists()) {
+			if (file.isDirectory()) {
+				throw new IOException("File \'" + file + "\' exists but is a directory");
+			}
+			else if (!file.canRead()) {
+				throw new IOException("File \'" + file + "\' cannot be read");
+			}
+			else {
+				FileInputStream stream = new FileInputStream(file);
+				return getString(stream);
+			}
+		}
+		else {
+			throw new FileNotFoundException("File \'" + file + "\' does not exist");
+		}
 	}
 }

@@ -294,7 +294,7 @@ public final class UrlUtils {
 	 * @param path to get query string parameters from
 	 * @return key value map of query strings, or empty map in case no query present
 	 */
-	public static Map<String, String> parse(String path) {
+	public static Map<String, String> getQuery(String path) {
 
 		Map<String, String> query = new LinkedHashMap<>();
 

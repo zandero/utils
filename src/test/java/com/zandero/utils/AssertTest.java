@@ -101,6 +101,59 @@ public class AssertTest {
 		}
 	}
 
+	@Test
+	public void testOkList() {
+
+		List<String> list = null;
+		Assert.isNullOrEmpty(list, "Bang");
+
+		list = new ArrayList<>();
+		Assert.isNullOrEmpty(list, "Bang");
+
+		list.add("test");
+		Assert.notNullOrEmpty(list, "Bang");
+	}
+
+	@Test
+	public void testOkSet() {
+
+		Set<String> set = null;
+		Assert.isNullOrEmpty(set, "Bang");
+
+		set = new HashSet<>();
+		Assert.isNullOrEmpty(set, "Bang");
+
+		set.add("test");
+		Assert.notNullOrEmpty(set, "Bang");
+	}
+
+	@Test
+	public void testOkMap() {
+
+		Map<String, String> map = null;
+		Assert.isNullOrEmpty(map, "Bang");
+
+		map = new HashMap<>();
+		Assert.isNullOrEmpty(map, "Bang");
+
+		map.put("test", "test");
+		Assert.notNullOrEmpty(map, "Bang");
+	}
+
+	@Test
+	public void testOkArray() {
+
+		String[] array = null;
+		Assert.isNullOrEmpty(array, "Bang");
+
+		array = new String[]{};
+		Assert.isNullOrEmpty(array, "Bang");
+
+		array = new String[1];
+		array[0] = "test";
+		Assert.notNullOrEmpty(array, "Bang");
+	}
+
 	@Test(expected = IllegalArgumentException.class)
 	public void testEmptyList() {
 
