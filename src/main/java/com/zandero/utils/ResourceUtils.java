@@ -16,13 +16,16 @@ public final class ResourceUtils {
 	}
 
 	/**
-	 * Loads resource to String
+	 * Loads class resource to String
 	 *
 	 * @param resourceFile to read
 	 * @param clazz        to use for resource access
 	 * @return String representing the resource or null if resource could not be read
 	 */
 	public static String getResourceAsString(String resourceFile, Class clazz) {
+
+		Assert.notNullOrEmptyTrimmed(resourceFile, "Missing resource file!");
+		Assert.notNull(clazz, "Missing resource class!");
 
 		Scanner scanner = null;
 
@@ -50,6 +53,9 @@ public final class ResourceUtils {
 	 * @return set of strings (lines) or null if resource could not be read
 	 */
 	public static Set<String> getResourceLines(String resourceFile, Class clazz) {
+
+		Assert.notNullOrEmptyTrimmed(resourceFile, "Missing resource file!");
+		Assert.notNull(clazz, "Missing resource class!");
 
 		Scanner scanner = null;
 
@@ -86,6 +92,9 @@ public final class ResourceUtils {
 	 */
 	public static Long getLastModifiedTime(String resourceFile, Class clazz) {
 
+		Assert.notNullOrEmptyTrimmed(resourceFile, "Missing resource file!");
+		Assert.notNull(clazz, "Missing resource class!");
+
 		try {
 			URL url = clazz.getResource(resourceFile);
 			return url.openConnection().getLastModified(); // get last modified date of resource
@@ -110,6 +119,12 @@ public final class ResourceUtils {
 		if (is == null) {
 			return null;
 		}
+
+		Assert.isTrue(bufferSize > 0, "Invalid buffer size, must be > 0 !");
+		if (StringUtils.isNullOrEmptyTrimmed(encoding)) {
+			encoding = EncodeUtils.UTF_8;
+		}
+
 		final char[] buffer = new char[bufferSize];
 		final StringBuilder out = new StringBuilder();
 		try {
@@ -135,6 +150,12 @@ public final class ResourceUtils {
 	}
 
 	private static byte[] getBytes(final InputStream is, final int bufferSize) {
+
+		if (is == null) {
+			return null;
+		}
+
+		Assert.isTrue(bufferSize > 0, "Invalid buffer size, must be > 0 !");
 
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
