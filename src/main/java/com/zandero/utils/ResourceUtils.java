@@ -162,16 +162,9 @@ public final class ResourceUtils {
 	 */
 	public static String readFileToString(File file) throws IOException {
 
-		if (!file.exists()) {
-			throw new FileNotFoundException("File '" + file + "' does not exist");
-		}
-
-		if (file.isDirectory()) {
-			throw new IOException("File '" + file + "' is a directory");
-		}
-		else if (!file.canRead()) {
-			throw new IOException("File '" + file + "' cannot be read");
-		}
+		Assert.isTrue(file.exists(), "File '" + file + "' does not exist");
+		Assert.isFalse(file.isDirectory(), "File '" + file + "' is a directory");
+		Assert.isTrue(file.canRead(),"File '" + file + "' cannot be read");
 
 		FileInputStream stream = new FileInputStream(file);
 		return getString(stream);
