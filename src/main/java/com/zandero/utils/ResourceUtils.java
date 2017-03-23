@@ -11,6 +11,8 @@ import java.util.Set;
  */
 public final class ResourceUtils {
 
+	private static final int BUFFER_SIZE = 100000;
+
 	private ResourceUtils() {
 		// hide constructor
 	}
@@ -106,26 +108,20 @@ public final class ResourceUtils {
 
 	public static String getString(final InputStream is) {
 
-		return getString(is, 1000);
+		return getString(is, EncodeUtils.UTF_8);
 	}
 
-	public static String getString(final InputStream is, final int bufferSize) {
-
-		return getString(is, bufferSize, EncodeUtils.UTF_8);
-	}
-
-	public static String getString(final InputStream is, final int bufferSize, String encoding) {
+	public static String getString(final InputStream is, String encoding) {
 
 		if (is == null) {
 			return null;
 		}
 
-		Assert.isTrue(bufferSize > 0, "Invalid buffer size, must be > 0 !");
 		if (StringUtils.isNullOrEmptyTrimmed(encoding)) {
 			encoding = EncodeUtils.UTF_8;
 		}
 
-		final char[] buffer = new char[bufferSize];
+		final char[] buffer = new char[BUFFER_SIZE];
 		final StringBuilder out = new StringBuilder();
 		try {
 			try (Reader in = new InputStreamReader(is, encoding)) {
@@ -146,21 +142,14 @@ public final class ResourceUtils {
 
 	public static byte[] getBytes(InputStream is) {
 
-		return getBytes(is, 100000);
-	}
-
-	private static byte[] getBytes(final InputStream is, final int bufferSize) {
-
 		if (is == null) {
 			return null;
 		}
 
-		Assert.isTrue(bufferSize > 0, "Invalid buffer size, must be > 0 !");
-
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
 		int nRead;
-		byte[] data = new byte[bufferSize];
+		byte[] data = new byte[BUFFER_SIZE];
 		try {
 
 			while ((nRead = is.read(data, 0, data.length)) != -1) {
@@ -190,4 +179,16 @@ public final class ResourceUtils {
 		FileInputStream stream = new FileInputStream(file);
 		return getString(stream);
 	}
+
+	public static String getResourceAbsolutePath(String resource, Class clazz) {
+
+		Assert.notNullOrEmptyTrimmed(resource, "Missing resource name!");
+		Assert.notNull(clazz, "Missing class!");
+
+		URL file = clazz.getResource(resource);
+		Assert.notNull(file, "Resource: '" + resource + "', not found!");
+
+		return file.getFile();
+	}
+
 }

@@ -35,7 +35,7 @@ public class ResourceUtilsTest {
 			"lines", content);
 	}
 
-	@Test(expected = IOException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void readFileTest_Fail() throws IOException {
 
 		String filename = this.getClass().getResource("/").getFile();
@@ -45,14 +45,14 @@ public class ResourceUtilsTest {
 			File file = new File(filename);
 			ResourceUtils.readFileToString(file);
 		}
-		catch (IOException e) {
+		catch (IllegalArgumentException e) {
 
 			assertTrue(e.getMessage(), e.getMessage().endsWith("zandero/utils/target/test-classes' is a directory"));
 			throw e;
 		}
 	}
 
-	@Test(expected = IOException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void readFileTest_Fail2() throws IOException {
 
 		try {
@@ -60,10 +60,17 @@ public class ResourceUtilsTest {
 			File file = new File("nonExistent.file");
 			ResourceUtils.readFileToString(file);
 		}
-		catch (IOException e) {
+		catch (IllegalArgumentException e) {
 
 			assertEquals("File 'nonExistent.file' does not exist", e.getMessage());
 			throw e;
 		}
+	}
+
+	@Test
+	public void getResourceAbsolutePathTest() {
+
+		String filename = this.getClass().getResource("/test.txt").getFile();
+		assertEquals("/Users/drejc/zandero/utils/target/test-classes/test.txt", filename);
 	}
 }

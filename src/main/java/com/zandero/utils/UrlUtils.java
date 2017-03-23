@@ -299,6 +299,10 @@ public final class UrlUtils {
 
 		Map<String, String> query = new LinkedHashMap<>();
 
+		if (StringUtils.isNullOrEmptyTrimmed(path)) {
+			return null;
+		}
+
 		int minLength = 0;
 		int index = path.indexOf("?");
 		if (index >= 0) {
