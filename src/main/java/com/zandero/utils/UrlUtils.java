@@ -300,7 +300,7 @@ public final class UrlUtils {
 		Map<String, String> query = new LinkedHashMap<>();
 
 		if (StringUtils.isNullOrEmptyTrimmed(path)) {
-			return null;
+			return query;
 		}
 
 		int minLength = 0;
