@@ -450,4 +450,26 @@ public class StringUtilsTest {
 		assertNull(StringUtils.enumerate(0));
 		assertNull(StringUtils.enumerate(-1));
 	}
+
+	@Test
+	public void isRegExTest() {
+
+		assertFalse(StringUtils.isRegEx(null));
+		assertFalse(StringUtils.isRegEx(""));
+		assertFalse(StringUtils.isRegEx(" "));
+		assertFalse(StringUtils.isRegEx("a"));
+		assertFalse(StringUtils.isRegEx("ABC"));
+		assertFalse(StringUtils.isRegEx("[ABC"));
+		assertFalse(StringUtils.isRegEx("(ABC"));
+		assertFalse(StringUtils.isRegEx("{ABC"));
+		assertFalse(StringUtils.isRegEx("ABC]"));
+		assertFalse(StringUtils.isRegEx("ABC)"));
+		assertFalse(StringUtils.isRegEx("ABC}"));
+		assertFalse(StringUtils.isRegEx("\\"));
+
+		assertTrue(StringUtils.isRegEx("."));
+		assertTrue(StringUtils.isRegEx(".*"));
+		assertTrue(StringUtils.isRegEx("A{3}"));
+		assertTrue(StringUtils.isRegEx("\\a"));
+	}
 }
