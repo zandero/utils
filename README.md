@@ -1,12 +1,12 @@
 # utils
-Collection of commonly used utilities 
+Collection of commonly used utilities (pure Java - without external dependencies)
 
 ## Setup
 ```xml
 <dependency>      
      <groupId>com.zandero</groupId>      
      <artifactId>utils</artifactId>      
-     <version>1.1</version>      
+     <version>1.2</version>      
 </dependency>
 ```
 
@@ -25,10 +25,6 @@ Time conversion between long, Date and String
 * Listing files in directories
 * Get filename extensions ... 
 
-## Encoding
-* Various encoding / decoding utilities
-* Some encrypt / decrypt stuff
- 
 ## Equality utils
 * NPE safe checks to compare two objects of same type: Long, Integer ... 
 
@@ -42,11 +38,6 @@ Wrapper for Jackson to simplify affairs
 ## KeyGenerator
 * Generates random keys of given length
  
-## Keywords
-* Extracts keywords from text 
-* Will exclude common english words
-* Will exclude any given set of words
-
 ## Maps
 * Merge
 * Sort
@@ -65,13 +56,4 @@ Various handy string utilities
 * trimming text to length
 * joining list of items into a single string
 * ...
-
-## Urls
-Building and parsing of URLs
-* URL composition
-* get domain
-* get scheme
-* get query parameters 
-* ...
-
  
