@@ -361,21 +361,6 @@ public class StringUtilsTest {
 	}
 
 	@Test
-	public void isEmailTest() {
-
-		assertFalse(StringUtils.isEmail(null));
-		assertFalse(StringUtils.isEmail(""));
-		assertFalse(StringUtils.isEmail("  "));
-		assertFalse(StringUtils.isEmail("@enau  "));
-		assertFalse(StringUtils.isEmail(".@enau  "));
-		assertFalse(StringUtils.isEmail("test@enau::test"));
-
-		assertTrue(StringUtils.isEmail("a@a.com"));
-
-		assertFalse(StringUtils.isEmail("jason@jason-mbp.local"));
-	}
-
-	@Test
 	public void relevanceSearch() {
 
 		assertEquals(-1, StringUtils.relevance(null, null));
@@ -449,27 +434,5 @@ public class StringUtilsTest {
 		assertNull(StringUtils.enumerate(null));
 		assertNull(StringUtils.enumerate(0));
 		assertNull(StringUtils.enumerate(-1));
-	}
-
-	@Test
-	public void isRegExTest() {
-
-		assertFalse(StringUtils.isRegEx(null));
-		assertFalse(StringUtils.isRegEx(""));
-		assertFalse(StringUtils.isRegEx(" "));
-		assertFalse(StringUtils.isRegEx("a"));
-		assertFalse(StringUtils.isRegEx("ABC"));
-		assertFalse(StringUtils.isRegEx("[ABC"));
-		assertFalse(StringUtils.isRegEx("(ABC"));
-		assertFalse(StringUtils.isRegEx("{ABC"));
-		assertFalse(StringUtils.isRegEx("ABC]"));
-		assertFalse(StringUtils.isRegEx("ABC)"));
-		assertFalse(StringUtils.isRegEx("ABC}"));
-		assertFalse(StringUtils.isRegEx("\\"));
-
-		assertTrue(StringUtils.isRegEx("."));
-		assertTrue(StringUtils.isRegEx(".*"));
-		assertTrue(StringUtils.isRegEx("A{3}"));
-		assertTrue(StringUtils.isRegEx("\\a"));
 	}
 }

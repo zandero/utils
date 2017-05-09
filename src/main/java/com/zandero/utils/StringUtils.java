@@ -1,12 +1,9 @@
 package com.zandero.utils;
 
-import org.apache.commons.validator.routines.EmailValidator;
-
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
 
 public final class StringUtils {
 
@@ -529,18 +526,6 @@ public final class StringUtils {
 	}
 
 	/**
-	 * Checks if given email is a valid email address
-	 *
-	 * @param email to check
-	 * @return true if email, false if not
-	 */
-	public static boolean isEmail(String email) {
-
-		return !StringUtils.isNullOrEmptyTrimmed(email) &&
-			EmailValidator.getInstance().isValid(email.trim().toLowerCase());
-	}
-
-	/**
 	 * Calculates matching relevance between given string and search expression
 	 *
 	 * @param value  to search in
@@ -690,33 +675,5 @@ public final class StringUtils {
 		}
 
 		return value;
-	}
-
-	/**
-	 * Utility to find out if given string is a regular expression
-	 * Strings without special regular expression characters are not considered regular expressions,
-	 * but they technically are
-	 * @param value to check if regular expression
-	 * @return true if regular expression, false otherwise
-	 */
-	public static boolean isRegEx(String value) {
-
-		if (StringUtils.isNullOrEmptyTrimmed(value)) {
-			return false;
-		}
-
-		String REG_EX_CHARS = "'[{'\\^$.|?*+("; // if any of these are present ... check ... if it is a regular expression
-		if (value.chars().noneMatch(ch -> REG_EX_CHARS.indexOf(ch) > 0)) {
-			return false;
-		}
-
-		try {
-
-			Pattern.compile(value);
-			return true;
-		}
-		catch (PatternSyntaxException e) {
-			return false;
-		}
 	}
 }

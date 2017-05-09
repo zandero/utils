@@ -14,11 +14,11 @@ import static org.junit.Assert.*;
 public class ResourceUtilsTest {
 
 	@Test
-	public void getResourceLinesTest() {
+	public void getResourceWordsTest() {
 
-		Set<String> lines = ResourceUtils.getResourceLines("/keywords/english.txt", this.getClass());
+		Set<String> lines = ResourceUtils.getResourceWords("/test.txt", this.getClass());
 		assertNotNull(lines);
-		assertEquals(183, lines.size());
+		assertEquals(8, lines.size());
 	}
 
 	@Test

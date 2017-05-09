@@ -46,10 +46,6 @@
         <timestamp>${maven.build.timestamp}</timestamp>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
 
-        <version.commons.validator>[1.5.0,)</version.commons.validator>
-        <version.jackson>[2.7.3,)</version.jackson>
-        <version.jasypt>[1.9.2,)</version.jasypt>
-
         <version.trajano>[2.1.0,)</version.trajano>
         <version.junit>[4.12,)</version.junit>
         <version.mockito-all>[1.10.19,)</version.mockito-all>
@@ -57,24 +53,6 @@
     </properties>
 
     <dependencies>
-
-        <dependency>
-            <groupId>org.jasypt</groupId>
-            <artifactId>jasypt</artifactId>
-            <version>${version.jasypt}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${version.jackson}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-validator</groupId>
-            <artifactId>commons-validator</artifactId>
-            <version>${version.commons.validator}</version>
-        </dependency>
 
         <!--Testing stuff bellow-->
         <dependency>
@@ -102,12 +80,6 @@
     </dependencies>
 
     <distributionManagement>
-        <!-- Repository for snapshots -->
-       <!-- <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>-->
-
         <!-- Repository for releases -->
         <repository>
             <id>nexus-releases</id>

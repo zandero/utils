@@ -13,6 +13,8 @@ public final class ResourceUtils {
 
 	private static final int BUFFER_SIZE = 100000;
 
+	private static final String UTF_8 = "UTF-8";
+
 	private ResourceUtils() {
 		// hide constructor
 	}
@@ -34,7 +36,7 @@ public final class ResourceUtils {
 		try {
 
 			InputStream resource = clazz.getResourceAsStream(resourceFile);
-			scanner = new Scanner(resource, EncodeUtils.UTF_8);
+			scanner = new Scanner(resource, UTF_8);
 			return scanner.useDelimiter("\\A").next();
 		}
 		catch (Exception e) {
@@ -48,13 +50,13 @@ public final class ResourceUtils {
 	}
 
 	/**
-	 * Loads resource as a set of Strings, where each line is added to the set
+	 * Loads resource as a set of Strings, where each word is added to the set
 	 *
 	 * @param resourceFile to read
 	 * @param clazz        to use for resource access
 	 * @return set of strings (lines) or null if resource could not be read
 	 */
-	public static Set<String> getResourceLines(String resourceFile, Class clazz) {
+	public static Set<String> getResourceWords(String resourceFile, Class clazz) {
 
 		Assert.notNullOrEmptyTrimmed(resourceFile, "Missing resource file!");
 		Assert.notNull(clazz, "Missing resource class!");
@@ -63,7 +65,7 @@ public final class ResourceUtils {
 
 		try {
 			InputStream resource = clazz.getResourceAsStream(resourceFile);
-			scanner = new Scanner(resource, EncodeUtils.UTF_8);
+			scanner = new Scanner(resource, UTF_8);
 
 			Set<String> list = new LinkedHashSet<>();
 			while (scanner.hasNext()) {
@@ -108,7 +110,7 @@ public final class ResourceUtils {
 
 	public static String getString(final InputStream is) {
 
-		return getString(is, EncodeUtils.UTF_8);
+		return getString(is, UTF_8);
 	}
 
 	public static String getString(final InputStream is, String encoding) {
@@ -118,7 +120,7 @@ public final class ResourceUtils {
 		}
 
 		if (StringUtils.isNullOrEmptyTrimmed(encoding)) {
-			encoding = EncodeUtils.UTF_8;
+			encoding = UTF_8;
 		}
 
 		final char[] buffer = new char[BUFFER_SIZE];
