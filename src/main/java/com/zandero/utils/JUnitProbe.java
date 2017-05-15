@@ -14,6 +14,10 @@ public final class JUnitProbe {
 
 	private static Boolean unitTestsRunning = null;
 
+	/**
+	 * Checks if code is run inside a unit test
+	 * @return true if unit test, false otherwise
+	 */
 	public static boolean isUnitTest() {
 
 		if (unitTestsRunning == null) {

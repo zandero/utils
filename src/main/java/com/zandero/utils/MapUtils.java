@@ -15,7 +15,7 @@ public final class MapUtils {
 	}
 
 	/**
-	 * Merging single level aggregation maps, ie. grouped by userId, or grouped by interval
+	 * Merging single level aggregation maps
 	 *
 	 * @param stream        source to merge
 	 * @param mergeFunction operation

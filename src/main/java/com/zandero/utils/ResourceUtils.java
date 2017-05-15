@@ -38,11 +38,9 @@ public final class ResourceUtils {
 			InputStream resource = clazz.getResourceAsStream(resourceFile);
 			scanner = new Scanner(resource, UTF_8);
 			return scanner.useDelimiter("\\A").next();
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			return null;
-		}
-		finally {
+		} finally {
 			if (scanner != null) {
 				scanner.close();
 			}
@@ -76,11 +74,9 @@ public final class ResourceUtils {
 			}
 
 			return list;
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			return null;
-		}
-		finally {
+		} finally {
 			if (scanner != null) {
 				scanner.close();
 			}
@@ -102,17 +98,29 @@ public final class ResourceUtils {
 		try {
 			URL url = clazz.getResource(resourceFile);
 			return url.openConnection().getLastModified(); // get last modified date of resource
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			return null;
 		}
 	}
 
+	/**
+	 * Load input stream into string
+	 *
+	 * @param is stream
+	 * @return String representation of given input
+	 */
 	public static String getString(final InputStream is) {
 
 		return getString(is, UTF_8);
 	}
 
+	/**
+	 * Load input stream into string
+	 *
+	 * @param is       stream
+	 * @param encoding to use when reading input stream
+	 * @return String representation of given input
+	 */
 	public static String getString(final InputStream is, String encoding) {
 
 		if (is == null) {
@@ -135,13 +143,18 @@ public final class ResourceUtils {
 					out.append(buffer, 0, rsz);
 				}
 			}
-		}
-		catch (IOException ioe) {
+		} catch (IOException ioe) {
 			throw new RuntimeException(ioe);
 		}
 		return out.toString();
 	}
 
+	/**
+	 * Load input stream into byte array
+	 *
+	 * @param is       stream
+	 * @return byte representation of given input
+	 */
 	public static byte[] getBytes(InputStream is) {
 
 		if (is == null) {
@@ -159,8 +172,7 @@ public final class ResourceUtils {
 			}
 
 			buffer.flush();
-		}
-		catch (IOException ignored) {
+		} catch (IOException ignored) {
 		}
 
 		return buffer.toByteArray();
@@ -168,6 +180,7 @@ public final class ResourceUtils {
 
 	/**
 	 * Reads file into String
+	 *
 	 * @param file to be read
 	 * @return file content
 	 * @throws IOException in case file does't exist or is not a file
@@ -176,7 +189,7 @@ public final class ResourceUtils {
 
 		Assert.isTrue(file.exists(), "File '" + file + "' does not exist");
 		Assert.isFalse(file.isDirectory(), "File '" + file + "' is a directory");
-		Assert.isTrue(file.canRead(),"File '" + file + "' cannot be read");
+		Assert.isTrue(file.canRead(), "File '" + file + "' cannot be read");
 
 		FileInputStream stream = new FileInputStream(file);
 		return getString(stream);

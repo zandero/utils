@@ -98,30 +98,30 @@ Time conversion between long, Date and String
 ```
    
 ```java
-    // Gets first millisecond of first day in month for given time
-   	DateTimeUtils.getMonthStart(long time);
-   
+    // Gets first millisecond of first day in month for given time    
+    DateTimeUtils.getMonthStart(long time);  
+  
     // Returns last millisecond of last day in month 
-   	DateTimeUtils.getMonthEnd(long time);
-   
-   	// Returns day in month, where first day of month == 1
-   	DateTimeUtils.getDayInMonth(long time);
-   
+    DateTimeUtils.getMonthEnd(long time);      
+  
+    // Returns day in month, where first day of month == 1
+    DateTimeUtils.getDayInMonth(long time);  
+  
    	// Gets first millisecond of first day in week for given time
-   	DateTimeUtils.getWeekStart(long time);
-   
+   	DateTimeUtils.getWeekStart(long time);  
+   	
    	// Returns last millisecond of last day in week for given time
-   	DateTimeUtils.getWeekEnd(long time);
-   
+   	DateTimeUtils.getWeekEnd(long time);  
+   	
     // Returns number of day in week, where monday is the first day of the week (monday = 1, tuesday = 2 ..., sunday = 7)
-   	DateTimeUtils.getDayInWeek(long time);
-   
+   	DateTimeUtils.getDayInWeek(long time);  
+   	
    	// Check if it is a weekend day (Saturday or Sunday)
-   	DateTimeUtils.isWeekend(long time);
-   
+   	DateTimeUtils.isWeekend(long time);  
+   	
    	// Removes time component from date time
-   	DateTimeUtils.getDateOnly(long time);
-   
+   	DateTimeUtils.getDateOnly(long time);  
+   	
    	// Convert any given timestamp string to long trying a list of provided formats
    	DateTimeUtils.getTimestamp(String value, SimpleDateFormat[] formats);
 ```
@@ -148,24 +148,121 @@ Directory, path and file utilities
 ## Equality utils
 * NPE safe checks to compare two objects of same type: Long, Integer ... 
 
-## JSON utils
-Wrapper for Jackson to simplify affairs
-* Transform object from JSON and back using Jackson
+```java
+    // compare integers
+    Integer one = null;
+    Integer two = 3;
+
+    EqualsUtils.equals(one, two);
+    
+    // compare longs
+    Integer longOne = null;
+    Integer longTwo = 3;
+    
+    EqualsUtils.equals(longOne, longTwo);
+    
+    // compare strings (case sensitive)
+    EqualsUtils.equals("Some string", null);
+    
+    // Compares if two maps hold the same set of keys and same values
+    // comparison of values utilizes the equals call, so make sure equals is implemented 
+    // position of key is not considered (like in LinkedHashMap)
+    Map<String, T> one;
+    Map<String, T> two;
+    EqualsUtils.equals(mapOne, mapTwo);
+```
 
 ## JUnit probe
-* Checks if code runs inside a JUnit test or not
+Checks if code runs inside a JUnit test or not
+
+```java
+    // Checks if code is run inside a unit test
+    JUnitProbe.isUnitTest();
+```
 
 ## KeyGenerator
-* Generates random keys of given length
- 
+Generates random keys of given length
+
+```java
+	 // Generates random string from A-Z, a-z, 0-9 set of chars and numbers
+	 // with lenght from 1-100
+	KeyGenerator.generateString(int length);  
+    
+	// Generates non negative long key of maximum length 18
+	KeyGenerator.generateLong(int length);
+```
+
 ## Maps
-* Merge
-* Sort
-* Compare
+Map helpers and manipulation utils
+
+### Merging two maps
+```java
+    Map outputMap = MapUtils.mergeMaps(firatMap, mergeFunction, otherMap);
+    
+    // Example
+    Map<String, Long> m1 = new HashMap<>();
+    m1.put("A", 10L);
+    m1.put("B", 20L);
+    
+    Map<String, Long> m2 = new HashMap<>();
+    m2.put("C", 2L);
+    m2.put("D", 3L);
+    m2.put("E", 1L);
+   
+    // sum those two maps together
+    Map<String, Long> result = MapUtils.mergeMaps(Stream.of(m1, m2), Long::sum, HashMap::new);
+```
+
+### Sorting 
+```java
+    // sort map with given comparator ... 
+    LinkedHashMap sorted = sort(map, comparator);
+
+    // example
+    LinkedHashMap sortedMap = MapUtils.sort(map, Comparator.comparing(Map.Entry::getValue));
+```
+
+### Compare maps
+```java
+    // compare maps by keys
+    MapUtils.equals(mapOne, mapTwo);
+	
+	// compare maps by keys and values 
+    MapUtils.equals(mapOne, mapTwo, true);
+```
 
 ## Resources
-* Loading of resource files
-* Reading streams into strings 
+
+### Loading of resource files
+
+```java
+    // Loads resource into string
+    String output = ResourceUtils.getResourceAsString(String resourceFile, Class clazz);
+
+     // Loads resource as a set of Strings, where each word is added to the set
+     Set<String> output = ResourceUtils.getResourceWords(file, clazz);
+     
+     // Get resource absolute path
+     String output = ResourceUtils.getResourceAbsolutePath(String resource, Class clazz);
+```
+
+### Reading streams and files into strings
+ ```java
+     // Loads resource to String 
+     String output = ResourceUtils.readFileToString(file);
+     
+     // Get resource last modified time stamp
+     Long time = ResourceUtils.getLastModifiedTime(file);
+     
+     // Load input stream into string
+     String output = ResourceUtils.getString(inputStream) {
+     
+     // Load input stream into string
+     String output = ResourceUtils.getString(inputStream, encoding);
+     
+     // Load input stream into byte array
+     byte[] output = ResourceUtils.getBytes(InputStream is);
+ ```
 
 ## Strings
 Various handy string utilities
