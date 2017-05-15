@@ -91,36 +91,36 @@ Time conversion between long, Date and String
 ### Conversions
 ```java
     // Converts timestamp into OffsetDatetime
-    DateTimeUtils.toOffsetDateTime(long timestamp)
+    DateTimeUtils.toOffsetDateTime(long timestamp);
     
     // Converts offset date time to long timestamp
-    DateTimeUtils.fromOffsetDateTime(OffsetDateTime timestamp)
+    DateTimeUtils.fromOffsetDateTime(OffsetDateTime timestamp);
 ```
    
 ```java
     // Gets first millisecond of first day in month for given time    
-    DateTimeUtils.getMonthStart(long time);  
+    DateTimeUtils.getMonthStart(long time);
     
     // Returns last millisecond of last day in month 
-    DateTimeUtils.getMonthEnd(long time);      
+    DateTimeUtils.getMonthEnd(long time);
     
     // Returns day in month, where first day of month == 1
-    DateTimeUtils.getDayInMonth(long time);  
+    DateTimeUtils.getDayInMonth(long time);
     
     // Gets first millisecond of first day in week for given time
    	DateTimeUtils.getWeekStart(long time);
    	
    	// Returns last millisecond of last day in week for given time
-   	DateTimeUtils.getWeekEnd(long time);  
+   	DateTimeUtils.getWeekEnd(long time);
    	
     // Returns number of day in week, where monday is the first day of the week (monday = 1, tuesday = 2 ..., sunday = 7)
-   	DateTimeUtils.getDayInWeek(long time);  
+   	DateTimeUtils.getDayInWeek(long time);
    	
    	// Check if it is a weekend day (Saturday or Sunday)
-   	DateTimeUtils.isWeekend(long time);  
+   	DateTimeUtils.isWeekend(long time);
    	
    	// Removes time component from date time
-   	DateTimeUtils.getDateOnly(long time);  
+   	DateTimeUtils.getDateOnly(long time);
    	
    	// Convert any given timestamp string to long trying a list of provided formats
    	DateTimeUtils.getTimestamp(String value, SimpleDateFormat[] formats);
@@ -186,7 +186,7 @@ Generates random keys of given length.
 ```java
     // Generates random string from A-Z, a-z, 0-9 set of chars and numbers
     // with lenght from 1-100
-    KeyGenerator.generateString(int length);  
+    KeyGenerator.generateString(int length);
     
     // Generates non negative long key of maximum length 18
     KeyGenerator.generateLong(int length);
@@ -255,7 +255,7 @@ Map helpers and manipulation utils
      Long time = ResourceUtils.getLastModifiedTime(file);
      
      // Load input stream into string
-     String output = ResourceUtils.getString(inputStream) {
+     String output = ResourceUtils.getString(inputStream);
      
      // Load input stream into string
      String output = ResourceUtils.getString(inputStream, encoding);
@@ -372,7 +372,7 @@ Various handy string utilities.
 ```java
     // Extracts words from text removing non alpha characters
     List<String> words = StringUtils.getWords(text);
-
+    
     // Converts text to list of characters
 	List<String> chars = asListOfChars(text);
 	
@@ -383,6 +383,6 @@ Various handy string utilities.
 ### Search by relevance
 ```java
     // Calculates matching relevance between given string and search expression
-	// -1 not relevant, 0..N - where lower values represents more relevant results
+    // -1 not relevant, 0..N - where lower values represents more relevant results
     relevance(text, search); 
 ```
