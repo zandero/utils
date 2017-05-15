@@ -353,24 +353,24 @@ public final class StringUtils {
 	 * @param separator to be used between elements
 	 * @return map key values joined into a single string
 	 */
-	public static String join(Map<String, String> map, String separator) {
+	public static <T, V> String join(Map<T, V> map, String separator) {
 
 		if (separator == null || separator.equalsIgnoreCase("")) {
 			throw new IllegalArgumentException("Missing separator!");
 		}
 
-		String output = "";
+		StringBuilder output = new StringBuilder();
 		if (map != null) {
-			for (String name : map.keySet()) {
+			for (Object key : map.keySet()) {
 				if (output.length() > 0) {
-					output = output + separator;
+					output.append(separator);
 				}
 
-				output = output + name + "=" + map.get(name);
+				output.append(key).append("=").append(map.get(key));
 			}
 		}
 
-		return output;
+		return output.toString();
 	}
 
 	/**
@@ -661,19 +661,19 @@ public final class StringUtils {
 	/**
 	 * Removes double quotes if any are present
 	 *
-	 * @param value to remove double quotes from
+	 * @param text to remove double quotes from
 	 * @return un quoted string
 	 */
-	public static String unQuote(String value) {
+	public static String unQuote(String text) {
 
-		if (isNullOrEmptyTrimmed(value)) {
-			return value;
+		if (isNullOrEmptyTrimmed(text)) {
+			return text;
 		}
 
-		if (value.startsWith("\"") && value.endsWith("\"")) {
-			return value.substring(1, value.length() - 1);
+		if (text.startsWith("\"") && text.endsWith("\"")) {
+			return text.substring(1, text.length() - 1);
 		}
 
-		return value;
+		return text;
 	}
 }

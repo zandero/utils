@@ -11,7 +11,7 @@ Collection of commonly used utilities (pure Java - without external dependencies
 ```
 
 ## Assert
-Assertion utilities to check input parameters and throw IllegalArgumentException in case arguments are invalid  
+Assertion utilities to check input parameters and throw IllegalArgumentException in case arguments are invalid.  
 
 ### true / false test
 ```java
@@ -100,15 +100,15 @@ Time conversion between long, Date and String
 ```java
     // Gets first millisecond of first day in month for given time    
     DateTimeUtils.getMonthStart(long time);  
-  
+    
     // Returns last millisecond of last day in month 
     DateTimeUtils.getMonthEnd(long time);      
-  
+    
     // Returns day in month, where first day of month == 1
     DateTimeUtils.getDayInMonth(long time);  
-  
-   	// Gets first millisecond of first day in week for given time
-   	DateTimeUtils.getWeekStart(long time);  
+    
+    // Gets first millisecond of first day in week for given time
+   	DateTimeUtils.getWeekStart(long time);
    	
    	// Returns last millisecond of last day in week for given time
    	DateTimeUtils.getWeekEnd(long time);  
@@ -181,15 +181,15 @@ Checks if code runs inside a JUnit test or not
 ```
 
 ## KeyGenerator
-Generates random keys of given length
+Generates random keys of given length.
 
 ```java
-	 // Generates random string from A-Z, a-z, 0-9 set of chars and numbers
-	 // with lenght from 1-100
-	KeyGenerator.generateString(int length);  
+    // Generates random string from A-Z, a-z, 0-9 set of chars and numbers
+    // with lenght from 1-100
+    KeyGenerator.generateString(int length);  
     
-	// Generates non negative long key of maximum length 18
-	KeyGenerator.generateLong(int length);
+    // Generates non negative long key of maximum length 18
+    KeyGenerator.generateLong(int length);
 ```
 
 ## Maps
@@ -265,12 +265,124 @@ Map helpers and manipulation utils
  ```
 
 ## Strings
-Various handy string utilities
-* compare if null or empty
-* trim to null
-* NPE safe equals 
-* word extraction 
-* trimming text to length
-* joining list of items into a single string
-* ...
- 
+Various handy string utilities.
+
+### NPE safe String comparison 
+
+```java
+    // NPE safe compare of two strings (case sensitive)
+    StringUtils.equals(original, compare);
+    
+	// NPE safe compare of two strings - case sensitive or insensitive
+	StringUtils.equals(original, compare, ignoreCase);
+```
+
+```java
+    // NPE safe compare same as String.compare()
+    int result = StringUtils.compare(one, two);
+```
+
+### Null and empty checks
+
+```java
+    // Checks if string is null or empty == ""
+    StringUtils.isNullOrEmpty(value);
+    
+    // Checks if string is null, empty or contains only spaces
+	StringUtils.isNullOrEmptyTrimmed(value);
+```
+
+### String trimming
+
+```java
+    // NPE safe String.trim()
+    StringUtils.trim(String value);
+    
+    // Trim with inner double space trim
+    StringUtils.trimDoubleSpaces(text);
+    
+    // Complete trim of all spaces
+    StringUtils.trimInner(text);
+    
+    // Trims only end of text
+    StringUtils.trimEnd(text);
+    
+    // Trims only start of text
+    StringUtils.trimStart(text);
+    
+    // Trims specific text only
+    StringUtils.trimAll(text, toBeTrimmed);
+    
+    // Trims to null if empty
+    StringUtils.trimToNull(text);
+```
+
+### String transformation
+```java
+    // Capitalizes first found character in given string
+    // "123 abc" -> "123 Abc"
+    String TEXT = StringUtils.capitalize(text);
+
+    // Removes punctuation from text
+    // "test!" -> "test"
+	StringUtils.removePunctuation(text);
+	
+	// Removes all multiple-consecutive whitespace characters (space, tab, newline) and replaces them with single space.
+    // Also removes leading and trailing spaces.
+    Stirng out = StringUtils.sanitizeWhitespace(text)
+    byte[] out = sanitizeWhitespace(byte[] input);
+    
+    // Reduces text to max given size preserving words
+    StringUtils.trimTextDown(text, maxWidth);
+    
+    // Reduces text size to a given size preserving words with appendix
+    StringUtils.trimTextDown(text, widthMinusAppend, append)
+    
+    // Simple enumeration: first, second, third ... 5th, 6th .. etc for given number
+    StringUtils.enumerate(number);
+    
+    // Removes double quotes if any are present (in begging and end)
+    StringUtils.unQuote(text);
+```
+
+### String joining
+```java
+    // Joins list of string items to a single string, where items are separated
+   	// with a defined separator. Limiting number of included items. 
+   	StringUtils.join(List<?> list, separator);
+   	StringUtils.join(List<?> list, separator, includeMaxLimit);
+    
+   	// Joins array of objects to a single string, where items are separated
+   	// with a defined separator. Limiting number of included items.
+   	StringUtils.join(Object[] args, separator);
+   	StringUtils.join(Object[] args, separator, includeMaxLimit);
+   
+   	// Joins set of objects to a single string, where items are separated
+   	// with a defined separator.
+   	StringUtils.join(Set<?> items, separator);
+   	StringUtils.join(Set<?> items, separator, includeMaxLimit);
+   
+   
+   	// Joins map of items to a single string, where items are separated with a defined separator.
+   	StringUtils.join(Map<String, String> map, separator);
+```
+
+### Word extraction
+
+```java
+    // Extracts words from text removing non alpha characters
+    List<String> words = StringUtils.getWords(text);
+
+    // Converts text to list of characters
+	List<String> chars = asListOfChars(text);
+	
+	// Checks if given string is a single word (doesn't accepts words with "-" as a single word!)
+    isWord(word);
+```
+
+### Search by relevance
+```java
+    // Calculates matching relevance between given string and search expression
+	// -1 not relevant, 0..N - where lower values represents more relevant results
+    relevance(text, search); 
+```
