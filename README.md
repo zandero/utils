@@ -273,7 +273,7 @@ Various handy string utilities.
     // NPE safe compare of two strings (case sensitive)
     StringUtils.equals(original, compare);
     
-	// NPE safe compare of two strings - case sensitive or insensitive
+    // NPE safe compare of two strings - case sensitive or insensitive
 	StringUtils.equals(original, compare, ignoreCase);
 ```
 
