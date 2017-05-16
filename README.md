@@ -274,7 +274,7 @@ Various handy string utilities.
     StringUtils.equals(original, compare);
     
     // NPE safe compare of two strings - case sensitive or insensitive
-	StringUtils.equals(original, compare, ignoreCase);
+    StringUtils.equals(original, compare, ignoreCase);
 ```
 
 ```java
@@ -289,7 +289,7 @@ Various handy string utilities.
     StringUtils.isNullOrEmpty(value);
     
     // Checks if string is null, empty or contains only spaces
-	StringUtils.isNullOrEmptyTrimmed(value);
+    StringUtils.isNullOrEmptyTrimmed(value);
 ```
 
 ### String trimming
@@ -322,12 +322,12 @@ Various handy string utilities.
     // Capitalizes first found character in given string
     // "123 abc" -> "123 Abc"
     String TEXT = StringUtils.capitalize(text);
-
+    
     // Removes punctuation from text
     // "test!" -> "test"
-	StringUtils.removePunctuation(text);
-	
-	// Removes all multiple-consecutive whitespace characters (space, tab, newline) and replaces them with single space.
+    StringUtils.removePunctuation(text);
+    
+    // Removes all multiple-consecutive whitespace characters (space, tab, newline) and replaces them with single space.
     // Also removes leading and trailing spaces.
     Stirng out = StringUtils.sanitizeWhitespace(text)
     byte[] out = sanitizeWhitespace(byte[] input);
@@ -374,9 +374,9 @@ Various handy string utilities.
     List<String> words = StringUtils.getWords(text);
     
     // Converts text to list of characters
-	List<String> chars = asListOfChars(text);
-	
-	// Checks if given string is a single word (doesn't accepts words with "-" as a single word!)
+    List<String> chars = asListOfChars(text);
+    
+    // Checks if given string is a single word (doesn't accepts words with "-" as a single word!)
     isWord(word);
 ```
 
