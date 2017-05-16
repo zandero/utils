@@ -348,9 +348,9 @@ Various handy string utilities.
 ### String joining
 ```java
     // Joins list of string items to a single string, where items are separated
-   	// with a defined separator. Limiting number of included items. 
-   	StringUtils.join(List<?> list, separator);
-   	StringUtils.join(List<?> list, separator, includeMaxLimit);
+    // with a defined separator. Limiting number of included items. 
+    StringUtils.join(List<?> list, separator);
+    StringUtils.join(List<?> list, separator, includeMaxLimit);
     
    	// Joins array of objects to a single string, where items are separated
    	// with a defined separator. Limiting number of included items.
@@ -361,7 +361,6 @@ Various handy string utilities.
    	// with a defined separator.
    	StringUtils.join(Set<?> items, separator);
    	StringUtils.join(Set<?> items, separator, includeMaxLimit);
-   
    
    	// Joins map of items to a single string, where items are separated with a defined separator.
    	StringUtils.join(Map<String, String> map, separator);
