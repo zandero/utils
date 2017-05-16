@@ -108,22 +108,22 @@ Time conversion between long, Date and String
     DateTimeUtils.getDayInMonth(long time);
     
     // Gets first millisecond of first day in week for given time
-   	DateTimeUtils.getWeekStart(long time);
-   	
-   	// Returns last millisecond of last day in week for given time
-   	DateTimeUtils.getWeekEnd(long time);
-   	
+    DateTimeUtils.getWeekStart(long time);
+    
+    // Returns last millisecond of last day in week for given time
+    DateTimeUtils.getWeekEnd(long time);
+    
     // Returns number of day in week, where monday is the first day of the week (monday = 1, tuesday = 2 ..., sunday = 7)
-   	DateTimeUtils.getDayInWeek(long time);
-   	
-   	// Check if it is a weekend day (Saturday or Sunday)
-   	DateTimeUtils.isWeekend(long time);
-   	
-   	// Removes time component from date time
-   	DateTimeUtils.getDateOnly(long time);
-   	
-   	// Convert any given timestamp string to long trying a list of provided formats
-   	DateTimeUtils.getTimestamp(String value, SimpleDateFormat[] formats);
+    DateTimeUtils.getDayInWeek(long time);
+    
+    // Check if it is a weekend day (Saturday or Sunday)
+    DateTimeUtils.isWeekend(long time);
+    
+    // Removes time component from date time
+    DateTimeUtils.getDateOnly(long time);
+    
+    // Convert any given timestamp string to long trying a list of provided formats
+    DateTimeUtils.getTimestamp(String value, SimpleDateFormat[] formats);
 ```
 
 ## Dir 
@@ -352,18 +352,18 @@ Various handy string utilities.
     StringUtils.join(List<?> list, separator);
     StringUtils.join(List<?> list, separator, includeMaxLimit);
     
-   	// Joins array of objects to a single string, where items are separated
-   	// with a defined separator. Limiting number of included items.
-   	StringUtils.join(Object[] args, separator);
-   	StringUtils.join(Object[] args, separator, includeMaxLimit);
-   
-   	// Joins set of objects to a single string, where items are separated
-   	// with a defined separator.
-   	StringUtils.join(Set<?> items, separator);
-   	StringUtils.join(Set<?> items, separator, includeMaxLimit);
-   
-   	// Joins map of items to a single string, where items are separated with a defined separator.
-   	StringUtils.join(Map<String, String> map, separator);
+    // Joins array of objects to a single string, where items are separated
+    // with a defined separator. Limiting number of included items.
+    StringUtils.join(Object[] args, separator);
+    StringUtils.join(Object[] args, separator, includeMaxLimit);
+    
+    // Joins set of objects to a single string, where items are separated
+    // with a defined separator.
+    StringUtils.join(Set<?> items, separator);
+    StringUtils.join(Set<?> items, separator, includeMaxLimit);
+    
+    // Joins map of items to a single string, where items are separated with a defined separator.
+    StringUtils.join(Map<String, String> map, separator);
 ```
 
 ### Word extraction
