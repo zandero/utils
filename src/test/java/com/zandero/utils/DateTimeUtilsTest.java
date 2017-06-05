@@ -3,10 +3,11 @@ package com.zandero.utils;
 import org.junit.Test;
 
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.TimeZone;
 
 import static net.trajano.commons.testing.UtilityClassTestUtil.assertUtilityClassWellDefined;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class DateTimeUtilsTest {
 
@@ -128,5 +129,70 @@ public class DateTimeUtilsTest {
 		assertEquals(1328626291785L, DateTimeUtils.getTimestamp("2012-02-07T14:51:31.785394+00:00", FORMATS)); //Tue, 07 Feb 2012 14:51:31.785 GMT
 		assertEquals(1328622691785L, DateTimeUtils.getTimestamp("2012-02-07T14:51:31.785394+01:00", FORMATS));
 		assertEquals(1328629891785L, DateTimeUtils.getTimestamp("2012-02-07T14:51:31.785394-01:00", FORMATS));
+	}
+
+	@Test
+	public void overlapsTest() {
+
+		assertTrue(DateTimeUtils.overlaps(null, null, null, null));
+
+		Instant startA = Instant.ofEpochSecond(5000);
+		assertTrue(DateTimeUtils.overlaps(startA, null, null, null));
+
+		Instant startB = Instant.ofEpochSecond(5000);
+		assertTrue(DateTimeUtils.overlaps(startA, null, startB, null));
+
+		Instant endA = Instant.ofEpochSecond(10000);
+		assertTrue(DateTimeUtils.overlaps(startA, endA, startB, null));
+
+		Instant endB = Instant.ofEpochSecond(8000);
+		assertTrue(DateTimeUtils.overlaps(startA, endA, startB, endB));
+
+		// 2
+		startA = Instant.ofEpochSecond(5000);
+		endA = Instant.ofEpochSecond(8000);
+
+		startB = Instant.ofEpochSecond(10000);
+		endB = Instant.ofEpochSecond(14000);
+
+		assertFalse(DateTimeUtils.overlaps(startA, endA, startB, endB));
+		assertFalse(DateTimeUtils.overlaps(startB, endB, startA, endA));
+
+		// 3
+		startA = Instant.ofEpochSecond(5000);
+		endA = Instant.ofEpochSecond(8000);
+
+		startB = Instant.ofEpochSecond(4000);
+		endB = Instant.ofEpochSecond(14000);
+
+		assertTrue(DateTimeUtils.overlaps(startA, endA, startB, endB));
+		assertTrue(DateTimeUtils.overlaps(startB, endB, startA, endA));
+
+		// 4
+
+		startA = Instant.ofEpochSecond(5000);
+		endA = Instant.ofEpochSecond(14000);
+
+		startB = Instant.ofEpochSecond(4000);
+		endB = Instant.ofEpochSecond(12000);
+
+		assertTrue(DateTimeUtils.overlaps(startA, endA, startB, endB));
+		assertTrue(DateTimeUtils.overlaps(startB, endB, startA, endA));
+
+		try {
+			DateTimeUtils.overlaps(endA, startA, startB, endB);
+			fail();
+		}
+		catch (IllegalArgumentException e) {
+			assertEquals("Start date one can't be after end date one!", e.getMessage());
+		}
+
+		try {
+			DateTimeUtils.overlaps(startA, endA, endB, startB);
+			fail();
+		}
+		catch (IllegalArgumentException e) {
+			assertEquals("Start date two can't be after end date two!", e.getMessage());
+		}
 	}
 }

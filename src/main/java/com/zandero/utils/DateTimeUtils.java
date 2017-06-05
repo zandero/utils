@@ -394,4 +394,27 @@ public final class DateTimeUtils {
 
 		return 0;
 	}
+
+	/**
+	 * Check is time periods overlap
+	 * @param startOne start time of first period / null for full
+	 * @param endOne end tme of first period / null for full
+	 * @param startTwo start time of second period / null for full
+	 * @param endTwo end time of second period / null for full
+	 * @return true if periods overlap, false if they don't
+	 * @throws IllegalArgumentException in case start time is after end time of first/second period
+	 */
+	public static boolean overlaps(Instant startOne, Instant endOne, Instant startTwo, Instant endTwo) {
+
+		// (StartDate1 <= EndDate2) and (StartDate2 <= EndDate1)
+		Instant startDate1 = startOne == null ? Instant.MIN : startOne;
+		Instant endDate1 = endOne == null ? Instant.MAX : endOne;
+		Assert.isTrue(startDate1.isBefore(endDate1), "Start date one can't be after end date one!");
+
+		Instant startDate2 = startTwo == null ? Instant.MIN : startTwo;
+		Instant endDate2 = endTwo == null ? Instant.MAX : endTwo;
+		Assert.isTrue(startDate2.isBefore(endDate2), "Start date two can't be after end date two!");
+
+		return startDate1.isBefore(endDate2) && startDate2.isBefore(endDate1);
+	}
 }
