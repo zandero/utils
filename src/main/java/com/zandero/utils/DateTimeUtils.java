@@ -47,6 +47,7 @@ public final class DateTimeUtils {
 		// hiding constructor
 	}
 
+	// TODO: Migrate to: DateTimeFormatter
 	private static ThreadLocal<SimpleDateFormat> simpleDateFormatThreadLocal = new ThreadLocal<SimpleDateFormat>() {
 		@Override
 		protected SimpleDateFormat initialValue() {
@@ -415,6 +416,6 @@ public final class DateTimeUtils {
 		Instant endDate2 = endTwo == null ? Instant.MAX : endTwo;
 		Assert.isTrue(startDate2.isBefore(endDate2), "Start date two can't be after end date two!");
 
-		return startDate1.isBefore(endDate2) && startDate2.isBefore(endDate1);
+		return startDate1.compareTo(endDate2) <= 0 && startDate2.compareTo(endDate1) <= 0;
 	}
 }
