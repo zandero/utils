@@ -29,6 +29,10 @@ public class Pair<K,V> implements Serializable {
 	 */
 	public V getValue() { return value; }
 
+	public Pair() {
+
+	}
+
 	/**
 	 * Creates a new pair
 	 * @param key The key for this pair
