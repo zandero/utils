@@ -3,6 +3,8 @@ package com.zandero.utils;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -30,7 +32,7 @@ public class MapUtilsTest {
 		m2.put("m1_2", 3L);
 		m2.put("m1_3", 1L);
 
-		Map<String, Long> result = MapUtils.mergeMaps(Stream.of(m1, m2), Long::sum, HashMap::new);
+		Map<String, Long> result = MapUtils.merge(Stream.of(m1, m2), Long::sum, HashMap::new);
 		assertEquals(3, result.size());
 	}
 
@@ -45,7 +47,7 @@ public class MapUtilsTest {
 		m2.put("m2_2", 3L);
 		m2.put("m2_3", 1L);
 
-		Map<String, Long> result = MapUtils.mergeMaps(Stream.of(m1, m2), Long::sum, HashMap::new);
+		Map<String, Long> result = MapUtils.merge(Stream.of(m1, m2), Long::sum, HashMap::new);
 		assertEquals(4, result.size());
 	}
 
@@ -61,7 +63,7 @@ public class MapUtilsTest {
 		m2.put("m2_2", 3L);
 		m2.put("m2_3", 1L);
 
-		Map<String, Long> result = MapUtils.mergeMaps(Stream.of(m1, m2), Long::sum, HashMap::new);
+		Map<String, Long> result = MapUtils.merge(Stream.of(m1, m2), Long::sum, HashMap::new);
 		assertEquals(4, result.size());
 		assertTrue(result.containsKey("m1_1"));
 		assertTrue(result.containsKey("m2_1"));
@@ -72,6 +74,62 @@ public class MapUtilsTest {
 		assertEquals(25L, result.get("m2_1").longValue());
 		assertEquals(3L, result.get("m2_2").longValue());
 		assertEquals(1L, result.get("m2_3").longValue());
+	}
+
+	@Test
+	public void splitMap() throws Exception {
+
+		Map<String, Long> map = new HashMap<>();
+		map.put("m2_1", 2L);
+		map.put("m1_2", 3L);
+		map.put("m1_3", 1L);
+
+		List<Map<String, Long>> list = MapUtils.split(map, 1);
+		assertEquals(3, list.size());
+
+		Set<String> keys = new HashSet<>();
+		for (Map<String, Long> mapItem: list) {
+			assertEquals(1, mapItem.size());
+
+			keys.addAll(mapItem.keySet());
+		}
+
+		assertEquals(3, keys.size());
+		assertTrue(keys.contains("m2_1"));
+		assertTrue(keys.contains("m1_2"));
+		assertTrue(keys.contains("m1_3"));
+	}
+
+	@Test
+	public void splitHugeMap() {
+
+		System.out.println("Preparing data ... ");
+		Map<Integer, String> map = new HashMap<>();
+		for (int i = 0; i < 5_140_000; i++) {
+			map.put(i, "" + i);
+		}
+
+		Instant start = Instant.now();
+
+		System.out.println("Starting split ... ");
+
+		// split into 100k chunks
+		List<Map<Integer, String>> list = MapUtils.split(map, 500_000);
+
+		Duration duration = Duration.between(start, Instant.now());
+
+		System.out.println("Duration of split: " + duration.toMillis() + "ms");
+
+		assertEquals(11, list.size());
+
+		for (int i = 0; i < list.size(); i ++) {
+			if (i < list.size() -1 ) {
+				assertEquals(500_000, list.get(i).size());
+			}
+			else { // last chunk should have only 40_000 enties
+				assertEquals(140_000, list.get(i).size());
+			}
+		}
 	}
 
 	@Test
@@ -223,15 +281,15 @@ public class MapUtilsTest {
 	@Test
 	public void getFirstValueTest() {
 
-		assertNull(MapUtils.getFirstValue(null));
+		assertNull(MapUtils.firstValue(null));
 
 		Map<String, Long> map = new LinkedHashMap<>();
-		assertNull(MapUtils.getFirstValue(map));
+		assertNull(MapUtils.firstValue(map));
 
 		map.put("One", 1L);
 		map.put("Two", 2L);
 		map.put("Three", 3L);
 
-		assertEquals(1L, MapUtils.getFirstValue(map).longValue());
+		assertEquals(1L, MapUtils.firstValue(map).longValue());
 	}
 }

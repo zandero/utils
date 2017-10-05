@@ -3,6 +3,7 @@ package com.zandero.utils;
 import java.util.*;
 import java.util.function.BinaryOperator;
 import java.util.function.Supplier;
+import java.util.stream.Collector;
 import java.util.stream.Stream;
 
 /**
@@ -25,13 +26,81 @@ public final class MapUtils {
 	 * @param <M>           type of map supplier
 	 * @return new merged map
 	 */
-	public static <K, V, M extends Map<K, V>> M mergeMaps(Stream<? extends Map<K, V>> stream,
-	                                                      BinaryOperator<V> mergeFunction,
-	                                                      Supplier<M> mapSupplier) {
+	public static <K, V, M extends Map<K, V>> M merge(Stream<? extends Map<K, V>> stream,
+	                                                  BinaryOperator<V> mergeFunction,
+	                                                  Supplier<M> mapSupplier) {
+
+		Assert.notNull(stream, "Missing map merge function!");
+		Assert.notNull(mergeFunction, "Missing map merge function!");
+		Assert.notNull(mapSupplier, "Missing map supplier!");
 
 		return stream.collect(mapSupplier,
-			(a, b) -> b.forEach((k, v) -> a.merge(k, v, mergeFunction)),
-			Map::putAll);
+		                      (a, b) -> b.forEach((k, v) -> a.merge(k, v, mergeFunction)),
+		                      Map::putAll);
+	}
+
+
+	/**
+	 * Splits map to list of maps
+	 * @param map to be split
+	 * @param limit max number of items in splitted map
+	 * @param <K> key type
+	 * @param <V> value type
+	 * @return list of maps
+	 */
+	public static <K, V> List<Map<K, V>> split(Map<K, V> map, int limit) {
+
+		Assert.notNull(map, "Missing map!");
+		Assert.isTrue(limit > 0, "Map limit must be > 0!");
+
+		if (map.size() <= limit) {
+			return Collections.singletonList(map); // nothing to do
+		}
+
+		return map.entrySet().parallelStream().collect(mapSizer(limit));
+	}
+
+	/**
+	 * Collector splitting map into seperate maps
+	 * @param limit max number of items in slitted map
+	 * @param <K> key type
+	 * @param <V> value type
+	 * @return collected map with size less or equal to limit
+	 */
+	private static <K, V> Collector<Map.Entry<K, V>, ?, List<Map<K, V>>> mapSizer(int limit) {
+		return Collector.of(ArrayList::new,
+		                    (l, e) -> {
+			                    if (l.isEmpty() || l.get(l.size() - 1).size() == limit) {
+				                    l.add(new HashMap<>());
+			                    }
+			                    l.get(l.size() - 1).put(e.getKey(), e.getValue());
+		                    },
+		                    (l1, l2) -> {
+			                    if (l1.isEmpty()) {
+				                    return l2;
+			                    }
+			                    if (l2.isEmpty()) {
+				                    return l1;
+			                    }
+			                    if (l1.get(l1.size() - 1).size() < limit) {
+				                    Map<K, V> map = l1.get(l1.size() - 1);
+				                    ListIterator<Map<K, V>> mapsIte = l2.listIterator(l2.size());
+				                    while (mapsIte.hasPrevious() && map.size() < limit) {
+					                    Iterator<Map.Entry<K, V>> ite = mapsIte.previous().entrySet().iterator();
+					                    while (ite.hasNext() && map.size() < limit) {
+						                    Map.Entry<K, V> entry = ite.next();
+						                    map.put(entry.getKey(), entry.getValue());
+						                    ite.remove();
+					                    }
+					                    if (!ite.hasNext()) {
+						                    mapsIte.remove();
+					                    }
+				                    }
+			                    }
+			                    l1.addAll(l2);
+			                    return l1;
+		                    }
+		);
 	}
 
 	/**
@@ -44,6 +113,9 @@ public final class MapUtils {
 	 * @return sorted map (LinkedHashMap)
 	 */
 	public static <K, V> Map<K, V> sort(Map<K, V> map, Comparator<Map.Entry<K, V>> comparator) {
+
+		Assert.notNull(map, "Missing map!");
+		Assert.notNull(comparator, "Missing comparator!");
 
 		List<Map.Entry<K, V>> list = new LinkedList<>(map.entrySet());
 		Collections.sort(list, comparator);
@@ -63,7 +135,7 @@ public final class MapUtils {
 	 * @param <T> object type of result
 	 * @return first value in map or null if null or empty
 	 */
-	public static <T> T getFirstValue(Map<String, T> map) {
+	public static <T> T firstValue(Map<String, T> map) {
 
 		if (map == null || map.size() == 0) {
 			return null;
@@ -129,8 +201,7 @@ public final class MapUtils {
 				}
 
 				return false;
-			}
-			else {
+			} else {
 				if (!mapTwo.containsKey(key)) {
 					return false;
 				}
