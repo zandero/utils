@@ -2,6 +2,7 @@ package com.zandero.utils;
 
 import org.junit.Test;
 
+import static com.zandero.utils.junit.AssertFinalClass.isWellDefined;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -9,6 +10,11 @@ import static org.junit.Assert.assertTrue;
  *
  */
 public class EqualsUtilsTest {
+
+	@Test
+	public void testDefinition() {
+		isWellDefined(EqualsUtils.class);
+	}
 
 	@Test
 	public void equalIntegers() {

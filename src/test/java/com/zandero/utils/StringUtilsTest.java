@@ -1,10 +1,10 @@
 package com.zandero.utils;
 
-import net.trajano.commons.testing.UtilityClassTestUtil;
 import org.junit.Test;
 
 import java.util.*;
 
+import static com.zandero.utils.junit.AssertFinalClass.isWellDefined;
 import static org.junit.Assert.*;
 
 
@@ -13,7 +13,7 @@ public class StringUtilsTest {
 	@Test
 	public void testDefinition() throws ReflectiveOperationException {
 
-		UtilityClassTestUtil.assertUtilityClassWellDefined(StringUtils.class);
+		isWellDefined(StringUtils.class);
 	}
 
 	@Test
@@ -187,13 +187,13 @@ public class StringUtilsTest {
 	@Test
 	public void testJoin3() {
 
-		String[] array = new String[] {};
+		String[] array = new String[]{};
 		assertEquals("", StringUtils.join(array, ","));
 
-		array = new String[] {"A"};
+		array = new String[]{"A"};
 		assertEquals("A", StringUtils.join(array, ","));
 
-		array = new String[] {"A", "B"};
+		array = new String[]{"A", "B"};
 		assertEquals("A,B", StringUtils.join(array, ","));
 
 		assertEquals("A, B", StringUtils.join(array, ", "));
@@ -394,17 +394,17 @@ public class StringUtilsTest {
 	}
 
 	@Test
-	public void trimDown(){
+	public void trimDown() {
 		String text = "word1 word2 word3 word4";
 		for (int i = 10; i < 25; i++) {
-			System.out.println(i+": "+StringUtils.trimTextDown(text, i, "..."));
+			System.out.println(i + ": " + StringUtils.trimTextDown(text, i, "..."));
 		}
 
-		assertEquals("word1...", StringUtils.trimTextDown(text,13, "..."));
-		assertEquals("word1 word2...", StringUtils.trimTextDown(text,14, "..."));
-		assertEquals("word1 word2...", StringUtils.trimTextDown(text,19, "..."));
-		assertEquals("word1 word2 word3...", StringUtils.trimTextDown(text,20, "..."));
-		assertEquals("word1 word2 word3 word4", StringUtils.trimTextDown(text,23, "..."));
+		assertEquals("word1...", StringUtils.trimTextDown(text, 13, "..."));
+		assertEquals("word1 word2...", StringUtils.trimTextDown(text, 14, "..."));
+		assertEquals("word1 word2...", StringUtils.trimTextDown(text, 19, "..."));
+		assertEquals("word1 word2 word3...", StringUtils.trimTextDown(text, 20, "..."));
+		assertEquals("word1 word2 word3 word4", StringUtils.trimTextDown(text, 23, "..."));
 	}
 
 	@Test

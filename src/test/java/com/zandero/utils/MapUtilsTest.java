@@ -8,7 +8,7 @@ import java.time.Instant;
 import java.util.*;
 import java.util.stream.Stream;
 
-import static net.trajano.commons.testing.UtilityClassTestUtil.assertUtilityClassWellDefined;
+import static com.zandero.utils.junit.AssertFinalClass.isWellDefined;
 import static org.junit.Assert.*;
 
 /**
@@ -19,7 +19,7 @@ public class MapUtilsTest {
 	@Test
 	public void testDefinition() throws ReflectiveOperationException {
 
-		assertUtilityClassWellDefined(MapUtils.class);
+		isWellDefined(MapUtils.class);
 	}
 
 	@Test
@@ -88,7 +88,7 @@ public class MapUtilsTest {
 		assertEquals(3, list.size());
 
 		Set<String> keys = new HashSet<>();
-		for (Map<String, Long> mapItem: list) {
+		for (Map<String, Long> mapItem : list) {
 			assertEquals(1, mapItem.size());
 
 			keys.addAll(mapItem.keySet());
@@ -122,11 +122,10 @@ public class MapUtilsTest {
 
 		assertEquals(11, list.size());
 
-		for (int i = 0; i < list.size(); i ++) {
-			if (i < list.size() -1 ) {
+		for (int i = 0; i < list.size(); i++) {
+			if (i < list.size() - 1) {
 				assertEquals(500_000, list.get(i).size());
-			}
-			else { // last chunk should have only 40_000 enties
+			} else { // last chunk should have only 40_000 enties
 				assertEquals(140_000, list.get(i).size());
 			}
 		}

@@ -6,12 +6,18 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Set;
 
+import static com.zandero.utils.junit.AssertFinalClass.isWellDefined;
 import static org.junit.Assert.*;
 
 /**
  *
  */
 public class ResourceUtilsTest {
+
+	@Test
+	public void testDefinition() {
+		isWellDefined(ResourceUtils.class);
+	}
 
 	@Test
 	public void getResourceWordsTest() {

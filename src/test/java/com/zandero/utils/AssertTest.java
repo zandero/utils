@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import java.util.*;
 
-import static net.trajano.commons.testing.UtilityClassTestUtil.assertUtilityClassWellDefined;
+import static com.zandero.utils.junit.AssertFinalClass.isWellDefined;
 import static org.junit.Assert.assertEquals;
 
 public class AssertTest {
@@ -12,11 +12,11 @@ public class AssertTest {
 	@Test
 	public void testDefinition() throws ReflectiveOperationException {
 
-		assertUtilityClassWellDefined(Assert.class);
+		isWellDefined(Assert.class);
 	}
 
 	@Test
-	public void testIsTrue()  {
+	public void testIsTrue() {
 
 		Assert.isTrue(true, "Some ex");
 	}

@@ -46,9 +46,10 @@
         <timestamp>${maven.build.timestamp}</timestamp>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
 
-        <version.trajano>[2.1.0,)</version.trajano>
+       <!-- <version.trajano>[2.1.0,)</version.trajano>-->
         <version.junit>[4.12,)</version.junit>
         <version.mockito-all>[1.10.19,)</version.mockito-all>
+        <version.zandero.utils.junit>0.1</version.zandero.utils.junit>
 
     </properties>
 
@@ -74,6 +75,13 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
             <version>${version.mockito-all}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.zandero</groupId>
+            <artifactId>utils.junit</artifactId>
+            <version>${version.zandero.utils.junit}</version>
             <scope>test</scope>
         </dependency>
 

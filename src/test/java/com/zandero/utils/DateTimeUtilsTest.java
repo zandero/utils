@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.TimeZone;
 
-import static net.trajano.commons.testing.UtilityClassTestUtil.assertUtilityClassWellDefined;
+import static com.zandero.utils.junit.AssertFinalClass.isWellDefined;
 import static org.junit.Assert.*;
 
 public class DateTimeUtilsTest {
@@ -14,7 +14,7 @@ public class DateTimeUtilsTest {
 	@Test
 	public void testDefinition() throws ReflectiveOperationException {
 
-		assertUtilityClassWellDefined(DateTimeUtils.class);
+		isWellDefined(DateTimeUtils.class);
 	}
 
 	@Test
