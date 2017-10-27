@@ -254,6 +254,21 @@ public class MapUtilsTest {
 		assertFalse(MapUtils.equals(one, two, false));
 	}
 
+	@Test
+	public void getFirstValueTest() {
+
+		assertNull(MapUtils.firstValue(null));
+
+		Map<String, Long> map = new LinkedHashMap<>();
+		assertNull(MapUtils.firstValue(map));
+
+		map.put("One", 1L);
+		map.put("Two", 2L);
+		map.put("Three", 3L);
+
+		assertEquals(1L, MapUtils.firstValue(map).longValue());
+	}
+
 	private class TestValue implements Comparable {
 
 		TestValue(String valueName, int valueSize) {
@@ -275,20 +290,5 @@ public class MapUtilsTest {
 
 			return size - ((TestValue) o).size;
 		}
-	}
-
-	@Test
-	public void getFirstValueTest() {
-
-		assertNull(MapUtils.firstValue(null));
-
-		Map<String, Long> map = new LinkedHashMap<>();
-		assertNull(MapUtils.firstValue(map));
-
-		map.put("One", 1L);
-		map.put("Two", 2L);
-		map.put("Three", 3L);
-
-		assertEquals(1L, MapUtils.firstValue(map).longValue());
 	}
 }

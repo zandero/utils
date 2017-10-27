@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 public class StringUtilsTest {
 
 	@Test
-	public void testDefinition() throws ReflectiveOperationException {
+	public void testDefinition() {
 
 		isWellDefined(StringUtils.class);
 	}
