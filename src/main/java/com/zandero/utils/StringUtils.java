@@ -351,6 +351,8 @@ public final class StringUtils {
 	 *
 	 * @param map       to join into key=value list
 	 * @param separator to be used between elements
+	 * @param <T> key class type
+	 * @param <V> value class type
 	 * @return map key values joined into a single string
 	 */
 	public static <T, V> String join(Map<T, V> map, String separator) {
