@@ -13,9 +13,10 @@ import java.util.Date;
 import java.util.TimeZone;
 
 /**
- * Utilities to help using date and time
+  * Utilities to help using date and time
  * @author drejc (Andrej Završnik)
  */
+@Deprecated
 public final class DateTimeUtils {
 
 	/**
@@ -407,15 +408,6 @@ public final class DateTimeUtils {
 	 */
 	public static boolean overlaps(Instant startOne, Instant endOne, Instant startTwo, Instant endTwo) {
 
-		// (StartDate1 <= EndDate2) and (StartDate2 <= EndDate1)
-		Instant startDate1 = startOne == null ? Instant.MIN : startOne;
-		Instant endDate1 = endOne == null ? Instant.MAX : endOne;
-		Assert.isTrue(startDate1.isBefore(endDate1), "Start date one can't be after end date one!");
-
-		Instant startDate2 = startTwo == null ? Instant.MIN : startTwo;
-		Instant endDate2 = endTwo == null ? Instant.MAX : endTwo;
-		Assert.isTrue(startDate2.isBefore(endDate2), "Start date two can't be after end date two!");
-
-		return startDate1.compareTo(endDate2) <= 0 && startDate2.compareTo(endDate1) <= 0;
+		return InstantTimeUtils.overlaps(startOne, endOne, startTwo, endTwo);
 	}
 }
