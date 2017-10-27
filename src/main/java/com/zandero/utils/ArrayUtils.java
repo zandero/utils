@@ -10,6 +10,10 @@ public final class ArrayUtils {
 	/**
 	 * joins two arrays and preserves array order
 	 * array1 items are followed by array2 items as given
+	 * @param array1 first array
+	 * @param array2 second array
+	 * @param <T> class type of object in arrays
+	 * @return joined array holding both arrays in same order as given
 	 */
 	@SafeVarargs
 	public static <T> T[] join(final T[] array1, final T... array2) {
