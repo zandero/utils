@@ -1,10 +1,9 @@
 package com.zandero.utils;
 
-import java.time.Instant;
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAccessor;
 
@@ -12,11 +11,15 @@ import java.time.temporal.TemporalAccessor;
  * Java 8 date time utils ..
  * Replacing obsolete DateTimeUtils
  */
-public class InstantTimeUtils {
+public final class InstantTimeUtils {
 
-	static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	static final DateTimeFormatter SHORT_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss Z");
-	static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+	static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd").withZone(ZoneOffset.UTC);
+	static final DateTimeFormatter SHORT_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").withZone(ZoneOffset.UTC);;
+	static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss Z").withZone(ZoneOffset.UTC);;
+
+	private InstantTimeUtils() {
+		// hide constructor
+	}
 
 	/**
 	 * Formats time to String
@@ -148,12 +151,9 @@ public class InstantTimeUtils {
 	public static Instant getMonthStart(Instant time) {
 
 		Assert.notNull(time, "Missing date time");
-		return time.truncatedTo(ChronoUnit.MONTHS);
-		/*
-		Assert.notNull(time, "Missing date time");
 		LocalDateTime dateTime = LocalDateTime.ofInstant(time, ZoneOffset.UTC);
 		dateTime = dateTime.withDayOfMonth(1).withHour(0).withMinute(0).withSecond(0).with(ChronoField.MILLI_OF_SECOND, 0);
-		return dateTime.toInstant(ZoneOffset.UTC);*/
+		return dateTime.toInstant(ZoneOffset.UTC);
 	}
 
 	/**
@@ -165,14 +165,10 @@ public class InstantTimeUtils {
 	public static Instant getMonthEnd(Instant time) {
 
 		Assert.notNull(time, "Missing date time");
-		return time.plus(1, ChronoUnit.MONTHS)
-		           .truncatedTo(ChronoUnit.MONTHS)
-		           .minus(1, ChronoUnit.MILLIS);
-/*
 		LocalDateTime dateTime = LocalDateTime.ofInstant(time, ZoneOffset.UTC);
 		dateTime = dateTime.withDayOfMonth(1).withHour(23).withMinute(59).withSecond(59).with(ChronoField.MILLI_OF_SECOND, 999);
 		dateTime = dateTime.plus(1, ChronoUnit.MONTHS).minus(1, ChronoUnit.DAYS);
-		return dateTime.toInstant(ZoneOffset.UTC);*/
+		return dateTime.toInstant(ZoneOffset.UTC);
 	}
 
 
