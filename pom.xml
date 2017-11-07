@@ -48,8 +48,7 @@
 
         <version.junit>[4.12,)</version.junit>
         <version.mockito-all>[1.10.19,)</version.mockito-all>
-        <version.zandero.utils.junit>0.1</version.zandero.utils.junit>
-
+        <version.zandero.utils.junit>0.2</version.zandero.utils.junit>
     </properties>
 
     <dependencies>
