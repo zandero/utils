@@ -16,6 +16,15 @@ public final class Assert {
 	}
 
 	/**
+	 * Will always throw and IlligalArgumentException
+	 * @param message fail message aka: "forgot to implement this"
+	 */
+	public static void always(String message) {
+
+		throw new IllegalArgumentException(message);
+	}
+
+	/**
 	 * Tests if condition is false
 	 *
 	 * @param test    must be false

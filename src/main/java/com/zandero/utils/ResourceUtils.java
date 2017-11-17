@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public final class ResourceUtils {
 
-	private static final int BUFFER_SIZE = 100000;
+	private static final int BUFFER_SIZE = 100_000;
 
 	private static final String UTF_8 = "UTF-8";
 
@@ -195,6 +195,13 @@ public final class ResourceUtils {
 		return getString(stream);
 	}
 
+	/**
+	 * Gets absolute file path of resource
+	 * @param resource to get absolute file path for
+	 * @param clazz namespace holding resource
+	 * @return file path if found
+	 * @throws IllegalArgumentException if resource can not be found
+	 */
 	public static String getResourceAbsolutePath(String resource, Class clazz) {
 
 		Assert.notNullOrEmptyTrimmed(resource, "Missing resource name!");
@@ -205,5 +212,4 @@ public final class ResourceUtils {
 
 		return file.getFile();
 	}
-
 }

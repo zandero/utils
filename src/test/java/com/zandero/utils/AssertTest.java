@@ -6,6 +6,7 @@ import java.util.*;
 
 import static com.zandero.utils.junit.AssertFinalClass.isWellDefined;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class AssertTest {
 
@@ -13,6 +14,19 @@ public class AssertTest {
 	public void testDefinition() throws ReflectiveOperationException {
 
 		isWellDefined(Assert.class);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void always() {
+
+		try {
+			Assert.always("Fail");
+			fail();
+		}
+		catch (IllegalArgumentException e) {
+			assertEquals("Fail", e.getMessage());
+			throw e;
+		}
 	}
 
 	@Test
@@ -26,6 +40,7 @@ public class AssertTest {
 
 		try {
 			Assert.isTrue(false, "Bang");
+			fail();
 		}
 		catch (IllegalArgumentException e) {
 			assertEquals("Bang", e.getMessage());
@@ -43,6 +58,7 @@ public class AssertTest {
 
 		try {
 			Assert.isNull(true, "Bang");
+			fail();
 		}
 		catch (IllegalArgumentException e) {
 			assertEquals("Bang", e.getMessage());
@@ -60,6 +76,7 @@ public class AssertTest {
 
 		try {
 			Assert.notNull(null, "Bang");
+			fail();
 		}
 		catch (IllegalArgumentException e) {
 			assertEquals("Bang", e.getMessage());
@@ -76,6 +93,7 @@ public class AssertTest {
 	public void testNotNullOrEmptyTrimmedButEmpty() throws Exception {
 		try {
 			Assert.notNullOrEmptyTrimmed("   ", "Bang");
+			fail();
 		}
 		catch (IllegalArgumentException e) {
 			assertEquals("Bang", e.getMessage());
@@ -94,6 +112,7 @@ public class AssertTest {
 
 		try {
 			Assert.isFalse(true, "Bang");
+			fail();
 		}
 		catch (IllegalArgumentException e) {
 			assertEquals("Bang", e.getMessage());
@@ -160,6 +179,7 @@ public class AssertTest {
 		try {
 			ArrayList<String> list = null;
 			Assert.notNullOrEmpty(list, "Bang");
+			fail();
 		}
 		catch (IllegalArgumentException e) {
 			assertEquals("Bang", e.getMessage());
@@ -173,6 +193,7 @@ public class AssertTest {
 		try {
 			ArrayList<String> list = new ArrayList<>();
 			Assert.notNullOrEmpty(list, "Bang");
+			fail();
 		}
 		catch (IllegalArgumentException e) {
 			assertEquals("Bang", e.getMessage());
@@ -186,6 +207,7 @@ public class AssertTest {
 		try {
 			String[] array = null;
 			Assert.notNullOrEmpty(array, "Bang");
+			fail();
 		}
 		catch (IllegalArgumentException e) {
 			assertEquals("Bang", e.getMessage());
@@ -199,6 +221,7 @@ public class AssertTest {
 		try {
 			String[] array = new String[]{};
 			Assert.notNullOrEmpty(array, "Bang");
+			fail();
 		}
 		catch (IllegalArgumentException e) {
 			assertEquals("Bang", e.getMessage());
@@ -212,6 +235,7 @@ public class AssertTest {
 		try {
 			Map<String, String> map = null;
 			Assert.notNullOrEmpty(map, "Bang");
+			fail();
 		}
 		catch (IllegalArgumentException e) {
 			assertEquals("Bang", e.getMessage());
@@ -225,6 +249,7 @@ public class AssertTest {
 		try {
 			Map<String, String> map = new HashMap<>();
 			Assert.notNullOrEmpty(map, "Bang");
+			fail();
 		}
 		catch (IllegalArgumentException e) {
 			assertEquals("Bang", e.getMessage());
@@ -238,6 +263,7 @@ public class AssertTest {
 		try {
 			Set<String> set = null;
 			Assert.notNullOrEmpty(set, "Bang");
+			fail();
 		}
 		catch (IllegalArgumentException e) {
 			assertEquals("Bang", e.getMessage());
@@ -251,6 +277,7 @@ public class AssertTest {
 		try {
 			Set<String> set = new HashSet<>();
 			Assert.notNullOrEmpty(set, "Bang");
+			fail();
 		}
 		catch (IllegalArgumentException e) {
 			assertEquals("Bang", e.getMessage());
@@ -265,6 +292,7 @@ public class AssertTest {
 			ArrayList<String> list = new ArrayList<>();
 			list.add("Bla");
 			Assert.isNullOrEmpty(list, "Bang");
+			fail();
 		}
 		catch (IllegalArgumentException e) {
 			assertEquals("Bang", e.getMessage());
@@ -278,6 +306,7 @@ public class AssertTest {
 		try {
 			String[] array = new String[]{"a"};
 			Assert.isNullOrEmpty(array, "Bang");
+			fail();
 		}
 		catch (IllegalArgumentException e) {
 			assertEquals("Bang", e.getMessage());
@@ -292,6 +321,7 @@ public class AssertTest {
 			Set<String> set = new HashSet<>();
 			set.add("Test");
 			Assert.isNullOrEmpty(set, "Bang");
+			fail();
 		}
 		catch (IllegalArgumentException e) {
 			assertEquals("Bang", e.getMessage());
@@ -306,6 +336,7 @@ public class AssertTest {
 			Map<String, String> map = new HashMap<>();
 			map.put("Test", "Test");
 			Assert.isNullOrEmpty(map, "Bang");
+			fail();
 		}
 		catch (IllegalArgumentException e) {
 			assertEquals("Bang", e.getMessage());

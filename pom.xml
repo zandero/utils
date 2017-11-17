@@ -6,7 +6,7 @@
 
     <artifactId>utils</artifactId>
     <groupId>com.zandero</groupId>
-    <version>1.2.3</version> <!-- 1.2.2 is released / 1.2.3 to be released -->
+    <version>1.2.4</version> <!-- 1.2.3 is released / 1.2.4 to be released -->
     <packaging>jar</packaging>
 
     <name>Zandero Utils</name>
@@ -48,7 +48,7 @@
 
         <version.junit>[4.12,)</version.junit>
         <version.mockito-all>[1.10.19,)</version.mockito-all>
-        <version.zandero.utils.junit>0.2</version.zandero.utils.junit>
+        <version.zandero.utils.junit>[0.2,)</version.zandero.utils.junit>
     </properties>
 
     <dependencies>

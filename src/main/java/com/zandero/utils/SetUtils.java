@@ -13,9 +13,10 @@ public final class SetUtils {
 
 	/**
 	 * Splits set in 1..N chunks of maxSize or less
-	 * @param set to be spitted
+	 *
+	 * @param set     to be spitted
 	 * @param maxSize of a given chunk
-	 * @param <T> type of class in set
+	 * @param <T>     type of class in set
 	 * @return list of sets containing all elements of original set without duplicates
 	 */
 	public static <T> List<Set<T>> split(Set<T> set, int maxSize) {
