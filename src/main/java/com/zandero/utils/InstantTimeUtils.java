@@ -14,8 +14,10 @@ import java.time.temporal.TemporalAccessor;
 public final class InstantTimeUtils {
 
 	static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd").withZone(ZoneOffset.UTC);
-	static final DateTimeFormatter SHORT_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").withZone(ZoneOffset.UTC);;
-	static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss Z").withZone(ZoneOffset.UTC);;
+	static final DateTimeFormatter SHORT_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").withZone(ZoneOffset.UTC);
+	;
+	static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss Z").withZone(ZoneOffset.UTC);
+	;
 
 	private InstantTimeUtils() {
 		// hide constructor
@@ -30,7 +32,18 @@ public final class InstantTimeUtils {
 	public static String formatDateTime(long time) {
 
 		Instant instant = Instant.ofEpochMilli(time);
-		return DATE_TIME_FORMAT.format(instant);
+		return formatDateTime(instant);
+	}
+
+	/**
+	 * Formats time to String
+	 *
+	 * @param time to be formatted (UTC) in milliseconds
+	 * @return date time formatted to yyyy-MM-dd HH:mm:ss Z
+	 */
+	public static String formatDateTime(Instant time) {
+		Assert.notNull(time, "Missing time!");
+		return DATE_TIME_FORMAT.format(time);
 	}
 
 	/**
@@ -42,7 +55,19 @@ public final class InstantTimeUtils {
 	public static String formatDateTimeShort(long time) {
 
 		Instant instant = Instant.ofEpochMilli(time);
-		return SHORT_TIME_FORMAT.format(instant);
+		return formatDateTimeShort(instant);
+	}
+
+	/**
+	 * Formats time to String
+	 *
+	 * @param time to be formatted (UTC) in milliseconds
+	 * @return date time formatted to yyyy-MM-dd HH:mm
+	 */
+	public static String formatDateTimeShort(Instant time) {
+
+		Assert.notNull(time, "Missing time!");
+		return SHORT_TIME_FORMAT.format(time);
 	}
 
 	/**
@@ -58,6 +83,18 @@ public final class InstantTimeUtils {
 	}
 
 	/**
+	 * Formats time to date only
+	 *
+	 * @param time to be formatted (UTC) in milliseconds
+	 * @return date formatted yyyy-MM-dd
+	 */
+	public static String formatDate(Instant time) {
+
+		Assert.notNull(time, "Missing time!");
+		return DATE_FORMAT.format(time);
+	}
+
+	/**
 	 * Custom date time format
 	 *
 	 * @param time   to be formatted
@@ -66,12 +103,24 @@ public final class InstantTimeUtils {
 	 */
 	public static String format(long time, DateTimeFormatter format) {
 
+		return format(Instant.ofEpochMilli(time), format);
+	}
+
+	/**
+	 * Custom date time format
+	 *
+	 * @param time   to be formatted
+	 * @param format simple date time format, or null for default yyyy-MM-dd HH:mm:ss Z format
+	 * @return formated date time
+	 */
+	public static String format(Instant time, DateTimeFormatter format) {
+
 		if (format == null) {
 			return formatDateTime(time);
 		}
 
-		Instant instant = Instant.ofEpochMilli(time);
-		return format.format(instant);
+		Assert.notNull(time, "Missing time!");
+		return format.format(time);
 	}
 
 	/**
@@ -124,6 +173,19 @@ public final class InstantTimeUtils {
 	public static OffsetDateTime toOffsetDateTime(long timestamp, ZoneId zoneId) {
 
 		Instant time = Instant.ofEpochMilli(timestamp);
+		return toOffsetDateTime(time, zoneId);
+	}
+
+	/**
+	 * Converts timestamp into OffsetDatetime
+	 *
+	 * @param time   to be converted
+	 * @param zoneId desired zone or null to take instant zone id
+	 * @return OffsetDatetime representation of timestamp
+	 */
+	public static OffsetDateTime toOffsetDateTime(Instant time, ZoneId zoneId) {
+
+		Assert.notNull(time, "Missing time!");
 		if (zoneId == null) {
 			zoneId = ZoneId.from(time);
 		}
@@ -136,10 +198,22 @@ public final class InstantTimeUtils {
 	 * @param timestamp to be converted
 	 * @return time stamp in milliseconds
 	 */
-	public static long fromOffsetDateTime(OffsetDateTime timestamp) {
+	public static long fromOffsetToMilliseconds(OffsetDateTime timestamp) {
 
 		Assert.notNull(timestamp, "Missing offset time stamp!");
 		return timestamp.toInstant().toEpochMilli();
+	}
+
+	/**
+	 * Converts offset date time to long timestamp
+	 *
+	 * @param timestamp to be converted
+	 * @return time stamp in milliseconds
+	 */
+	public static Instant fromOffsetToInstant(OffsetDateTime timestamp) {
+
+		Assert.notNull(timestamp, "Missing offset time stamp!");
+		return timestamp.toInstant();
 	}
 
 	/**
