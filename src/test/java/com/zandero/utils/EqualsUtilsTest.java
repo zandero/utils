@@ -1,6 +1,6 @@
 package com.zandero.utils;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static com.zandero.utils.junit.AssertFinalClass.isWellDefined;
 import static org.junit.Assert.assertFalse;
@@ -9,15 +9,15 @@ import static org.junit.Assert.assertTrue;
 /**
  *
  */
-public class EqualsUtilsTest {
+class EqualsUtilsTest {
 
 	@Test
-	public void testDefinition() {
+	void testDefinition() {
 		isWellDefined(EqualsUtils.class);
 	}
 
 	@Test
-	public void equalIntegers() {
+	void equalIntegers() {
 
 		Integer one = null;
 		Integer two = null;
@@ -36,7 +36,7 @@ public class EqualsUtilsTest {
 	}
 
 	@Test
-	public void equalLongs() {
+	void equalLongs() {
 
 		Long one = null;
 		Long two = null;

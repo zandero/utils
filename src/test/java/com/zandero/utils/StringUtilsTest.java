@@ -1,23 +1,24 @@
 package com.zandero.utils;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
 import static com.zandero.utils.junit.AssertFinalClass.isWellDefined;
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-public class StringUtilsTest {
+class StringUtilsTest {
 
 	@Test
-	public void testDefinition() {
+	void testDefinition() {
 
 		isWellDefined(StringUtils.class);
 	}
 
 	@Test
-	public void testEquals() {
+	void testEquals() {
 
 		assertTrue(StringUtils.equals(null, null));
 		assertFalse(StringUtils.equals(null, ""));
@@ -29,7 +30,7 @@ public class StringUtilsTest {
 	}
 
 	@Test
-	public void testEqualsIgnoreCase() {
+	void testEqualsIgnoreCase() {
 
 		assertTrue(StringUtils.equals(null, null, true));
 		assertFalse(StringUtils.equals(null, "", true));
@@ -41,7 +42,7 @@ public class StringUtilsTest {
 	}
 
 	@Test
-	public void testCompare() {
+	void testCompare() {
 
 		assertEquals(0, StringUtils.compare(null, null));
 		assertEquals(1, StringUtils.compare("", null));
@@ -52,7 +53,7 @@ public class StringUtilsTest {
 	}
 
 	@Test
-	public void testTrim() {
+	void testTrim() {
 
 		assertNull(StringUtils.trim(null));
 		assertEquals("", StringUtils.trim(""));
@@ -60,7 +61,7 @@ public class StringUtilsTest {
 	}
 
 	@Test
-	public void testTrimToNull() {
+	void testTrimToNull() {
 
 		assertNull(StringUtils.trimToNull(null));
 		assertNull(StringUtils.trimToNull(""));
@@ -68,7 +69,7 @@ public class StringUtilsTest {
 	}
 
 	@Test
-	public void testRemoveDoubleSpaces() {
+	void testRemoveDoubleSpaces() {
 
 		assertEquals(null, StringUtils.trimDoubleSpaces(null));
 		assertEquals("", StringUtils.trimDoubleSpaces(""));
@@ -81,7 +82,7 @@ public class StringUtilsTest {
 	}
 
 	@Test
-	public void testRemoveSpaces() {
+	void testRemoveSpaces() {
 
 		assertEquals(null, StringUtils.trimInner(null));
 		assertEquals("", StringUtils.trimInner(""));
@@ -92,7 +93,7 @@ public class StringUtilsTest {
 	}
 
 	@Test
-	public void testTrimEnd() {
+	void testTrimEnd() {
 
 		assertEquals(null, StringUtils.trimEnd(null));
 		assertEquals("", StringUtils.trimEnd(""));
@@ -103,7 +104,7 @@ public class StringUtilsTest {
 	}
 
 	@Test
-	public void testTrimStart() {
+	void testTrimStart() {
 
 		assertEquals(null, StringUtils.trimStart(null));
 		assertEquals("", StringUtils.trimStart(""));
@@ -113,21 +114,16 @@ public class StringUtilsTest {
 		assertEquals("a    b     c  ", StringUtils.trimStart("              a    b     c  "));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testJoin_Fail() {
+	@Test//(expected = IllegalArgumentException.class)
+	void testJoin_Fail() {
 
-		try {
-			Set<String> set = null;
-			StringUtils.join(set, null);
-		}
-		catch (IllegalArgumentException e) {
-			assertEquals("Missing separator!", e.getMessage());
-			throw e;
-		}
+		Set<String> set = null;
+		IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> StringUtils.join(set, null));
+		assertEquals("Missing separator!", e.getMessage());
 	}
 
 	@Test
-	public void testJoin() {
+	void testJoin() {
 
 		Set<String> set = new HashSet<>();
 		assertEquals("", StringUtils.join(set, ","));
@@ -141,21 +137,16 @@ public class StringUtilsTest {
 		assertEquals("A, B", StringUtils.join(set, ", "));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testJoin_Fail2() {
+	@Test
+	void testJoin_Fail2() {
 
-		try {
-			List<String> list = null;
-			StringUtils.join(list, null);
-		}
-		catch (IllegalArgumentException e) {
-			assertEquals("Missing separator!", e.getMessage());
-			throw e;
-		}
+		List<String> list = null;
+		IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> StringUtils.join(list, null));
+		assertEquals("Missing separator!", e.getMessage());
 	}
 
 	@Test
-	public void testJoin2() {
+	void testJoin2() {
 
 		List<String> list = new ArrayList<>();
 		assertEquals("", StringUtils.join(list, ","));
@@ -171,21 +162,16 @@ public class StringUtilsTest {
 		assertEquals("A, ... [1/2]", StringUtils.join(list, ", ", 1));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testJoin_Fail3() {
+	@Test //(expected = IllegalArgumentException.class)
+	void testJoin_Fail3() {
 
-		try {
-			String[] array = null;
-			StringUtils.join(array, null);
-		}
-		catch (IllegalArgumentException e) {
-			assertEquals("Missing separator!", e.getMessage());
-			throw e;
-		}
+		String[] array = null;
+		IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> StringUtils.join(array, null));
+		assertEquals("Missing separator!", e.getMessage());
 	}
 
 	@Test
-	public void testJoin3() {
+	void testJoin3() {
 
 		String[] array = new String[]{};
 		assertEquals("", StringUtils.join(array, ","));
@@ -199,21 +185,16 @@ public class StringUtilsTest {
 		assertEquals("A, B", StringUtils.join(array, ", "));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testJoin_Fail4() {
+	@Test // (expected = IllegalArgumentException.class)
+	void testJoin_Fail4() {
 
-		try {
-			HashMap<String, String> set = null;
-			StringUtils.join(set, null);
-		}
-		catch (IllegalArgumentException e) {
-			assertEquals("Missing separator!", e.getMessage());
-			throw e;
-		}
+		HashMap<String, String> set = null;
+		IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> StringUtils.join(set, null));
+		assertEquals("Missing separator!", e.getMessage());
 	}
 
 	@Test
-	public void testJoin4() {
+	void testJoin4() {
 
 		HashMap<String, String> set = new LinkedHashMap<>();
 		assertEquals("", StringUtils.join(set, ","));
@@ -228,7 +209,7 @@ public class StringUtilsTest {
 	}
 
 	@Test
-	public void getWordsFromTextTest() {
+	void getWordsFromTextTest() {
 
 		List<String> output = StringUtils.getWords(null);
 		assertEquals(0, output.size());
@@ -263,7 +244,7 @@ public class StringUtilsTest {
 	}
 
 	@Test
-	public void splitTest() {
+	void splitTest() {
 
 		List<String> output = StringUtils.split(" rdeče češnje rastejo na želvi", " ");
 		assertEquals(5, output.size());
@@ -275,7 +256,7 @@ public class StringUtilsTest {
 	}
 
 	@Test
-	public void trimAllTest() {
+	void trimAllTest() {
 
 		assertNull(StringUtils.trimAll(null, null));
 		assertNull(StringUtils.trimAll(null, ""));
@@ -289,7 +270,7 @@ public class StringUtilsTest {
 	}
 
 	@Test
-	public void trimTextDownTest() {
+	void trimTextDownTest() {
 
 		assertEquals("T", StringUtils.trimTextDown("Text", 1));
 
@@ -302,7 +283,7 @@ public class StringUtilsTest {
 	}
 
 	@Test
-	public void toStringOrNullTest() {
+	void toStringOrNullTest() {
 
 		assertNull(StringUtils.toStringOrNull(null));
 		assertEquals("", StringUtils.toStringOrNull(""));
@@ -312,7 +293,7 @@ public class StringUtilsTest {
 	}
 
 	@Test
-	public void getListOfCharsTest() {
+	void getListOfCharsTest() {
 
 		List<String> list = StringUtils.asListOfChars(null);
 		assertEquals(0, list.size());
@@ -329,7 +310,7 @@ public class StringUtilsTest {
 	}
 
 	@Test
-	public void isWordTest() {
+	void isWordTest() {
 
 		assertFalse(StringUtils.isWord(null));
 		assertFalse(StringUtils.isWord(""));
@@ -348,7 +329,7 @@ public class StringUtilsTest {
 	}
 
 	@Test
-	public void capitalizeTest() {
+	void capitalizeTest() {
 
 		assertNull(StringUtils.capitalize(null));
 		assertEquals("A", StringUtils.capitalize("a"));
@@ -361,7 +342,7 @@ public class StringUtilsTest {
 	}
 
 	@Test
-	public void relevanceSearch() {
+	void relevanceSearch() {
 
 		assertEquals(-1, StringUtils.relevance(null, null));
 		assertEquals(-1, StringUtils.relevance(null, ""));
@@ -394,7 +375,7 @@ public class StringUtilsTest {
 	}
 
 	@Test
-	public void trimDown() {
+	void trimDown() {
 		String text = "word1 word2 word3 word4";
 		for (int i = 10; i < 25; i++) {
 			System.out.println(i + ": " + StringUtils.trimTextDown(text, i, "..."));
@@ -408,7 +389,7 @@ public class StringUtilsTest {
 	}
 
 	@Test
-	public void removePunctuationTest() {
+	void removePunctuationTest() {
 
 		assertNull(StringUtils.removePunctuation(null));
 		assertEquals("", StringUtils.removePunctuation(""));
@@ -418,7 +399,7 @@ public class StringUtilsTest {
 	}
 
 	@Test
-	public void enumerateTest() {
+	void enumerateTest() {
 
 		assertEquals("first", StringUtils.enumerate(1));
 		assertEquals("second", StringUtils.enumerate(2));
@@ -434,5 +415,39 @@ public class StringUtilsTest {
 		assertNull(StringUtils.enumerate(null));
 		assertNull(StringUtils.enumerate(0));
 		assertNull(StringUtils.enumerate(-1));
+	}
+
+	@Test
+	void isNullOrEmptyTest() {
+
+		assertTrue(StringUtils.isNullOrEmpty(null));
+		assertTrue(StringUtils.isNullOrEmpty(""));
+		assertFalse(StringUtils.isNullOrEmpty(" "));
+	}
+
+	@Test
+	void isNullOrEmptyTrimmedTest() {
+
+		assertTrue(StringUtils.isNullOrEmptyTrimmed(null));
+		assertTrue(StringUtils.isNullOrEmptyTrimmed(""));
+		assertTrue(StringUtils.isNullOrEmptyTrimmed(" "));
+		assertFalse(StringUtils.isNullOrEmptyTrimmed("  a"));
+	}
+
+	@Test
+	void isEmptyTest() {
+
+		assertFalse(StringUtils.isEmpty(null));
+		assertTrue(StringUtils.isEmpty(""));
+		assertFalse(StringUtils.isEmpty(" "));
+	}
+
+	@Test
+	void isEmptyTrimmedTest() {
+
+		assertFalse(StringUtils.isEmptyTrimmed(null));
+		assertTrue(StringUtils.isEmptyTrimmed(""));
+		assertTrue(StringUtils.isEmptyTrimmed(" "));
+		assertFalse(StringUtils.isEmptyTrimmed(" a "));
 	}
 }

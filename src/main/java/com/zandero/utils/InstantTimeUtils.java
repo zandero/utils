@@ -129,7 +129,7 @@ public final class InstantTimeUtils {
 	 * @param formats list of formats to try out
 	 * @return time stamp or 0 if conversion failed
 	 */
-	public static Instant getTimestamp(String value, DateTimeFormatter[] formats) {
+	public static Instant getTimestamp(String value, DateTimeFormatter... formats) {
 
 		Assert.notNull(formats, "Missing date time formats");
 		Assert.isTrue(formats.length > 0, "Missing date time formats");

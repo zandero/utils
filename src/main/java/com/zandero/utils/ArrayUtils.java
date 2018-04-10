@@ -7,6 +7,10 @@ import java.lang.reflect.Array;
  */
 public final class ArrayUtils {
 
+	private ArrayUtils() {
+		// hide constructor
+	}
+
 	/**
 	 * joins two arrays and preserves array order
 	 * array1 items are followed by array2 items as given

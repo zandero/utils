@@ -1,6 +1,6 @@
 package com.zandero.utils;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,6 +8,7 @@ import java.util.Set;
 
 import static com.zandero.utils.junit.AssertFinalClass.isWellDefined;
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  *
@@ -15,12 +16,12 @@ import static org.junit.Assert.*;
 public class ResourceUtilsTest {
 
 	@Test
-	public void testDefinition() {
+	void testDefinition() {
 		isWellDefined(ResourceUtils.class);
 	}
 
 	@Test
-	public void getResourceWordsTest() {
+	void getResourceWordsTest() {
 
 		Set<String> lines = ResourceUtils.getResourceWords("/test.txt", this.getClass());
 		assertNotNull(lines);
@@ -28,7 +29,7 @@ public class ResourceUtilsTest {
 	}
 
 	@Test
-	public void readFileTest() throws IOException {
+	void readFileTest() throws IOException {
 
 		String filename = this.getClass().getResource("/test.txt").getFile();
 
@@ -36,45 +37,31 @@ public class ResourceUtilsTest {
 		String content = ResourceUtils.readFileToString(file);
 
 		assertEquals("This is a test\n" +
-			"file\n" +
-			"with multiple\n" +
-			"lines", content);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void readFileTest_Fail() throws IOException {
-
-		String filename = this.getClass().getResource("/").getFile();
-
-		try {
-
-			File file = new File(filename);
-			ResourceUtils.readFileToString(file);
-		}
-		catch (IllegalArgumentException e) {
-
-			assertTrue(e.getMessage(), e.getMessage().endsWith("zandero/utils/target/test-classes' is a directory"));
-			throw e;
-		}
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void readFileTest_Fail2() throws IOException {
-
-		try {
-
-			File file = new File("nonExistent.file");
-			ResourceUtils.readFileToString(file);
-		}
-		catch (IllegalArgumentException e) {
-
-			assertEquals("File 'nonExistent.file' does not exist", e.getMessage());
-			throw e;
-		}
+		             "file\n" +
+		             "with multiple\n" +
+		             "lines", content);
 	}
 
 	@Test
-	public void getResourceAbsolutePathTest() {
+	void readFileTest_Fail() throws IOException {
+
+		String filename = this.getClass().getResource("/").getFile();
+
+		File file = new File(filename);
+		IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> ResourceUtils.readFileToString(file));
+		assertTrue(e.getMessage(), e.getMessage().endsWith("zandero/utils/target/test-classes' is a directory"));
+	}
+
+	@Test
+	void readFileTest_Fail2() throws IOException {
+
+		File file = new File("nonExistent.file");
+		IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> ResourceUtils.readFileToString(file));
+		assertEquals("File 'nonExistent.file' does not exist", e.getMessage());
+	}
+
+	@Test
+	void getResourceAbsolutePathTest() {
 
 		String filename = this.getClass().getResource("/test.txt").getFile();
 		assertEquals("/Users/drejc/zandero/utils/target/test-classes/test.txt", filename);

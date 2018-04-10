@@ -1,127 +1,90 @@
 package com.zandero.utils;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
 import static com.zandero.utils.junit.AssertFinalClass.isWellDefined;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class AssertTest {
+class AssertTest {
 
 	@Test
-	public void testDefinition() throws ReflectiveOperationException {
+	void testDefinition() throws ReflectiveOperationException {
 
 		isWellDefined(Assert.class);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void always() {
-
-		try {
-			Assert.always("Fail");
-			fail();
-		}
-		catch (IllegalArgumentException e) {
-			assertEquals("Fail", e.getMessage());
-			throw e;
-		}
+	@Test
+	void always() {
+		IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> Assert.always("Fail"));
+		assertEquals("Fail", e.getMessage());
 	}
 
 	@Test
-	public void testIsTrue() {
+	void testIsTrue() {
 
 		Assert.isTrue(true, "Some ex");
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testIsTrueButFalse() {
+	@Test
+	void testIsTrueButFalse() {
 
-		try {
-			Assert.isTrue(false, "Bang");
-			fail();
-		}
-		catch (IllegalArgumentException e) {
-			assertEquals("Bang", e.getMessage());
-			throw e;
-		}
+		IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> Assert.isTrue(false, "Bang"));
+		assertEquals("Bang", e.getMessage());
 	}
 
 	@Test
-	public void testIsNull() throws Exception {
+	void testIsNull() {
 		Assert.isNull(null, "Bla");
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testIsNullButNot() {
+	@Test
+	void testIsNullButNot() {
 
-		try {
-			Assert.isNull(true, "Bang");
-			fail();
-		}
-		catch (IllegalArgumentException e) {
-			assertEquals("Bang", e.getMessage());
-			throw e;
-		}
+		IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> Assert.isNull(true, "Bang"));
+		assertEquals("Bang", e.getMessage());
 	}
 
 	@Test
-	public void testNotNull() throws Exception {
+	void testNotNull() {
 		Assert.notNull(true, "OK");
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testNullButNot() {
+	@Test
+	void testNullButNot() {
 
-		try {
-			Assert.notNull(null, "Bang");
-			fail();
-		}
-		catch (IllegalArgumentException e) {
-			assertEquals("Bang", e.getMessage());
-			throw e;
-		}
+		IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> Assert.notNull(null, "Bang"));
+		assertEquals("Bang", e.getMessage());
 	}
 
 	@Test
-	public void testNotNullOrEmptyTrimmed() throws Exception {
+	void testNotNullOrEmptyTrimmed() {
 		Assert.notNullOrEmptyTrimmed(" not empty ", "OK");
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testNotNullOrEmptyTrimmedButEmpty() throws Exception {
-		try {
-			Assert.notNullOrEmptyTrimmed("   ", "Bang");
-			fail();
-		}
-		catch (IllegalArgumentException e) {
-			assertEquals("Bang", e.getMessage());
-			throw e;
-		}
+	@Test
+	void testNotNullOrEmptyTrimmedButEmpty() {
+		IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> Assert.notNullOrEmptyTrimmed("   ", "Bang"));
+		assertEquals("Bang", e.getMessage());
 	}
 
 	@Test
-	public void testIsFalse() throws Exception {
+	void testIsFalse() throws Exception {
 
 		Assert.isFalse(false, "Bla");
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testIsFalseButIsNot() {
+	@Test
+	void testIsFalseButIsNot() {
 
-		try {
-			Assert.isFalse(true, "Bang");
-			fail();
-		}
-		catch (IllegalArgumentException e) {
-			assertEquals("Bang", e.getMessage());
-			throw e;
-		}
+		IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> Assert.isFalse(true, "Bang"));
+		assertEquals("Bang", e.getMessage());
 	}
 
 	@Test
-	public void testOkList() {
+	void testOkList() {
 
 		List<String> list = null;
 		Assert.isNullOrEmpty(list, "Bang");
@@ -134,7 +97,7 @@ public class AssertTest {
 	}
 
 	@Test
-	public void testOkSet() {
+	void testOkSet() {
 
 		Set<String> set = null;
 		Assert.isNullOrEmpty(set, "Bang");
@@ -147,7 +110,7 @@ public class AssertTest {
 	}
 
 	@Test
-	public void testOkMap() {
+	void testOkMap() {
 
 		Map<String, String> map = null;
 		Assert.isNullOrEmpty(map, "Bang");
@@ -160,7 +123,7 @@ public class AssertTest {
 	}
 
 	@Test
-	public void testOkArray() {
+	void testOkArray() {
 
 		String[] array = null;
 		Assert.isNullOrEmpty(array, "Bang");
@@ -173,174 +136,102 @@ public class AssertTest {
 		Assert.notNullOrEmpty(array, "Bang");
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testEmptyList() {
+	@Test
+	void testEmptyList() {
 
-		try {
-			ArrayList<String> list = null;
-			Assert.notNullOrEmpty(list, "Bang");
-			fail();
-		}
-		catch (IllegalArgumentException e) {
-			assertEquals("Bang", e.getMessage());
-			throw e;
-		}
+		ArrayList<String> list = null;
+		IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> Assert.notNullOrEmpty(list, "Bang"));
+		assertEquals("Bang", e.getMessage());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testEmptyList_2() {
+	@Test
+	void testEmptyList_2() {
 
-		try {
-			ArrayList<String> list = new ArrayList<>();
-			Assert.notNullOrEmpty(list, "Bang");
-			fail();
-		}
-		catch (IllegalArgumentException e) {
-			assertEquals("Bang", e.getMessage());
-			throw e;
-		}
+		ArrayList<String> list = new ArrayList<>();
+		IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> Assert.notNullOrEmpty(list, "Bang"));
+		assertEquals("Bang", e.getMessage());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testEmptyArray() {
+	@Test
+	void testEmptyArray() {
 
-		try {
-			String[] array = null;
-			Assert.notNullOrEmpty(array, "Bang");
-			fail();
-		}
-		catch (IllegalArgumentException e) {
-			assertEquals("Bang", e.getMessage());
-			throw e;
-		}
+		String[] array = null;
+		IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> Assert.notNullOrEmpty(array, "Bang"));
+		assertEquals("Bang", e.getMessage());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testEmptyArray_2() {
+	@Test
+	void testEmptyArray_2() {
 
-		try {
-			String[] array = new String[]{};
-			Assert.notNullOrEmpty(array, "Bang");
-			fail();
-		}
-		catch (IllegalArgumentException e) {
-			assertEquals("Bang", e.getMessage());
-			throw e;
-		}
+		String[] array = new String[]{};
+		IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> Assert.notNullOrEmpty(array, "Bang"));
+		assertEquals("Bang", e.getMessage());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testEmptyMap() {
+	@Test
+	void testEmptyMap() {
 
-		try {
-			Map<String, String> map = null;
-			Assert.notNullOrEmpty(map, "Bang");
-			fail();
-		}
-		catch (IllegalArgumentException e) {
-			assertEquals("Bang", e.getMessage());
-			throw e;
-		}
+		Map<String, String> map = null;
+		IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> Assert.notNullOrEmpty(map, "Bang"));
+		assertEquals("Bang", e.getMessage());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testEmptyMap_2() {
+	@Test
+	void testEmptyMap_2() {
 
-		try {
-			Map<String, String> map = new HashMap<>();
-			Assert.notNullOrEmpty(map, "Bang");
-			fail();
-		}
-		catch (IllegalArgumentException e) {
-			assertEquals("Bang", e.getMessage());
-			throw e;
-		}
+		Map<String, String> map = new HashMap<>();
+		IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> Assert.notNullOrEmpty(map, "Bang"));
+		assertEquals("Bang", e.getMessage());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testEmptySet() {
+	@Test
+	void testEmptySet() {
 
-		try {
-			Set<String> set = null;
-			Assert.notNullOrEmpty(set, "Bang");
-			fail();
-		}
-		catch (IllegalArgumentException e) {
-			assertEquals("Bang", e.getMessage());
-			throw e;
-		}
+		Set<String> set = null;
+		IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> Assert.notNullOrEmpty(set, "Bang"));
+		assertEquals("Bang", e.getMessage());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testEmptySet_2() {
+	@Test
+	void testEmptySet_2() {
 
-		try {
-			Set<String> set = new HashSet<>();
-			Assert.notNullOrEmpty(set, "Bang");
-			fail();
-		}
-		catch (IllegalArgumentException e) {
-			assertEquals("Bang", e.getMessage());
-			throw e;
-		}
+		Set<String> set = new HashSet<>();
+		IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> Assert.notNullOrEmpty(set, "Bang"));
+		assertEquals("Bang", e.getMessage());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testFullList() {
+	@Test
+	void testFullList() {
 
-		try {
-			ArrayList<String> list = new ArrayList<>();
-			list.add("Bla");
-			Assert.isNullOrEmpty(list, "Bang");
-			fail();
-		}
-		catch (IllegalArgumentException e) {
-			assertEquals("Bang", e.getMessage());
-			throw e;
-		}
+		ArrayList<String> list = new ArrayList<>();
+		list.add("Bla");
+		IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> Assert.isNullOrEmpty(list, "Bang"));
+		assertEquals("Bang", e.getMessage());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testFullArray() {
+	@Test
+	void testFullArray() {
 
-		try {
-			String[] array = new String[]{"a"};
-			Assert.isNullOrEmpty(array, "Bang");
-			fail();
-		}
-		catch (IllegalArgumentException e) {
-			assertEquals("Bang", e.getMessage());
-			throw e;
-		}
+		String[] array = new String[]{"a"};
+		IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> Assert.isNullOrEmpty(array, "Bang"));
+		assertEquals("Bang", e.getMessage());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testFullSet() {
+	@Test
+	void testFullSet() {
 
-		try {
-			Set<String> set = new HashSet<>();
-			set.add("Test");
-			Assert.isNullOrEmpty(set, "Bang");
-			fail();
-		}
-		catch (IllegalArgumentException e) {
-			assertEquals("Bang", e.getMessage());
-			throw e;
-		}
+		Set<String> set = new HashSet<>();
+		set.add("Test");
+		IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> Assert.isNullOrEmpty(set, "Bang"));
+		assertEquals("Bang", e.getMessage());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testFullMap() {
+	@Test
+	void testFullMap() {
 
-		try {
-			Map<String, String> map = new HashMap<>();
-			map.put("Test", "Test");
-			Assert.isNullOrEmpty(map, "Bang");
-			fail();
-		}
-		catch (IllegalArgumentException e) {
-			assertEquals("Bang", e.getMessage());
-			throw e;
-		}
+		Map<String, String> map = new HashMap<>();
+		map.put("Test", "Test");
+		IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> Assert.isNullOrEmpty(map, "Bang"));
+		assertEquals("Bang", e.getMessage());
 	}
 }

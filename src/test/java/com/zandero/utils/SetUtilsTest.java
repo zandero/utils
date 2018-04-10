@@ -1,6 +1,6 @@
 package com.zandero.utils;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -16,16 +16,16 @@ import static org.junit.Assert.assertTrue;
 /**
  *
  */
-public class SetUtilsTest {
+class SetUtilsTest {
 
 	@Test
-	public void isWellDefinedTest() {
+	void isWellDefinedTest() {
 
 		isWellDefined(SetUtils.class);
 	}
 
 	@Test
-	public void splitSet() throws Exception {
+	void splitSet() {
 
 		Set<String> storage = new HashSet<>();
 		storage.add("m2_1");
@@ -49,7 +49,7 @@ public class SetUtilsTest {
 	}
 
 	@Test
-	public void splitHugeSet() {
+	void splitHugeSet() {
 
 		System.out.println("Preparing data ... ");
 

@@ -1,6 +1,6 @@
 package com.zandero.utils;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static com.zandero.utils.junit.AssertFinalClass.isWellDefined;
 import static org.junit.Assert.assertEquals;
@@ -8,15 +8,15 @@ import static org.junit.Assert.assertEquals;
 /**
  *
  */
-public class ArrayUtilsTest {
+class ArrayUtilsTest {
 
 	@Test
-	public void checkFinalClass() {
+	void checkFinalClass() {
 		isWellDefined(ArrayUtils.class);
 	}
 
 	@Test
-	public void joinTest() {
+	void joinTest() {
 
 		Integer[] one = new Integer[]{1, 2, 3};
 		Integer[] two = new Integer[]{4, 5, 6};
@@ -30,7 +30,7 @@ public class ArrayUtilsTest {
 	}
 
 	@Test
-	public void joinWithNullTest() {
+	void joinWithNullTest() {
 
 		Integer[] one = null;
 		Integer[] two = new Integer[]{1, 2, 3};

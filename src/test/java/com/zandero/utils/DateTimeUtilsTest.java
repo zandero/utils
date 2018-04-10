@@ -1,6 +1,6 @@
 package com.zandero.utils;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -9,16 +9,16 @@ import java.util.TimeZone;
 import static com.zandero.utils.junit.AssertFinalClass.isWellDefined;
 import static org.junit.Assert.*;
 
-public class DateTimeUtilsTest {
+class DateTimeUtilsTest {
 
 	@Test
-	public void testDefinition() throws ReflectiveOperationException {
+	void testDefinition() throws ReflectiveOperationException {
 
 		isWellDefined(DateTimeUtils.class);
 	}
 
 	@Test
-	public void getUtcHourTest() {
+	void getUtcHourTest() {
 
 		assertEquals(0, DateTimeUtils.getUtcHour(0, 0));
 		assertEquals(23, DateTimeUtils.getUtcHour(0, 1));
@@ -29,7 +29,7 @@ public class DateTimeUtilsTest {
 	}
 
 	@Test
-	public void getTimezoneHourTest() {
+	void getTimezoneHourTest() {
 
 		assertEquals(0, DateTimeUtils.getTimezoneHour(0, 0));
 		assertEquals(1, DateTimeUtils.getTimezoneHour(0, 1));
@@ -40,7 +40,7 @@ public class DateTimeUtilsTest {
 	}
 
 	@Test
-	public void getMonthStartEndTest() {
+	void getMonthStartEndTest() {
 
 		long start = DateTimeUtils.getMonthStart(1468402252866L); // 13.7.2016
 		long end = DateTimeUtils.getMonthEnd(1468402252866L);
@@ -50,7 +50,7 @@ public class DateTimeUtilsTest {
 	}
 
 	@Test
-	public void getDayOfMonth() {
+	void getDayOfMonth() {
 
 		assertEquals(13, DateTimeUtils.getDayInMonth(1468402252866L)); // 13.7.2016
 		assertEquals(11, DateTimeUtils.getDayInMonth(1468195200000L)); // Mon 11.7.2016
@@ -58,7 +58,7 @@ public class DateTimeUtilsTest {
 	}
 
 	@Test
-	public void getWeekStartEndTest() {
+	void getWeekStartEndTest() {
 
 		long start = DateTimeUtils.getWeekStart(1468402252866L); // 13.7.2016
 		long end = DateTimeUtils.getWeekEnd(1468402252866L);
@@ -76,7 +76,7 @@ public class DateTimeUtilsTest {
 	}
 
 	@Test
-	public void formatTest() {
+	void formatTest() {
 
 		// Make sure tests run in every time zone
 		TimeZone oldDefaultTimeZone = TimeZone.getDefault();
@@ -108,7 +108,7 @@ public class DateTimeUtilsTest {
 	};
 
 	@Test
-	public void getTimestampFromStringTest() {
+	void getTimestampFromStringTest() {
 
 		assertEquals(0, DateTimeUtils.getTimestamp(null, FORMATS));
 		assertEquals(0, DateTimeUtils.getTimestamp("", FORMATS));
@@ -132,7 +132,7 @@ public class DateTimeUtilsTest {
 	}
 
 	@Test
-	public void overlapsTest() {
+	void overlapsTest() {
 
 		assertTrue(DateTimeUtils.overlaps(null, null, null, null));
 

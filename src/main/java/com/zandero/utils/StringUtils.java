@@ -34,6 +34,26 @@ public final class StringUtils {
 	}
 
 	/**
+	 * Checks if non null string is empty
+	 *
+	 * @param value string to test
+	 * @return <code>true</code> if <code>empty</code>, <code>false</code> if null or not empty.
+	 */
+	public static boolean isEmpty(String value) {
+		return (value != null && value.length() == 0);
+	}
+
+	/**
+	 * Checks if non null string is empty when trimmed
+	 *
+	 * @param value string to test
+	 * @return <code>true</code> if <code>empty when trimmed</code>, <code>false</code> if null or not empty.
+	 */
+	public static boolean isEmptyTrimmed(String value) {
+		return (value != null && value.trim().length() == 0);
+	}
+
+	/**
 	 * compares two strings if equal ({@code String.equals} method)
 	 *
 	 * @param original string to compare against

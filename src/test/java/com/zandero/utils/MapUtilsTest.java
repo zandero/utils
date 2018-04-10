@@ -1,7 +1,6 @@
 package com.zandero.utils;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -17,13 +16,13 @@ import static org.junit.Assert.*;
 public class MapUtilsTest {
 
 	@Test
-	public void testDefinition() throws ReflectiveOperationException {
+	void testDefinition() throws ReflectiveOperationException {
 
 		isWellDefined(MapUtils.class);
 	}
 
 	@Test
-	public void testMergeMapEmpty() {
+	void testMergeMapEmpty() {
 
 		Map<String, Long> m1 = new HashMap<>();
 
@@ -37,7 +36,7 @@ public class MapUtilsTest {
 	}
 
 	@Test
-	public void testMergeMapEmptyL1Simple() {
+	void testMergeMapEmptyL1Simple() {
 
 		Map<String, Long> m1 = new HashMap<>();
 		m1.put("m1_1", 23L);
@@ -52,7 +51,7 @@ public class MapUtilsTest {
 	}
 
 	@Test
-	public void testMergeMapEmptyL1SimpleMix() {
+	void testMergeMapEmptyL1SimpleMix() {
 
 		Map<String, Long> m1 = new HashMap<>();
 		m1.put("m1_1", 23L);
@@ -77,7 +76,7 @@ public class MapUtilsTest {
 	}
 
 	@Test
-	public void splitMap() throws Exception {
+	void splitMap() {
 
 		Map<String, Long> map = new HashMap<>();
 		map.put("m2_1", 2L);
@@ -101,7 +100,7 @@ public class MapUtilsTest {
 	}
 
 	@Test
-	public void splitHugeMap() {
+	void splitHugeMap() {
 
 		System.out.println("Preparing data ... ");
 		Map<Integer, String> map = new HashMap<>();
@@ -132,7 +131,7 @@ public class MapUtilsTest {
 	}
 
 	@Test
-	public void sortMapByValueTest() {
+	void sortMapByValueTest() {
 
 		Random random = new Random(System.currentTimeMillis());
 		Map<String, Integer> testMap = new HashMap<>(1000);
@@ -145,16 +144,17 @@ public class MapUtilsTest {
 
 		Integer previous = null;
 		for (Map.Entry<String, Integer> entry : testMap.entrySet()) {
-			Assert.assertNotNull(entry.getValue());
+
+			assertNotNull(entry.getValue());
 			if (previous != null) {
-				Assert.assertTrue(entry.getValue() >= previous);
+				assertTrue(entry.getValue() >= previous);
 			}
 			previous = entry.getValue();
 		}
 	}
 
 	@Test
-	public void sortMapByComplexValueTest() {
+	void sortMapByComplexValueTest() {
 
 		Map<String, TestValue> map = new HashMap<>();
 		map.put("One", new TestValue("First", 10));
@@ -216,7 +216,7 @@ public class MapUtilsTest {
 	}
 
 	@Test
-	public void compareMapTest() {
+	void compareMapTest() {
 		Map<String, String> one = null;
 		Map<String, String> two = null;
 		assertTrue(MapUtils.equals(one, two));
@@ -255,7 +255,7 @@ public class MapUtilsTest {
 	}
 
 	@Test
-	public void getFirstValueTest() {
+	void getFirstValueTest() {
 
 		assertNull(MapUtils.firstValue(null));
 

@@ -1,20 +1,20 @@
 package com.zandero.utils;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static com.zandero.utils.junit.AssertFinalClass.isWellDefined;
 import static org.junit.Assert.assertTrue;
 
-public class JUnitProbeTest {
+class JUnitProbeTest {
 
 	@Test
-	public void testDefinition() throws ReflectiveOperationException {
+	void testDefinition() {
 
 		isWellDefined(JUnitProbe.class);
 	}
 
 	@Test
-	public void isRunningTest() {
+	void isRunningTest() {
 
 		assertTrue(JUnitProbe.isUnitTest());
 	}
