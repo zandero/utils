@@ -450,4 +450,13 @@ class StringUtilsTest {
 		assertTrue(StringUtils.isEmptyTrimmed(" "));
 		assertFalse(StringUtils.isEmptyTrimmed(" a "));
 	}
+
+	@Test
+	void unQuoteTest() {
+
+		assertEquals("test", StringUtils.unQuote("\"test\""));
+		assertEquals("", StringUtils.unQuote("\"\""));
+		assertEquals("test", StringUtils.unQuote("\'test\'"));
+		assertEquals("", StringUtils.unQuote("\'\'"));
+	}
 }

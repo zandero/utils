@@ -1,5 +1,6 @@
 package com.zandero.utils;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -96,7 +97,7 @@ public final class Assert {
 	 * @param <T>     object type
 	 * @throws IllegalArgumentException if list == null or list.size() == 0
 	 */
-	public static <T> void notNullOrEmpty(List<T> list, String message) {
+	public static <T> void notNullOrEmpty(Collection<T> list, String message) {
 
 		isFalse(list == null || list.size() == 0, message);
 	}

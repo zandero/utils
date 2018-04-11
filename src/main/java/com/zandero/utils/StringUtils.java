@@ -262,7 +262,7 @@ public final class StringUtils {
 			throw new IllegalArgumentException("Missing separator!");
 		}
 
-		String output = "";
+		StringBuilder output = new StringBuilder();
 		if (limit == null || limit <= 0) {
 			limit = list.size();
 		}
@@ -275,21 +275,26 @@ public final class StringUtils {
 				}
 
 				if (i <= limit) {
-					output = output + list.get(i - 1);
+					output.append(list.get(i - 1));
 
 					if (i == limit && list.size() > limit) {
 						// ok list is larger than limit .. and we hit the limit
-						output = output + separator + "... [" + limit + "/" + list.size() + "]";
+						output.append(separator)
+						      .append("... [")
+						      .append(limit)
+						      .append("/")
+						      .append(list.size())
+						      .append("]");
 					}
 
 					if (i < limit) {
-						output = output + separator;
+						output.append(separator);
 					}
 				}
 			}
 		}
 
-		return output;
+		return output.toString();
 	}
 
 	/**
@@ -681,7 +686,7 @@ public final class StringUtils {
 	}
 
 	/**
-	 * Removes double quotes if any are present
+	 * Removes double or single quotes if any are present
 	 *
 	 * @param text to remove double quotes from
 	 * @return un quoted string
@@ -692,7 +697,8 @@ public final class StringUtils {
 			return text;
 		}
 
-		if (text.startsWith("\"") && text.endsWith("\"")) {
+		if ((text.startsWith("\"") && text.endsWith("\"")) ||
+		    (text.startsWith("'") && text.endsWith("'"))) {
 			return text.substring(1, text.length() - 1);
 		}
 
