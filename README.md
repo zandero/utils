@@ -32,7 +32,7 @@ Assertion utilities to check input parameters and throw IllegalArgumentException
     Assert.notNullOrEmptyTrimmed(value, "Expected value but was not given!");
 ```
 
-### Array, set, list tests
+### Collection, array, set, list ... tests
 ```java
     Assert.notNullOrEmpty(array, "Expected array but null or empty provided!");
     Assert.notNullOrEmpty(list, "Expected list but null or empty provided!");
