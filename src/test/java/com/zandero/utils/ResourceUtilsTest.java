@@ -23,7 +23,7 @@ public class ResourceUtilsTest {
 	@Test
 	void getResourceWordsTest() {
 
-		Set<String> lines = ResourceUtils.getResourceWords("/test.txt", this.getClass());
+		Set<String> lines = ResourceUtils.getResourceWords("/test.txt");
 		assertNotNull(lines);
 		assertEquals(8, lines.size());
 	}

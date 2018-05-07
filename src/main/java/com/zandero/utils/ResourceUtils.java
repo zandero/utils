@@ -26,21 +26,27 @@ public final class ResourceUtils {
 	 * @param clazz        to use for resource access
 	 * @return String representing the resource or null if resource could not be read
 	 */
+	@Deprecated
 	public static String getResourceAsString(String resourceFile, Class clazz) {
 
+		return getResourceAsString(resourceFile);
+	}
+
+	public static String getResourceAsString(String resourceFile) {
+
 		Assert.notNullOrEmptyTrimmed(resourceFile, "Missing resource file!");
-		Assert.notNull(clazz, "Missing resource class!");
 
 		Scanner scanner = null;
 
 		try {
-
-			InputStream resource = clazz.getResourceAsStream(resourceFile);
+			InputStream resource = ResourceUtils.class.getResourceAsStream(resourceFile);
 			scanner = new Scanner(resource, UTF_8);
 			return scanner.useDelimiter("\\A").next();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			return null;
-		} finally {
+		}
+		finally {
 			if (scanner != null) {
 				scanner.close();
 			}
@@ -56,13 +62,23 @@ public final class ResourceUtils {
 	 */
 	public static Set<String> getResourceWords(String resourceFile, Class clazz) {
 
+		return getResourceWords(resourceFile);
+	}
+
+	/**
+	 * Loads resource as a set of Strings, where each word is added to the set
+	 *
+	 * @param resourceFile to read
+	 * @return set of strings (lines) or null if resource could not be read
+	 */
+	public static Set<String> getResourceWords(String resourceFile) {
+
 		Assert.notNullOrEmptyTrimmed(resourceFile, "Missing resource file!");
-		Assert.notNull(clazz, "Missing resource class!");
 
 		Scanner scanner = null;
 
 		try {
-			InputStream resource = clazz.getResourceAsStream(resourceFile);
+			InputStream resource = ResourceUtils.class.getResourceAsStream(resourceFile);
 			scanner = new Scanner(resource, UTF_8);
 
 			Set<String> list = new LinkedHashSet<>();
@@ -74,9 +90,11 @@ public final class ResourceUtils {
 			}
 
 			return list;
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			return null;
-		} finally {
+		}
+		finally {
 			if (scanner != null) {
 				scanner.close();
 			}
@@ -90,15 +108,20 @@ public final class ResourceUtils {
 	 * @param clazz        to use for resource access
 	 * @return last modified date or null if resource could not be read
 	 */
+	@Deprecated
 	public static Long getLastModifiedTime(String resourceFile, Class clazz) {
 
+		return getLastModifiedTime(resourceFile);
+	}
+
+	public static Long getLastModifiedTime(String resourceFile) {
 		Assert.notNullOrEmptyTrimmed(resourceFile, "Missing resource file!");
-		Assert.notNull(clazz, "Missing resource class!");
 
 		try {
-			URL url = clazz.getResource(resourceFile);
+			URL url = ResourceUtils.class.getResource(resourceFile);
 			return url.openConnection().getLastModified(); // get last modified date of resource
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			return null;
 		}
 	}
@@ -143,7 +166,8 @@ public final class ResourceUtils {
 					out.append(buffer, 0, rsz);
 				}
 			}
-		} catch (IOException ioe) {
+		}
+		catch (IOException ioe) {
 			throw new RuntimeException(ioe);
 		}
 		return out.toString();
@@ -152,7 +176,7 @@ public final class ResourceUtils {
 	/**
 	 * Load input stream into byte array
 	 *
-	 * @param is       stream
+	 * @param is stream
 	 * @return byte representation of given input
 	 */
 	public static byte[] getBytes(InputStream is) {
@@ -172,7 +196,8 @@ public final class ResourceUtils {
 			}
 
 			buffer.flush();
-		} catch (IOException ignored) {
+		}
+		catch (IOException ignored) {
 		}
 
 		return buffer.toByteArray();
@@ -197,17 +222,23 @@ public final class ResourceUtils {
 
 	/**
 	 * Gets absolute file path of resource
+	 *
 	 * @param resource to get absolute file path for
-	 * @param clazz namespace holding resource
+	 * @param clazz    namespace holding resource
 	 * @return file path if found
 	 * @throws IllegalArgumentException if resource can not be found
 	 */
+	@Deprecated
 	public static String getResourceAbsolutePath(String resource, Class clazz) {
 
-		Assert.notNullOrEmptyTrimmed(resource, "Missing resource name!");
-		Assert.notNull(clazz, "Missing class!");
+		return getResourceAbsolutePath(resource);
+	}
 
-		URL file = clazz.getResource(resource);
+	public static String getResourceAbsolutePath(String resource) {
+
+		Assert.notNullOrEmptyTrimmed(resource, "Missing resource name!");
+
+		URL file = ResourceUtils.class.getResource(resource);
 		Assert.notNull(file, "Resource: '" + resource + "', not found!");
 
 		return file.getFile();
