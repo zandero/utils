@@ -29,17 +29,12 @@ public final class ResourceUtils {
 	@Deprecated
 	public static String getResourceAsString(String resourceFile, Class clazz) {
 
-		return getResourceAsString(resourceFile);
-	}
-
-	public static String getResourceAsString(String resourceFile) {
-
 		Assert.notNullOrEmptyTrimmed(resourceFile, "Missing resource file!");
 
 		Scanner scanner = null;
 
 		try {
-			InputStream resource = ResourceUtils.class.getResourceAsStream(resourceFile);
+			InputStream resource = clazz.getResourceAsStream(resourceFile);
 			scanner = new Scanner(resource, UTF_8);
 			return scanner.useDelimiter("\\A").next();
 		}
@@ -53,6 +48,15 @@ public final class ResourceUtils {
 		}
 	}
 
+	public static String getResourceAsString(String resourceFile) {
+
+		return getResourceAsString(resourceFile, ResourceUtils.class);
+	}
+
+	public InputStream getResourceAsStream(String resource) {
+		return ResourceUtils.class.getResourceAsStream(resource);
+	}
+
 	/**
 	 * Loads resource as a set of Strings, where each word is added to the set
 	 *
@@ -62,23 +66,12 @@ public final class ResourceUtils {
 	 */
 	public static Set<String> getResourceWords(String resourceFile, Class clazz) {
 
-		return getResourceWords(resourceFile);
-	}
-
-	/**
-	 * Loads resource as a set of Strings, where each word is added to the set
-	 *
-	 * @param resourceFile to read
-	 * @return set of strings (lines) or null if resource could not be read
-	 */
-	public static Set<String> getResourceWords(String resourceFile) {
-
 		Assert.notNullOrEmptyTrimmed(resourceFile, "Missing resource file!");
 
 		Scanner scanner = null;
 
 		try {
-			InputStream resource = ResourceUtils.class.getResourceAsStream(resourceFile);
+			InputStream resource = clazz.getResourceAsStream(resourceFile);
 			scanner = new Scanner(resource, UTF_8);
 
 			Set<String> list = new LinkedHashSet<>();
@@ -102,6 +95,17 @@ public final class ResourceUtils {
 	}
 
 	/**
+	 * Loads resource as a set of Strings, where each word is added to the set
+	 *
+	 * @param resourceFile to read
+	 * @return set of strings (lines) or null if resource could not be read
+	 */
+	public static Set<String> getResourceWords(String resourceFile) {
+
+		return getResourceWords(resourceFile, ResourceUtils.class);
+	}
+
+	/**
 	 * Get resource last modified date
 	 *
 	 * @param resourceFile to read
@@ -111,19 +115,20 @@ public final class ResourceUtils {
 	@Deprecated
 	public static Long getLastModifiedTime(String resourceFile, Class clazz) {
 
-		return getLastModifiedTime(resourceFile);
-	}
 
-	public static Long getLastModifiedTime(String resourceFile) {
 		Assert.notNullOrEmptyTrimmed(resourceFile, "Missing resource file!");
 
 		try {
-			URL url = ResourceUtils.class.getResource(resourceFile);
+			URL url = clazz.getResource(resourceFile);
 			return url.openConnection().getLastModified(); // get last modified date of resource
 		}
 		catch (IOException e) {
 			return null;
 		}
+	}
+
+	public static Long getLastModifiedTime(String resourceFile) {
+		return getLastModifiedTime(resourceFile, ResourceUtils.class);
 	}
 
 	/**
@@ -231,16 +236,16 @@ public final class ResourceUtils {
 	@Deprecated
 	public static String getResourceAbsolutePath(String resource, Class clazz) {
 
-		return getResourceAbsolutePath(resource);
+		Assert.notNullOrEmptyTrimmed(resource, "Missing resource name!");
+
+		URL file = clazz.getResource(resource);
+		Assert.notNull(file, "Resource: '" + resource + "', not found!");
+
+		return file.getFile();
 	}
 
 	public static String getResourceAbsolutePath(String resource) {
 
-		Assert.notNullOrEmptyTrimmed(resource, "Missing resource name!");
-
-		URL file = ResourceUtils.class.getResource(resource);
-		Assert.notNull(file, "Resource: '" + resource + "', not found!");
-
-		return file.getFile();
+		return getResourceAbsolutePath(resource, ResourceUtils.class);
 	}
 }
