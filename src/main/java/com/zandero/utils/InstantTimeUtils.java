@@ -17,6 +17,8 @@ public final class InstantTimeUtils {
 	public static final DateTimeFormatter SHORT_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").withZone(ZoneOffset.UTC);
 	public static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss Z").withZone(ZoneOffset.UTC);
 
+	public static final DateTimeFormatter RFC_2822_DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss Z").withZone(ZoneOffset.UTC); // RFC-2822
+
 	private InstantTimeUtils() {
 		// hide constructor
 	}
