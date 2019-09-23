@@ -6,7 +6,7 @@ Collection of commonly used utilities (pure Java - without external dependencies
 <dependency>      
      <groupId>com.zandero</groupId>      
      <artifactId>utils</artifactId>      
-     <version>1.2.7</version>      
+     <version>1.2.8</version>      
 </dependency>
 ```
 
