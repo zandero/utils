@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 
 import static com.zandero.utils.junit.AssertFinalClass.isWellDefined;
-import static org.junit.Assert.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class StringUtilsTest {
@@ -71,7 +70,7 @@ class StringUtilsTest {
 	@Test
 	void testRemoveDoubleSpaces() {
 
-		assertEquals(null, StringUtils.trimDoubleSpaces(null));
+		assertNull(StringUtils.trimDoubleSpaces(null));
 		assertEquals("", StringUtils.trimDoubleSpaces(""));
 		assertEquals("", StringUtils.trimDoubleSpaces(" "));
 		assertEquals("plast. vreć. 1x500 m", StringUtils.trimDoubleSpaces(" plast.   vreć.   1x500   m  "));
@@ -84,7 +83,7 @@ class StringUtilsTest {
 	@Test
 	void testRemoveSpaces() {
 
-		assertEquals(null, StringUtils.trimInner(null));
+		assertNull(StringUtils.trimInner(null));
 		assertEquals("", StringUtils.trimInner(""));
 		assertEquals("", StringUtils.trimInner(" "));
 		assertEquals("a", StringUtils.trimInner("  a   "));
@@ -95,7 +94,7 @@ class StringUtilsTest {
 	@Test
 	void testTrimEnd() {
 
-		assertEquals(null, StringUtils.trimEnd(null));
+		assertNull(StringUtils.trimEnd(null));
 		assertEquals("", StringUtils.trimEnd(""));
 		assertEquals("", StringUtils.trimEnd(" "));
 		assertEquals("  a", StringUtils.trimEnd("  a   "));
@@ -106,7 +105,7 @@ class StringUtilsTest {
 	@Test
 	void testTrimStart() {
 
-		assertEquals(null, StringUtils.trimStart(null));
+		assertNull(StringUtils.trimStart(null));
 		assertEquals("", StringUtils.trimStart(""));
 		assertEquals("", StringUtils.trimStart(" "));
 		assertEquals("a   ", StringUtils.trimStart("  a   "));
@@ -459,4 +458,25 @@ class StringUtilsTest {
 		assertEquals("test", StringUtils.unQuote("\'test\'"));
 		assertEquals("", StringUtils.unQuote("\'\'"));
 	}
+
+	@Test
+	void padLeftTest() {
+
+		assertNull(StringUtils.padLeft(null, 'x', 10));
+		assertEquals("1234567890", StringUtils.padLeft("1234567890", 'x', 10));
+
+		assertEquals("xxxxx12345", StringUtils.padLeft("12345", 'x', 10));
+		assertEquals("x12345", StringUtils.padLeft("12345", 'x', 6));
+	}
+
+	@Test
+	void padRightTest() {
+
+		assertNull(StringUtils.padRight(null, 'x', 10));
+		assertEquals("1234567890", StringUtils.padRight("1234567890", 'x', 10));
+
+		assertEquals("12345xxxxx", StringUtils.padRight("12345", 'x', 10));
+		assertEquals("12345x", StringUtils.padRight("12345", 'x', 6));
+	}
+
 }
