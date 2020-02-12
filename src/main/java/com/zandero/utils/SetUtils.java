@@ -41,4 +41,15 @@ public final class SetUtils {
 		}
 		return list;
 	}
+
+	/**
+	 * Converts array of values to set
+	 * @param array to be converted
+	 * @param <T> class type
+	 * @return set of values
+	 */
+	@SafeVarargs
+	public static <T> Set<T> from(final T... array) {
+		return new HashSet<>(Arrays.asList(array));
+	}
 }

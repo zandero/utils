@@ -25,6 +25,7 @@ class ArrayUtilsTest {
 
 		// check order
 		for (int i = 1; i <= 6; i++) {
+			assert out != null;
 			assertEquals(i, out[i - 1].intValue());
 		}
 	}
@@ -39,6 +40,7 @@ class ArrayUtilsTest {
 
 		// check order
 		for (int i = 1; i <= 3; i++) {
+			assert out != null;
 			assertEquals(i, out[i - 1].intValue());
 		}
 	}

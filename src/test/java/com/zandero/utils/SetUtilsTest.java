@@ -79,4 +79,19 @@ class SetUtilsTest {
 			}
 		}
 	}
+
+	@Test
+	void arrayToSet() {
+
+		Set<String> stringSet = SetUtils.from("a", "b", "c");
+		assertEquals(3, stringSet.size());
+		assertTrue(stringSet.contains("a"));
+		assertTrue(stringSet.contains("b"));
+		assertTrue(stringSet.contains("c"));
+
+		Set<Integer> integerSet = SetUtils.from(1, 1, 2);
+		assertEquals(2, integerSet.size());
+		assertTrue(integerSet.contains(1));
+		assertTrue(integerSet.contains(2));
+	}
 }
