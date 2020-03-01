@@ -169,7 +169,6 @@ class DateTimeUtilsTest {
 		assertTrue(DateTimeUtils.overlaps(startB, endB, startA, endA));
 
 		// 4
-
 		startA = Instant.ofEpochSecond(5000);
 		endA = Instant.ofEpochSecond(14000);
 
