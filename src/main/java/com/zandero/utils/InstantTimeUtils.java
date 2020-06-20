@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalAccessor;
 
 /**
  * Java 8 date time utils ..
@@ -151,8 +150,7 @@ public final class InstantTimeUtils {
 		for (DateTimeFormatter format : formats) {
 
 			try {
-				TemporalAccessor date = format.parse(value);
-				return Instant.from(date);
+				return format.parse(value, Instant::from);
 			}
 			catch (DateTimeParseException e) {
 				// try next one ...
