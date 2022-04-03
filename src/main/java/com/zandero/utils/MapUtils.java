@@ -118,8 +118,7 @@ public final class MapUtils {
 		Assert.notNull(comparator, "Missing comparator!");
 
 		List<Map.Entry<K, V>> list = new LinkedList<>(map.entrySet());
-		Collections.sort(list, comparator);
-
+		list.sort(comparator);
 
 		Map<K, V> result = new LinkedHashMap<>();
 		for (Map.Entry<K, V> entry : list) {
@@ -196,7 +195,7 @@ public final class MapUtils {
 					continue;
 				}
 
-				if (valueOne != null && valueTwo != null && valueTwo.equals(valueOne)) {
+				if (valueTwo != null && valueTwo.equals(valueOne)) {
 					continue;
 				}
 

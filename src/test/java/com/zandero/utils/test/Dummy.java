@@ -1,8 +1,5 @@
 package com.zandero.utils.test;
 
-import org.junit.Ignore;
-
-@Ignore
 public class Dummy {
 
 	private Dummy() {

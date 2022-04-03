@@ -2,7 +2,10 @@ package com.zandero.utils;
 
 /**
  * Test out if code is running in test or not
+ *
+ * DEPRECATED: Will be moved to utils.junit
  */
+@Deprecated
 public final class JUnitProbe {
 
     private JUnitProbe() {

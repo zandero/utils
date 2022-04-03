@@ -5,11 +5,10 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Set;
+import java.util.*;
 
 import static com.zandero.utils.junit.AssertFinalClass.isWellDefined;
-import static org.junit.Assert.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -47,11 +46,11 @@ class ResourceUtilsTest {
 	@Test
 	void readFileTest_Fail() throws IOException {
 
-		String filename = this.getClass().getResource("/").getFile();
+		String filename = Objects.requireNonNull(this.getClass().getResource("/")).getFile();
 
 		File file = new File(filename);
 		IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> ResourceUtils.readFileToString(file));
-		assertTrue(e.getMessage(), e.getMessage().endsWith("zandero/utils/target/test-classes' is a directory"));
+		assertTrue(e.getMessage().endsWith("zandero/utils/target/test-classes' is a directory"), e.getMessage());
 	}
 
 	@Test
@@ -65,7 +64,7 @@ class ResourceUtilsTest {
 	@Test
 	void getResourceAbsolutePathTest() {
 
-		String filename = this.getClass().getResource("/test.txt").getFile();
+		String filename = Objects.requireNonNull(this.getClass().getResource("/test.txt")).getFile();
 		assertEquals("/Users/drejc/zandero/utils/target/test-classes/test.txt", filename);
 	}
 }

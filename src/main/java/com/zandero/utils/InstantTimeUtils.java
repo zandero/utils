@@ -7,16 +7,37 @@ import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 
 /**
- * Java 8 date time utils ..
- * Replacing obsolete DateTimeUtils
+ * Utilities easing working with Instant
  */
 public final class InstantTimeUtils {
 
-	public static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd").withZone(ZoneOffset.UTC);
-	public static final DateTimeFormatter SHORT_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").withZone(ZoneOffset.UTC);
-	public static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss Z").withZone(ZoneOffset.UTC);
+	/**
+	 * Short date format: "yyyy-MM-dd"
+	 */
+	public static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter
+		.ofPattern("yyyy-MM-dd")
+		.withZone(ZoneOffset.UTC);
 
-	public static final DateTimeFormatter RFC_2822_DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss Z").withZone(ZoneOffset.UTC); // RFC-2822
+	/**
+	 * Short date time format: "yyyy-MM-dd HH:mm"
+	 */
+	public static final DateTimeFormatter SHORT_TIME_FORMAT = DateTimeFormatter
+		.ofPattern("yyyy-MM-dd HH:mm")
+		.withZone(ZoneOffset.UTC);
+
+	/**
+	 * Long date time format: "yyyy-MM-dd HH:mm:ss Z"
+	 */
+	public static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter
+		.ofPattern("yyyy-MM-dd HH:mm:ss Z")
+		.withZone(ZoneOffset.UTC);
+
+	/**
+	 * RFC standard 2822 date time format: "EEE, dd MMM yyyy HH:mm:ss Z"
+	 */
+	public static final DateTimeFormatter RFC_2822_DATE_TIME_FORMAT = DateTimeFormatter
+		.ofPattern("EEE, dd MMM yyyy HH:mm:ss Z")
+		.withZone(ZoneOffset.UTC); // RFC-2822
 
 	private InstantTimeUtils() {
 		// hide constructor

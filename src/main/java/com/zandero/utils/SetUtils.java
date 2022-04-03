@@ -3,7 +3,7 @@ package com.zandero.utils;
 import java.util.*;
 
 /**
- *
+ * Additional functionality when working with sets
  */
 public final class SetUtils {
 
