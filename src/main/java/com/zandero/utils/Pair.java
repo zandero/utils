@@ -3,7 +3,9 @@ package com.zandero.utils;
 import java.io.Serializable;
 
 /**
- * <p>A convenience class to represent name-value pairs.</p>
+ * A convenience class to represent name-value pairs.
+ *  @param <K> object type
+ *  @param <V> object type
  */
 public class Pair<K,V> implements Serializable {
 
@@ -29,6 +31,9 @@ public class Pair<K,V> implements Serializable {
 	 */
 	public V getValue() { return value; }
 
+	/**
+	 * Creates new pair class
+	 */
 	public Pair() {
 
 	}
@@ -94,6 +99,7 @@ public class Pair<K,V> implements Serializable {
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o instanceof Pair) {
+			@SuppressWarnings("rawtypes")
 			Pair pair = (Pair) o;
 
 			if (key != null ? !key.equals(pair.key) : pair.key != null) {

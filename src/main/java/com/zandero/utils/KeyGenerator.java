@@ -7,6 +7,10 @@ import java.security.SecureRandom;
  */
 public final class KeyGenerator {
 
+	private KeyGenerator() {
+		// hide constructor
+	}
+
 	static final String NUMBERS_NO_ZERO = "123456789";
 
 	static final String NUMBERS_NO_NINE_AND_ZERO = "12345678";

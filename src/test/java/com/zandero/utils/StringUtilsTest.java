@@ -455,8 +455,8 @@ class StringUtilsTest {
 
 		assertEquals("test", StringUtils.unQuote("\"test\""));
 		assertEquals("", StringUtils.unQuote("\"\""));
-		assertEquals("test", StringUtils.unQuote("\'test\'"));
-		assertEquals("", StringUtils.unQuote("\'\'"));
+		assertEquals("test", StringUtils.unQuote("'test'"));
+		assertEquals("", StringUtils.unQuote("''"));
 	}
 
 	@Test

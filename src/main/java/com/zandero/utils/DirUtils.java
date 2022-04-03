@@ -127,7 +127,10 @@ public final class DirUtils {
 	 */
 	public static long dirSize(File directory) {
 
-		assert (directory != null);
+		if (directory == null) {
+			throw new IllegalArgumentException("Missing directory/folder!");
+		}
+
 		File[] files = directory.listFiles();
 
 		long length = 0;

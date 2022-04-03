@@ -1,10 +1,12 @@
 package com.zandero.utils;
 
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.*;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.regex.*;
 
+/**
+ * Utilities to manipulate and check strings
+ */
 public final class StringUtils {
 
     private static final Pattern WORD_PATTERN = Pattern.compile("\\b\\p{L}+\\b");
@@ -179,6 +181,12 @@ public final class StringUtils {
         return text.replaceAll(TRIM_END_PATTERN, "");
     }
 
+    /**
+     * Trims spaces from start of string
+     *
+     * @param text to be trimmed
+     * @return trimmed string
+     */
     public static String trimStart(String text) {
 
         if (isNullOrEmpty(text)) {
@@ -188,6 +196,13 @@ public final class StringUtils {
         return text.replaceAll(TRIM_START_PATTERN, "");
     }
 
+    /**
+     * Trims text of given pattern
+     *
+     * @param text        to be trimmed
+     * @param toBeTrimmed pattern to search for
+     * @return trimmed text
+     */
     public static String trimAll(String text, String toBeTrimmed) {
 
         if (isNullOrEmpty(text) || isNullOrEmpty(toBeTrimmed)) {
@@ -282,11 +297,11 @@ public final class StringUtils {
                 if (i == limit && list.size() > limit) {
                     // ok list is larger than limit .. and we hit the limit
                     output.append(separator)
-                            .append("... [")
-                            .append(limit)
-                            .append("/")
-                            .append(list.size())
-                            .append("]");
+                        .append("... [")
+                        .append(limit)
+                        .append("/")
+                        .append(list.size())
+                        .append("]");
                 }
 
                 if (i < limit) {
@@ -697,28 +712,39 @@ public final class StringUtils {
         return text;
     }
 
+    /**
+     * Pads string on left side
+     *
+     * @param toBePadded    string to be padded
+     * @param paddingChar   char to use for padding
+     * @param desiredLength max desired length
+     * @return padded string or original if padding is not possible
+     */
     public static String padLeft(String toBePadded, char paddingChar, int desiredLength) {
-		if (toBePadded == null || toBePadded.length() >= desiredLength) {
-			return toBePadded;
-		}
-
-		desiredLength = desiredLength - toBePadded.length();
-		for (int i = 0; i < desiredLength; i ++) {
-		    toBePadded = paddingChar + toBePadded;
+        if (toBePadded == null || toBePadded.length() >= desiredLength) {
+            return toBePadded;
         }
 
-		return toBePadded;
-	}
+        desiredLength = desiredLength - toBePadded.length();
+        toBePadded = String.valueOf(paddingChar).repeat(desiredLength) + toBePadded;
+        return toBePadded;
+    }
 
+    /**
+     * Pads string on right side
+     *
+     * @param toBePadded    string to be padded
+     * @param paddingChar   char to use for padding
+     * @param desiredLength max desired length
+     * @return padded string or original if padding is not possible
+     */
     public static String padRight(String toBePadded, char paddingChar, int desiredLength) {
         if (toBePadded == null || toBePadded.length() >= desiredLength) {
             return toBePadded;
         }
 
         desiredLength = desiredLength - toBePadded.length();
-        for (int i = 0; i < desiredLength; i ++) {
-            toBePadded += paddingChar;
-        }
+        toBePadded = toBePadded + String.valueOf(paddingChar).repeat(desiredLength);
 
         return toBePadded;
     }
